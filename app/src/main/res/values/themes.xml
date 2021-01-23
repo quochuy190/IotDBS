@@ -13,4 +13,145 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/appBar</item>
+        <item name="colorPrimaryDark">@color/appBar</item>
+        <item name="colorAccent">@color/appBar</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
+
+    <style name="NavigationView">
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="NavigationDrawerStyle">
+        <item name="android:textSize">16dp</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@color/textAppBar</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="TextTitle" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/sp_18</item>
+        <item name="android:textColor">@color/textAppBar</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+
+    <style name="TextMainItem" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/sp_18</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextToolbarNomal" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/sp_18</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextSp16" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/sp_16</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextSp14" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextActionBottomMenu" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/sp_18</item>
+        <item name="android:textColor">@color/textAppBar</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="Base.Widget.Design.TabLayout" parent="android:Widget">
+        <item name="tabIndicatorColor">@color/white</item>
+        <item name="android:textSize">11sp</item>
+        <item name="tabIndicatorHeight">1dp</item>
+        <item name="tabPaddingStart">2dp</item>
+        <item name="tabPaddingEnd">2dp</item>
+        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="tabTextAppearance">@style/TextAppearance.Design.Tab</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+    </style>
+
+    <style name="TextValueSphyg" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/sp_40</item>
+        <item name="android:textColor">@color/txt_value_sphyg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/digital_7_regular</item>
+        <item name="android:textAllCaps">true</item>
+
+    </style>
+
+    <style name="TextTitleSphyg">
+        <item name="android:textSize">9sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="fontFamily">@font/roboto_light</item>
+    </style>
+    <style name="TextTabLayoutSphyg">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextTabLayoutSphygMedium">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextDateTimeSphy">
+        <item name="fontFamily">@font/roboto_italic</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/tvTimeClock</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+    <style name="TextTimeSphyg" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/sp_22</item>
+        <item name="android:textColor">@color/txt_value_sphyg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/digital_7_regular</item>
+        <item name="android:textAllCaps">true</item>
+
+    </style>
 </resources>
