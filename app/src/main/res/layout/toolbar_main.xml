@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/appBarMain"
-                android:padding="@dimen/dimen_2dp"
+                android:padding="@dimen/dimen_5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center">
@@ -21,6 +21,8 @@
                     android:layout_height="0dp"/>
 
                 <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/textAppbar"
                     android:id="@+id/tv_toolbar_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
