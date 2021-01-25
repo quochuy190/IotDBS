@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <ImageView
+        android:src="@color/colorBgMain"
+        android:scaleType="fitXY"
+        android:id="@+id/imgBgLogin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <include layout="@layout/toolbar_main"/>
+
+    <TextView
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:id="@+id/tvGuildConfigOne"
+        style="@style/TextSp15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_10dp"
+        android:text="@string/tvGuild"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarMain" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glHori"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glVer"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:id="@+id/llGuild"
+        android:orientation="vertical"
+        android:background="@drawable/bgr_tv_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvGuildConfigOne"
+        app:layout_constraintWidth_percent="0.85"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@color/orange"
+            android:layout_marginTop="@dimen/dimen_5dp"
+            style="@style/TextSp15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_3dp"
+            android:text="@string/tvGuild_dep_2_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="left"
+            app:layout_constraintTop_toBottomOf="@+id/appBarMain" />
+        <TextView
+            android:textColor="@color/orange"
+            style="@style/TextSp15"
+            android:gravity="left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_3dp"
+            android:text="@string/tvGuild_dep_2_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarMain" />
+        <TextView
+            android:textColor="@color/orange"
+            style="@style/TextSp15"
+            android:gravity="left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_3dp"
+            android:text="@string/tvGuild_dep_2_3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarMain" />
+        <TextView
+            android:textColor="@color/orange"
+            style="@style/TextSp15"
+            android:gravity="left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_3dp"
+            android:text="@string/tvGuild_dep_2_4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarMain" />
+
+    </LinearLayout>
+
+    <TextView
+
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:id="@+id/tvConfigOne"
+        style="@style/TextSp15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_10dp"
+        android:text="@string/tvGuild"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llGuild" />
+    <com.google.android.material.textfield.TextInputLayout
+        app:layout_constraintHeight_percent="0.07"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:id="@+id/tipIpGateWay"
+        android:background="@drawable/bgr_edt_login"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintTop_toBottomOf="@+id/tvConfigOne"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+        <EditText
+            android:textColorHint="@color/grey_20"
+            android:padding="@dimen/dimen_7dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="@dimen/sp_15"
+            android:background="@color/white"
+            android:layout_margin="@dimen/dimen_1dp"
+            android:hint="@string/hind_ip_gateway"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        app:layout_constraintHeight_percent="0.07"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:id="@+id/tipNameGateway"
+        android:background="@drawable/bgr_edt_login"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintTop_toBottomOf="@+id/tipIpGateWay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+        <EditText
+            android:textColorHint="@color/grey_20"
+            android:padding="@dimen/dimen_7dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="@dimen/sp_15"
+            android:background="@color/white"
+            android:layout_margin="@dimen/dimen_1dp"
+            android:hint="@string/hind_name_gateway"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        app:layout_constraintHeight_percent="0.07"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:id="@+id/tipWifi"
+        android:background="@drawable/bgr_edt_login"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintTop_toBottomOf="@+id/tipNameGateway"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+        <EditText
+            android:textColorHint="@color/grey_20"
+            android:padding="@dimen/dimen_7dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="@dimen/sp_15"
+            android:background="@color/white"
+            android:layout_margin="@dimen/dimen_1dp"
+            android:hint="@string/hind_wifi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        app:layout_constraintHeight_percent="0.07"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:id="@+id/tipPassWifi"
+        android:background="@drawable/bgr_edt_login"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintTop_toBottomOf="@+id/tipWifi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+        <EditText
+            android:textColorHint="@color/grey_20"
+            android:padding="@dimen/dimen_7dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="@dimen/sp_15"
+            android:background="@color/white"
+            android:layout_margin="@dimen/dimen_1dp"
+            android:hint="@string/hind_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <ImageView
+        app:layout_constraintWidth_percent="0.09"
+        android:padding="@dimen/dimen_7dp"
+        android:src="@drawable/ic_eye"
+        app:layout_constraintEnd_toEndOf="@+id/tipPassWifi"
+        app:layout_constraintTop_toTopOf="@+id/tipPassWifi"
+        app:layout_constraintBottom_toBottomOf="@+id/tipPassWifi"
+        app:layout_constraintDimensionRatio="1:1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+    <ImageView
+        app:layout_constraintWidth_percent="0.09"
+        android:padding="@dimen/dimen_7dp"
+        android:src="@drawable/ic_arrow_down"
+        app:layout_constraintEnd_toEndOf="@+id/tipWifi"
+        app:layout_constraintTop_toTopOf="@+id/tipWifi"
+        app:layout_constraintBottom_toBottomOf="@+id/tipWifi"
+        app:layout_constraintDimensionRatio="1:1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+    <TextView
+        android:layout_marginTop="@dimen/dimen_15dp"
+        android:id="@+id/tvEmtryPass"
+        style="@style/TextSp14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_10dp"
+        android:text="@string/tvEmtryPassWifi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tipPassWifi" />
+
+    <Button
+        android:id="@+id/buttonConfigWifiDetail"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bgr_btn_white"
+        android:text="@string/tvConfig"
+        android:textAllCaps="false"
+        android:textColor="@color/textBtn"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imgBgLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.07"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEmtryPass"
+        app:layout_constraintWidth_percent="0.8" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

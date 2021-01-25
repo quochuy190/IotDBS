@@ -62,6 +62,8 @@ class MainFragment : BaseFragment() {
         vp_main.adapter = adapter
         vp_main.setOffscreenPageLimit(3)
         vp_main.setPageScrollEnabled(false)
+        vp_main.currentItem = 1
+
     }
 
     override fun initViewModel() {

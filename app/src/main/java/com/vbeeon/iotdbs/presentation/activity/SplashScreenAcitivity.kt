@@ -11,11 +11,13 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.vbeeon.iotdbs.MainActivity
 import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.presentation.base.BaseActivity
 import com.vbeeon.iotdbs.utils.SharedPrefs
 import com.vbeeon.iotdbs.utils.launchActivity
+import kotlinx.android.synthetic.main.activity_splashscreen.*
 import timber.log.Timber
 import vn.neo.smsvietlott.common.di.util.ConstantCommon
 import java.util.*
@@ -41,6 +43,7 @@ class SplashScreenAcitivity : BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splashscreen)
+        Glide.with(this).load(R.drawable.splash_screen).into(backGround)
         if (checkPermissionApp(this)) {
             goToNextScreen()
         } else {
@@ -145,7 +148,7 @@ class SplashScreenAcitivity : BaseActivity(){
             val mainIntent: Intent
             val isFirs = SharedPrefs.instance.get(ConstantCommon.IS_FIRST_OPEN_APP, Boolean::class.java)
             if (isFirs) {
-                this.launchActivity<MainActivity>()
+                this.launchActivity<LoginActivity>()
             } else {
                 this.launchActivity<MainActivity>()
             }

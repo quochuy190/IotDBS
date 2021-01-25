@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="colorBgMain">#071331</color>
+    <color name="colorBgMain">#374EA2</color>
     <color name="colorWelcome">#6F6FBF</color>
 
     <color name="colorPrimary">#6200EE</color>
@@ -16,6 +16,7 @@
     <color name="red">#FF2A00</color>
     <color name="appBar">#010D29</color>
     <color name="textAppBar">#3497FD</color>
+    <color name="textBtn">#374EA2</color>
     <color name="tvTimeClock">#00FFFF</color>
     <color name="leftMenu">#F7010D29</color>
     <color name="background_button">#2196F3</color>
@@ -36,5 +37,5 @@
     <color name="grey_80_switch">#C4787B7C</color>
     <color name="color_icon_delete">#565656</color>
     <color name="txt_value_sphyg">#1CC743</color>
-    <color name="orange">#FFB900</color>
+    <color name="orange">#F37021</color>
 </resources>
