@@ -11,15 +11,15 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dimen_05dp"
         android:padding="@dimen/dimen_5dp">
 
         <TextView
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:id="@+id/tvTimeCalName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:duplicateParentState="true"
             android:ellipsize="end"
@@ -32,6 +32,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Gio va Thoi tiet" />
+
+<!--        <androidx.appcompat.widget.SwitchCompat-->
+<!--            android:checked="false"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"/>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

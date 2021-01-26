@@ -15,9 +15,12 @@ import io.reactivex.rxjava3.core.Single
  */
 @Dao
 interface RoomDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertRoomEntity(user: RoomEntity)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertRoomEntity(room: RoomEntity)
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertListEntity(list: List<RoomEntity>)
+    //ORDER BY room_name ASC
     @Query("SELECT * FROM room_entity")
     fun loadAllRoom(): LiveData<List<RoomEntity>>
 

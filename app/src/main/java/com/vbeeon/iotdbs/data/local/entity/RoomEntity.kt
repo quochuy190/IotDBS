@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "room_entity")
 data class RoomEntity(
     @PrimaryKey()
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = "room_id")
     val id: Int ,
     @ColumnInfo(name = "room_name")
     val name: String,
