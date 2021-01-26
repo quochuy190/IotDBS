@@ -24,10 +24,10 @@ interface RoomDao {
     @Query("SELECT * FROM room_entity")
     fun loadAllRoom(): LiveData<List<RoomEntity>>
 
-    @Query("SELECT * FROM room_entity WHERE id IN (:id)")
+    @Query("SELECT * FROM room_entity WHERE room_id IN (:id)")
     fun loadRoomById(id: Int): RoomEntity
 
-    @Query("DELETE FROM room_entity WHERE id = :id")
+    @Query("DELETE FROM room_entity WHERE room_id = :id")
     fun deleteObj(id: Int)
 
     @Query("DELETE FROM room_entity")

@@ -25,7 +25,7 @@ interface SwitchDao {
     @Query("SELECT * FROM switch_entity")
     fun loadAllSwitch(): LiveData<List<SwitchEntity>>
 
-    @Query("SELECT * FROM room_entity WHERE room_id IN (:room_id)")
+    @Query("SELECT * FROM switch_entity WHERE room_id IN (:room_id)")
     fun loadSwitchByIdRoom(room_id: Int): LiveData<List<SwitchEntity>>
 
     @Query("DELETE FROM switch_entity WHERE switch_id = :id")

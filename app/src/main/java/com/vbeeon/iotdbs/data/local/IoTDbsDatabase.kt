@@ -5,7 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.vbeeon.iotdbs.data.local.Dao.RoomDao
+import com.vbeeon.iotdbs.data.local.Dao.SwitchDao
 import com.vbeeon.iotdbs.data.local.entity.RoomEntity
+import com.vbeeon.iotdbs.data.local.entity.SwitchEntity
 import com.vbeeon.iotdbs.data.local.entity.UserEntity
 
 /**
@@ -15,10 +17,11 @@ import com.vbeeon.iotdbs.data.local.entity.UserEntity
  * Time: 23:30
  * Version: 1.0
  */
-@Database(entities = arrayOf(RoomEntity::class, UserEntity::class), version = 1)
+@Database(entities = arrayOf(RoomEntity::class, UserEntity::class, SwitchEntity::class), version = 1)
 abstract class IoTDbsDatabase : RoomDatabase() {
 
     abstract fun roomDao(): RoomDao
+    abstract fun switchDao(): SwitchDao
 
     companion object {
         private var INSTANCE: IoTDbsDatabase? = null

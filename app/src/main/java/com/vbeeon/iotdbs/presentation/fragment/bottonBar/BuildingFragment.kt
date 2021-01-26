@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.data.local.entity.RoomEntity
+import com.vbeeon.iotdbs.data.local.entity.SwitchEntity
 import com.vbeeon.iotdbs.presentation.adapter.RoomBuildAdapter
+import com.vbeeon.iotdbs.presentation.adapter.SwitchBuildingAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
 import com.vbeeon.iotdbs.utils.setOnSafeClickListener
 import com.vbeeon.iotdbs.viewmodel.MainViewModel
@@ -19,8 +22,10 @@ import timber.log.Timber
 @Suppress("DEPRECATION")
 class BuildingFragment : BaseFragment() {
     val mListRoom: MutableList<RoomEntity> = ArrayList()
+    val mListSwitch: MutableList<SwitchEntity> = ArrayList()
     lateinit var mainViewModel: MainViewModel
     lateinit var adapterRoom : RoomBuildAdapter
+    lateinit var adapterSwitch : SwitchBuildingAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,12 +54,23 @@ class BuildingFragment : BaseFragment() {
             }
             rcvRoomBuildingView.scrollToPosition(it)
             adapterRoom.notifyDataSetChanged()
+            mainViewModel.loadDataSwitch(this, mListRoom[it].id)
         }) }!!
         rcvRoomBuildingView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL ,false)
         rcvRoomBuildingView.apply { adapter = adapterRoom }
        // recyclerView.layoutManager = LinearLayoutManager(this)
+        initRcvSwitch()
 
+    }
 
+    private fun initRcvSwitch() {
+        adapterSwitch = activity?.let {
+            SwitchBuildingAdapter(it, doneClick = {
+
+            })
+        }!!
+        rcvSwitchBuildingView.layoutManager = GridLayoutManager(context, 2)
+        rcvSwitchBuildingView.apply { adapter = adapterSwitch }
     }
 
     override fun initViewModel() {
@@ -68,6 +84,7 @@ class BuildingFragment : BaseFragment() {
             mainViewModel.insert(item)
         }
         mainViewModel.loadData(this)
+
     }
 
 
@@ -77,6 +94,25 @@ class BuildingFragment : BaseFragment() {
             mListRoom.clear()
             mListRoom.addAll(it)
             adapterRoom.setDatas(mListRoom)
+            //create switch
+            val roomSwitch: MutableList<SwitchEntity> = ArrayList()
+            roomSwitch.add(SwitchEntity(0,0,"Công tắc 1 nút", true, 0))
+            roomSwitch.add(SwitchEntity(1,0,"Công tắc 3 nút", false, 0))
+            roomSwitch.add(SwitchEntity(2,0,"Công tắc rèm", false, 1))
+            roomSwitch.add(SwitchEntity(3,1,"Công tắc 1 nút", true, 0))
+            roomSwitch.add(SwitchEntity(4,1,"Cảm biến hông ngoại", false, 2))
+            roomSwitch.add(SwitchEntity(6,2,"Công tắc rèm", false, 1))
+            roomSwitch.add(SwitchEntity(5,2,"Công tắc rèm", false, 1))
+            roomSwitch.add(SwitchEntity(7,2,"Công tắc 2 nút", false, 1))
+            for (item in roomSwitch){
+                mainViewModel.insertSwitch(item)
+            }
+            mainViewModel.loadDataSwitch(this, mListRoom[0].id)
+        })
+        mainViewModel.switchRespon.observe(this, Observer {
+            mListSwitch.clear()
+            mListSwitch.addAll(it)
+            adapterSwitch.setDatas(mListSwitch)
         })
     }
 
