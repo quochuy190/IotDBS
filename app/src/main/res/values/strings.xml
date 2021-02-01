@@ -11,6 +11,8 @@
     <string name="hind_wifi">Tên Wifi</string>
     <string name="hind_ip_gateway">IP Gateway</string>
     <string name="hind_name_gateway">Tên Gateway</string>
+    <string name="txt_banner_login">TRUNG TÂM GIẢI PHÁP,\n
+ TÍCH HỢP HỆ THỐNG (SI)</string>
     <string name="hind_pass">Mật khẩu</string>
     <string name="btnLogin">Đăng nhập</string>
     <string name="btnNext">Tiếp tục</string>
@@ -19,11 +21,15 @@
     <string name="tvGuild">Hướng dẫn</string>
     <string name="tvEmtryPassWifi">Để trống nếu không có mật khẩu</string>
     <string name="tvConfig">Cấu hình</string>
+    <string name="tvControl">Điều khiển</string>
+    <string name="tvUtil">Tiện ích</string>
     <string name="tvGuild_dep_1">1.     Kết nối với mạng wifi của bạn</string>
     <string name="tvGuild_dep_2">2.     Nhập tên mạng wifi và mật khẩu để cấu hình mạng</string>
     <string name="tvGuild_dep_2_1">1.     Mở cài đặt điện thoại, chọn cài đặt Wifi</string>
     <string name="tvGuild_dep_2_2">2.     Kết nối đến Wifi của Gateway</string>
     <string name="tvGuild_dep_2_3">3.     Nhấn "Cấu hình" để bắt đầu cài đặt</string>
     <string name="tvGuild_dep_2_4">4.     Sau khi quá trình cài đặt hoàn tất, kết nối lại điện thoại vào Wifi của bạn</string>
+    <string name="txt_info_device">Thông tin thiết bị</string>
+    <string name="txt_location">Vị trí</string>
 
 </resources>

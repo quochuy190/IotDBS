@@ -30,12 +30,12 @@ class RoomBuildAdapter internal constructor(context: Context,
             itemRoomBinding.data = roomEntity
             itemRoomBinding.executePendingBindings()
             if (roomEntity!!.isSelected){
-                val sysTitle = "<u><b><font color='#026BBE'>"+roomEntity.name+"</font></b></u>"
+                val sysTitle = "<b><font color='#000000'>"+roomEntity.name+"</font></b>"
                 itemRoomBinding.tvTimeCalName.text = setTextHTML(sysTitle)
                // itemRoomBinding.tvTimeCalName.setTextColor(Color.parseColor("#026BBE"));
 //                itemRoomBinding.tvTimeCalName.typeface = Typeface.DEFAULT_BOLD
             }else{
-                val sysTitle = "<font color='#FF000000'><b>"+roomEntity.name+"</b></font>"
+                val sysTitle = "<font color='#cccccc'>"+roomEntity.name+"</font>"
                 itemRoomBinding.tvTimeCalName.text = setTextHTML(sysTitle)
 //                itemRoomBinding.tvTimeCalName.setTextColor(Color.parseColor("#FF000000"));
 //                itemRoomBinding.tvTimeCalName.typeface = Typeface.DEFAULT

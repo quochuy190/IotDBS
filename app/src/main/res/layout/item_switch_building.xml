@@ -21,8 +21,8 @@
             android:background="@color/white"
             app:cardCornerRadius="@dimen/dimen_5dp"
             android:layout_marginBottom="@dimen/dimen_10dp"
-            android:elevation="@dimen/dimen_7dp"
-            app:cardElevation="@dimen/dimen_7dp"
+            android:elevation="@dimen/dimen_5dp"
+            app:cardElevation="@dimen/dimen_5dp"
             android:layout_marginLeft="@dimen/dimen_10dp"
             android:layout_marginRight="@dimen/dimen_10dp"
             android:layout_marginTop="@dimen/dimen_10dp"
@@ -37,7 +37,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <androidx.cardview.widget.CardView
+                    app:cardCornerRadius="@dimen/dimen_3dp"
+                    app:cardElevation="@dimen/dimen_3dp"
                     android:id="@+id/imgSwitchCover"
                     android:src="@color/colorBgMain"
                     android:layout_margin="@dimen/dimen_15dp"
@@ -46,9 +48,16 @@
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintWidth_percent="0.25"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"/>
+                    android:layout_height="0dp">
+
+                    <ImageView
+                        android:src="@drawable/switch_three"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </androidx.cardview.widget.CardView>
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:src="@drawable/ic_sun"
+                    android:src="@drawable/icon_switch_on"
                     android:layout_margin="@dimen/dimen_15dp"
                     app:layout_constraintTop_toTopOf="@+id/imgSwitchCover"
                     app:layout_constraintBottom_toBottomOf="@+id/imgSwitchCover"

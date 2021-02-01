@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.data.local.entity.RoomEntity
+import com.vbeeon.iotdbs.data.local.entity.SwitchDetailEntity
 import com.vbeeon.iotdbs.data.local.entity.SwitchEntity
 import com.vbeeon.iotdbs.presentation.adapter.RoomBuildAdapter
 import com.vbeeon.iotdbs.presentation.adapter.SwitchBuildingAdapter
@@ -96,6 +97,10 @@ class BuildingFragment : BaseFragment() {
             adapterRoom.setDatas(mListRoom)
             //create switch
             val roomSwitch: MutableList<SwitchEntity> = ArrayList()
+            val switchOne: MutableList<SwitchDetailEntity> = ArrayList()
+            switchOne.add(SwitchDetailEntity(0, 0, "Công tắc 1", false))
+            switchOne.add(SwitchDetailEntity(1, 0, "Công tắc 2", false))
+            switchOne.add(SwitchDetailEntity(2, 0, "Công tắc 3", false))
             roomSwitch.add(SwitchEntity(0,0,"Công tắc 1 nút", true, 0))
             roomSwitch.add(SwitchEntity(1,0,"Công tắc 3 nút", false, 0))
             roomSwitch.add(SwitchEntity(2,0,"Công tắc rèm", false, 1))

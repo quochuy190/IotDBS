@@ -1,89 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <ImageView
-        android:src="@color/colorBgMain"
-        android:scaleType="fitXY"
         android:id="@+id/imgBgLogin"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@color/white" />
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_margin="@dimen/dimen_10dp"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_logo"
-        app:layout_constraintBottom_toTopOf="@+id/tipEmail"
+        android:src="@drawable/logo_vnpt"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.28" />
 
+    <TextView
+        style="@style/TextSp20"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_10dp"
+        android:layout_marginEnd="@dimen/dimen_10dp"
+        android:text="@string/txt_banner_login"
+        android:textColor="@color/textAppbar"
+        app:layout_constraintBottom_toBottomOf="@+id/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logo"
+        app:layout_constraintTop_toTopOf="@+id/logo" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glHori"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glVer"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        app:layout_constraintHeight_percent="0.07"
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="@dimen/dimen_15dp"
-        android:id="@+id/tipEmail"
-        android:background="@drawable/bgr_edt_login"
-        app:layout_constraintWidth_percent="0.8"
+        app:cardCornerRadius="@dimen/dimen_5dp"
+        app:cardElevation="@dimen/dimen_5dp"
         app:layout_constraintBottom_toBottomOf="@+id/glHori"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="0dp">
-        <EditText
-            android:textColorHint="@color/grey_20"
-            android:padding="@dimen/dimen_7dp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/roboto_medium"
-            android:textSize="@dimen/sp_15"
-            android:background="@color/white"
-            android:layout_margin="@dimen/dimen_1dp"
-            android:hint="@string/hind_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
         app:layout_constraintHeight_percent="0.07"
-        android:layout_marginTop="@dimen/dimen_15dp"
-        android:id="@+id/tipPass"
-        android:background="@drawable/bgr_edt_login"
-        app:layout_constraintWidth_percent="0.8"
-        app:layout_constraintTop_toBottomOf="@+id/glHori"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="0dp">
-        <EditText
-            android:textColorHint="@color/grey_20"
-            android:padding="@dimen/dimen_7dp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/roboto_medium"
-            android:textSize="@dimen/sp_15"
-            android:background="@color/white"
-            android:layout_margin="@dimen/dimen_1dp"
-            android:hint="@string/hind_pass"
+        app:layout_constraintWidth_percent="0.8">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tipEmail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bgr_edt_login">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_1dp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/roboto_medium"
+                    android:hint="@string/hind_email"
+                    android:padding="@dimen/dimen_7dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey_20"
+                    android:textSize="@dimen/sp_15" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardPassLogin"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dimen_15dp"
+        app:cardCornerRadius="@dimen/dimen_5dp"
+        app:cardElevation="@dimen/dimen_5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.07"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/glHori"
+        app:layout_constraintWidth_percent="0.8">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tipPass"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bgr_edt_login">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_1dp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/roboto_medium"
+                    android:hint="@string/hind_pass"
+                    android:padding="@dimen/dimen_7dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey_20"
+                    android:textSize="@dimen/sp_15" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
 
     <Button
         android:id="@+id/buttonLogin"
@@ -97,36 +140,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.07"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tipPass"
+        app:layout_constraintTop_toBottomOf="@+id/cardPassLogin"
         app:layout_constraintWidth_percent="0.8" />
 
     <TextView
-        android:layout_marginTop="@dimen/dimen_5dp"
+        android:textColor="@color/black"
         android:id="@+id/tvRegister"
         style="@style/TextSp15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_5dp"
         android:padding="@dimen/dimen_10dp"
         android:text="@string/tvRegister"
         app:layout_constraintStart_toStartOf="@+id/glVer"
         app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
+
     <TextView
-        android:layout_marginTop="@dimen/dimen_5dp"
+        android:textColor="@color/black"
         android:id="@+id/tvRemember"
         style="@style/TextSp15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_5dp"
         android:padding="@dimen/dimen_10dp"
         android:text="@string/tvRemember"
         app:layout_constraintEnd_toEndOf="@+id/glVer"
         app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
+
     <View
-        android:background="@color/white"
-        app:layout_constraintTop_toTopOf="@id/tvRegister"
-        app:layout_constraintBottom_toBottomOf="@id/tvRegister"
-        app:layout_constraintStart_toStartOf="@id/glVer"
-        app:layout_constraintEnd_toEndOf="@id/glVer"
         android:layout_width="2dp"
-        android:layout_height="@dimen/dimen_15dp"/>
+        android:layout_height="@dimen/dimen_15dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/tvRegister"
+        app:layout_constraintEnd_toEndOf="@id/glVer"
+        app:layout_constraintStart_toStartOf="@id/glVer"
+        app:layout_constraintTop_toTopOf="@id/tvRegister" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

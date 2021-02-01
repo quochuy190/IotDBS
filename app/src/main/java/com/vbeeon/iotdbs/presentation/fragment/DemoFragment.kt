@@ -18,7 +18,7 @@ class DemoFragment : BaseFragment() {
     }
 
     override fun getLayoutRes(): Int {
-        return R.layout.fragment_demo
+        return R.layout.fragment_switch_detail
     }
 
     override fun initView() {

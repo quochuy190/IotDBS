@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <include layout="@layout/toolbar_main"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardInfoRoom"
+        app:cardCornerRadius="@dimen/dimen_5dp"
+        app:cardElevation="@dimen/dimen_7dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarMain"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/dimen_15dp"
+        app:layout_constraintWidth_percent="0.9"
+        app:layout_constraintDimensionRatio="3 :1"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:padding="@dimen/dimen_15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tvInfoDevice"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                style="@style/TextSp18"
+                android:text="@string/txt_info_device"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:padding="@dimen/dimen_5dp"
+                android:rotation="270"
+                app:layout_constraintDimensionRatio="1:1"
+                android:src="@drawable/ic_arrow_down"
+                app:layout_constraintTop_toTopOf="@+id/tvInfoDevice"
+                app:layout_constraintBottom_toBottomOf="@+id/tvInfoDevice"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:tint="@color/black" />
+
+            <TextView
+                android:layout_margin="@dimen/dimen_5dp"
+                android:id="@+id/tvLableLocation"
+                android:textColor="@color/black"
+                style="@style/TextSp16"
+                android:text="@string/txt_location"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/imgNextDetailSwitch"
+                android:layout_marginStart="@dimen/dimen_5dp"
+                android:padding="@dimen/dimen_5dp"
+                android:rotation="270"
+                app:layout_constraintDimensionRatio="1:1"
+                android:src="@drawable/ic_arrow_down"
+                app:layout_constraintTop_toTopOf="@+id/tvLableLocation"
+                app:layout_constraintBottom_toBottomOf="@+id/tvLableLocation"
+                app:layout_constraintStart_toEndOf="@+id/tvLableLocation"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:tint="@color/black" />
+
+            <TextView
+                android:background="@drawable/bgr_tv_name_room_detail_switch"
+                android:layout_marginStart="@dimen/dimen_5dp"
+                android:paddingBottom="@dimen/dimen_5dp"
+                android:paddingTop="@dimen/dimen_5dp"
+                android:paddingStart="@dimen/dimen_10dp"
+                android:paddingEnd="@dimen/dimen_10dp"
+                android:id="@+id/tvLocationRoom"
+                android:textColor="@color/black"
+                style="@style/TextSp15"
+                android:text="Phòng khách tầng 1/ tầng 2"
+                app:layout_constraintTop_toTopOf="@+id/imgNextDetailSwitch"
+                app:layout_constraintBottom_toBottomOf="@+id/imgNextDetailSwitch"
+                app:layout_constraintStart_toEndOf="@id/imgNextDetailSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+    <TextView
+        app:layout_constraintTop_toBottomOf="@+id/cardInfoRoom"
+        android:layout_margin="@dimen/dimen_20dp"
+        android:id="@+id/tvLableControl"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        style="@style/TextSp18"
+        android:text="@string/tvControl"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:id="@+id/rcvListSwitchDetal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLableControl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.18"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"/>
+
+    <TextView
+        app:layout_constraintTop_toBottomOf="@+id/rcvListSwitchDetal"
+        android:layout_margin="@dimen/dimen_20dp"
+        android:id="@+id/tvLableUtil"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        style="@style/TextSp18"
+        android:text="@string/tvUtil"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvListUtil"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLableUtil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.15"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

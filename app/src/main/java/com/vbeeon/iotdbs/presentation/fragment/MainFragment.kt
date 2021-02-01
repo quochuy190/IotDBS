@@ -9,6 +9,7 @@ import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.presentation.adapter.MainViewPagerAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
 import com.vbeeon.iotdbs.presentation.fragment.bottonBar.BuildingFragment
+import com.vbeeon.iotdbs.presentation.fragment.switchDetail.SwitchDetailFragment
 import com.vbeeon.iotdbs.utils.setOnSafeClickListener
 import com.vbeeon.iotdbs.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -61,7 +62,7 @@ class MainFragment : BaseFragment() {
 
     private fun initViewPager() {
         val adapter = MainViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(DemoFragment(), "")
+        adapter.addFragment(SwitchDetailFragment(), "")
         adapter.addFragment(BuildingFragment(), "")
         adapter.addFragment(DemoFragment(), "")
 

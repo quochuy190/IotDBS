@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.vbeeon.iotdbs.data.local.entity.SwitchDetailEntity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginStart="@dimen/dimen_5dp"
+        android:layout_marginEnd="@dimen/dimen_5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgSwitchDetail"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_switch_detail_on"
+            app:layout_constraintBottom_toTopOf="@+id/tvNameSwitchDetail"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:text="Công tắc 1"
+            android:id="@+id/tvNameSwitchDetail"
+            style="@style/TextSp14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_5dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imgSwitchDetail"
+            app:layout_constraintStart_toStartOf="@+id/imgSwitchDetail" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
+
