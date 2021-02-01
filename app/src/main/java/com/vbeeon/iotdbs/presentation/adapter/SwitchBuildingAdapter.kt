@@ -31,11 +31,11 @@ class SwitchBuildingAdapter internal constructor(context: Context,
             itemRoomBinding.data = entity
             itemRoomBinding.executePendingBindings()
             if (entity!!.isChecked){
-                val sysTitle = "<u><b><font color='#026BBE'>"+entity.name+"</font></b></u>"
-                itemRoomBinding.tvTimeCalName.text = setTextHTML(sysTitle)
+//                val sysTitle = "<u><b><font color='#026BBE'>"+entity.name+"</font></b></u>"
+//                itemRoomBinding.tvTimeCalName.text = setTextHTML(sysTitle)
             }else{
-                val sysTitle = "<font color='#FF000000'>"+entity.name+"</font>"
-                itemRoomBinding.tvTimeCalName.text = setTextHTML(sysTitle)
+//                val sysTitle = "<font color='#FF000000'>"+entity.name+"</font>"
+//                itemRoomBinding.tvTimeCalName.text = setTextHTML(sysTitle)
             }
         }
         init {

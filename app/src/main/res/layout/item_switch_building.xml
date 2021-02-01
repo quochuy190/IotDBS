@@ -13,25 +13,80 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_05dp"
         android:padding="@dimen/dimen_5dp">
 
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/tvTimeCalName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:duplicateParentState="true"
-            android:ellipsize="end"
-            android:gravity="left"
-            android:maxLines="2"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvSwitch"
             android:padding="@dimen/dimen_5dp"
-            android:text="@{data.name}"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/white"
+            app:cardCornerRadius="@dimen/dimen_5dp"
+            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:elevation="@dimen/dimen_7dp"
+            app:cardElevation="@dimen/dimen_7dp"
+            android:layout_marginLeft="@dimen/dimen_10dp"
+            android:layout_marginRight="@dimen/dimen_10dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Gio va Thoi tiet" />
+            app:layout_constraintDimensionRatio="1.3:1"
+            android:layout_width="0dp"
+            android:layout_height="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgSwitchCover"
+                    android:src="@color/colorBgMain"
+                    android:layout_margin="@dimen/dimen_15dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintWidth_percent="0.25"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"/>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:src="@drawable/ic_sun"
+                    android:layout_margin="@dimen/dimen_15dp"
+                    app:layout_constraintTop_toTopOf="@+id/imgSwitchCover"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgSwitchCover"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintWidth_percent="0.12"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/tvTimeCalName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:duplicateParentState="true"
+                    android:ellipsize="end"
+                    android:gravity="left"
+                    android:maxLines="2"
+                    android:padding="@dimen/dimen_5dp"
+                    android:text="@{data.name}"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="Gio va Thoi tiet" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:layout_marginTop="@dimen/dimen_7dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
 
 <!--        <androidx.appcompat.widget.SwitchCompat-->
 <!--            android:checked="false"-->

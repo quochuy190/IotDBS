@@ -35,7 +35,7 @@ class RoomBuildAdapter internal constructor(context: Context,
                // itemRoomBinding.tvTimeCalName.setTextColor(Color.parseColor("#026BBE"));
 //                itemRoomBinding.tvTimeCalName.typeface = Typeface.DEFAULT_BOLD
             }else{
-                val sysTitle = "<font color='#FF000000'>"+roomEntity.name+"</font>"
+                val sysTitle = "<font color='#FF000000'><b>"+roomEntity.name+"</b></font>"
                 itemRoomBinding.tvTimeCalName.text = setTextHTML(sysTitle)
 //                itemRoomBinding.tvTimeCalName.setTextColor(Color.parseColor("#FF000000"));
 //                itemRoomBinding.tvTimeCalName.typeface = Typeface.DEFAULT
