@@ -9,6 +9,7 @@ import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.presentation.adapter.MainViewPagerAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
 import com.vbeeon.iotdbs.presentation.fragment.bottonBar.BuildingFragment
+import com.vbeeon.iotdbs.presentation.fragment.bottonBar.ScriptFragment
 import com.vbeeon.iotdbs.presentation.fragment.switchDetail.SwitchDetailFragment
 import com.vbeeon.iotdbs.utils.setOnSafeClickListener
 import com.vbeeon.iotdbs.viewmodel.MainViewModel
@@ -64,7 +65,7 @@ class MainFragment : BaseFragment() {
         val adapter = MainViewPagerAdapter(childFragmentManager)
         adapter.addFragment(SwitchDetailFragment(), "")
         adapter.addFragment(BuildingFragment(), "")
-        adapter.addFragment(DemoFragment(), "")
+        adapter.addFragment(ScriptFragment(), "")
 
         vp_main.adapter = adapter
         vp_main.setOffscreenPageLimit(3)
