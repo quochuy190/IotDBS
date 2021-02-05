@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -104,6 +105,7 @@
         android:layout_height="wrap_content"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="@dimen/dimen_5dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:id="@+id/rcvListSwitchDetal"
@@ -125,14 +127,138 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcvListUtil"
-        app:layout_constraintStart_toStartOf="parent"
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_5dp"
         app:layout_constraintTop_toBottomOf="@+id/tvLableUtil"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.15"
-        android:layout_width="0dp"
-        android:layout_height="0dp"/>
+        app:layout_constraintHeight_percent="0.18"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clSwitchOnAll"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <ImageView
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/imgSwitchOnAll"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_switch_detail_on"
+                app:layout_constraintBottom_toTopOf="@+id/tvSwitchOnAll"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:singleLine="true"
+                android:text="@string/txt_all_switch_on"
+                android:id="@+id/tvSwitchOnAll"
+                style="@style/TextSp14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_1dp"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/imgSwitchOnAll"
+                app:layout_constraintStart_toStartOf="@+id/imgSwitchOnAll" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clSwitchOffAll"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <ImageView
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/imgSwitchOffAll"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_switch_detail_on"
+                app:layout_constraintBottom_toTopOf="@+id/tvSwitchOffAll"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:singleLine="true"
+                android:text="@string/txt_all_switch_off"
+                android:id="@+id/tvSwitchOffAll"
+                style="@style/TextSp14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_1dp"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/imgSwitchOffAll"
+                app:layout_constraintStart_toStartOf="@+id/imgSwitchOffAll" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clTimer"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <ImageView
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/imgTimer"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_switch_detail_on"
+                app:layout_constraintBottom_toTopOf="@+id/tvTimer"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:singleLine="true"
+                android:text="@string/txt_Timer"
+                android:id="@+id/tvTimer"
+                style="@style/TextSp14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_1dp"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/imgTimer"
+                app:layout_constraintStart_toStartOf="@+id/imgTimer" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clDownTime"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <ImageView
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/imgDownTime"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_switch_detail_on"
+                app:layout_constraintBottom_toTopOf="@+id/tvDownTime"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:singleLine="true"
+                android:text="@string/txt_Downtime"
+                android:id="@+id/tvDownTime"
+                style="@style/TextSp14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_1dp"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/imgDownTime"
+                app:layout_constraintStart_toStartOf="@+id/imgDownTime" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

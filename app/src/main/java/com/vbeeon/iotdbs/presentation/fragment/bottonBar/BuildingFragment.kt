@@ -6,18 +6,25 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vbeeon.iotdbs.MainActivity
 import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.data.local.entity.RoomEntity
 import com.vbeeon.iotdbs.data.local.entity.SwitchDetailEntity
 import com.vbeeon.iotdbs.data.local.entity.SwitchEntity
+import com.vbeeon.iotdbs.presentation.activity.SwitchDetailActivity
 import com.vbeeon.iotdbs.presentation.adapter.RoomBuildAdapter
 import com.vbeeon.iotdbs.presentation.adapter.SwitchBuildingAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
+import com.vbeeon.iotdbs.presentation.fragment.DemoFragment
+import com.vbeeon.iotdbs.presentation.fragment.switchDetail.SwitchDetailFragment
+import com.vbeeon.iotdbs.utils.launchActivity
+import com.vbeeon.iotdbs.utils.openFragment
 import com.vbeeon.iotdbs.utils.setOnSafeClickListener
 import com.vbeeon.iotdbs.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_building.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 import timber.log.Timber
+import vn.neo.smsvietlott.common.di.util.ConstantCommon
 
 
 @Suppress("DEPRECATION")
@@ -67,7 +74,12 @@ class BuildingFragment : BaseFragment() {
     private fun initRcvSwitch() {
         adapterSwitch = activity?.let {
             SwitchBuildingAdapter(it, doneClick = {
-
+//                (context as MainActivity).
+//                openFragment(SwitchDetailFragment.newInstance(mListSwitch[it].id,mListSwitch[it].name ), true)
+                (context as MainActivity).launchActivity<SwitchDetailActivity>{
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mListSwitch[it].id)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mListSwitch[it].name)
+                }
             })
         }!!
         rcvSwitchBuildingView.layoutManager = GridLayoutManager(context, 2)

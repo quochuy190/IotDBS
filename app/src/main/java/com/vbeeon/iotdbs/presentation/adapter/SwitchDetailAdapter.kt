@@ -17,26 +17,26 @@ import timber.log.Timber
 
 
 class SwitchDetailAdapter internal constructor(val context: Context,
-                                               val doneClick: (Int) -> Unit) : RecyclerView.Adapter<SwitchDetailAdapter.ViewHolder>(){
+                                               val itemClick: (position: Int) -> Unit) : RecyclerView.Adapter<SwitchDetailAdapter.ViewHolder>(){
     private var listRoom = emptyList<SwitchDetailEntity>() // Cached copy of words
 
     inner class ViewHolder(itemBinding: ItemSwitchDetailBinding) : RecyclerView.ViewHolder(itemBinding.getRoot()) {
-        var itemRoomBinding: ItemSwitchDetailBinding
+        var itemSwitchBinding: ItemSwitchDetailBinding
 
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         fun bind(entity: SwitchDetailEntity?) {
-            itemRoomBinding.data = entity
-            itemRoomBinding.executePendingBindings()
+            itemSwitchBinding.data = entity
+            itemSwitchBinding.executePendingBindings()
             if (entity!!.isChecked){
-                itemRoomBinding.imgSwitchDetail.setImageDrawable(context.getDrawable(R.drawable.ic_switch_detail_on))
+                itemSwitchBinding.imgSwitchDetail.setImageDrawable(context.getDrawable(R.drawable.ic_switch_detail_on))
             }else{
-                itemRoomBinding.imgSwitchDetail.setImageDrawable(context.getDrawable(R.drawable.ic_switch_detail_off))
+                itemSwitchBinding.imgSwitchDetail.setImageDrawable(context.getDrawable(R.drawable.ic_switch_detail_off))
 //                val sysTitle = "<font color='#FF000000'>"+entity.name+"</font>"
 //                itemRoomBinding.tvTimeCalName.text = setTextHTML(sysTitle)
             }
         }
         init {
-            itemRoomBinding = itemBinding
+            itemSwitchBinding = itemBinding
         }
     }
 
@@ -48,11 +48,16 @@ class SwitchDetailAdapter internal constructor(val context: Context,
 
     override fun getItemCount() = listRoom.size
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(listRoom[position])
-        holder.itemView.setOnSafeClickListener {
-            Timber.d("click item")
-            doneClick(position)
+//        holder.itemView.setOnClickListener() {
+//            itemClick(position)
+//            Timber.d("click item")
+//
+//        }
+        holder.itemSwitchBinding.imgSwitchDetail.setOnSafeClickListener {
+            itemClick(position)
         }
     }
     internal fun setDatas(list: List<SwitchDetailEntity>) {

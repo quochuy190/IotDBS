@@ -5,5 +5,7 @@ object ConstantCommon {
     const val PREF_FILE_NAME = "com.vbeeon.iot_dbs"
     const val IS_FIRST_OPEN_APP = "IS_FIRST_OPEN_APP"
     const val USER_FULL_NAME = "USER_FULL_NAME"
+    const val KEY_SEND_SWICH_ID = "KEY_SEND_SWICH_ID"
+    const val KEY_SEND_SWICH_NAME = "KEY_SEND_SWICH_NAME"
 
 }

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="data"
+            type="com.vbeeon.iotdbs.data.local.entity.SwitchDetailEntity" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="@dimen/dimen_10dp"
+        android:layout_marginStart="@dimen/dimen_5dp"
+        android:layout_marginEnd="@dimen/dimen_5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            app:layout_constraintTop_toBottomOf="@+id/cardInfoRoom"
+            android:textColor="@color/black"
+            style="@style/TextSp18"
+            android:text="@string/tvTitleInfoDevice"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            app:layout_constraintTop_toBottomOf="@+id/cardInfoRoom"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:id="@+id/tvLableName"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            style="@style/TextSp18"
+            android:text="@string/tvNameLable"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="@{data.name}"
+            android:id="@+id/tvNameSwitchDetail"
+            style="@style/TextSp14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_5dp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/tvLableName"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            app:layout_constraintTop_toBottomOf="@+id/tvNameSwitchDetail"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:id="@+id/tvLableParam"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            style="@style/TextSp18"
+            android:text="@string/tvLableParam"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="@{data.name}"
+            android:id="@+id/tvPramOne"
+            style="@style/TextSp14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_5dp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/tvLableParam"
+            app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:text="@{data.name}"
+            android:id="@+id/tvPramTwo"
+            style="@style/TextSp14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_5dp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/tvLableParam"
+            app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:text="@{data.name}"
+            android:id="@+id/tvPramThree"
+            style="@style/TextSp14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_5dp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/tvLableParam"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            app:layout_constraintTop_toBottomOf="@+id/tvNameSwitchDetail"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:id="@+id/tvLableDes"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            style="@style/TextSp18"
+            android:text="@string/tvLableDes"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="left"
+                android:text="@string/tvLableLoai"
+                style="@style/TextSp14"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_5dp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/tvLableParam"
+                app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:gravity="right"
+                android:text="@{data.name}"
+                style="@style/TextSp14"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_5dp"
+                android:textColor="@color/grey_80"
+                app:layout_constraintTop_toBottomOf="@+id/tvLableParam"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="left"
+                android:text="@string/tvLableCode"
+                style="@style/TextSp14"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_5dp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/tvLableParam"
+                app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:gravity="right"
+                android:text="@{data.name}"
+                style="@style/TextSp14"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_5dp"
+                android:textColor="@color/grey_80"
+                app:layout_constraintTop_toBottomOf="@+id/tvLableParam"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="left"
+                android:text="@string/tvLableAmpe"
+                style="@style/TextSp14"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_5dp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/tvLableParam"
+                app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:gravity="right"
+                android:text="@{data.name}"
+                style="@style/TextSp14"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_5dp"
+                android:textColor="@color/grey_80"
+                app:layout_constraintTop_toBottomOf="@+id/tvLableParam"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="left"
+                android:text="@string/tvLableVoltage"
+                style="@style/TextSp14"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_5dp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/tvLableParam"
+                app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:gravity="right"
+                android:text="@{data.name}"
+                style="@style/TextSp14"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_5dp"
+                android:textColor="@color/grey_80"
+                app:layout_constraintTop_toBottomOf="@+id/tvLableParam"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="left"
+                android:text="@string/tvLableConnect"
+                style="@style/TextSp14"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_5dp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/tvLableParam"
+                app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:gravity="right"
+                android:text="@{data.name}"
+                style="@style/TextSp14"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_5dp"
+                android:textColor="@color/grey_80"
+                app:layout_constraintTop_toBottomOf="@+id/tvLableParam"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
+
+        <Button
+            android:textAllCaps="false"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/buttonLogin"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_15dp"
+            android:layout_marginBottom="@dimen/dimen_15dp"
+            android:background="@drawable/bgr_button_remove_switch"
+            android:text="@string/btnRemoveSwitch"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.07"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardPassLogin"
+            app:layout_constraintWidth_percent="0.8" />
+    </LinearLayout>
+</layout>
+
+

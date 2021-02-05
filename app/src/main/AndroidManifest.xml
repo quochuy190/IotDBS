@@ -30,6 +30,11 @@
             android:name=".presentation.activity.LoginActivity">
 
         </activity>
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".presentation.activity.SwitchDetailActivity">
+
+        </activity>
     </application>
 
 </manifest>

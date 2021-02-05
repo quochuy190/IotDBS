@@ -1,19 +1,27 @@
 package com.vbeeon.iotdbs.presentation.fragment.switchDetail
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vbeeon.iotdbs.MainActivity
 import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.data.local.entity.RoomEntity
 import com.vbeeon.iotdbs.data.local.entity.SwitchDetailEntity
 import com.vbeeon.iotdbs.data.local.entity.SwitchEntity
+import com.vbeeon.iotdbs.presentation.activity.SwitchDetailActivity
 import com.vbeeon.iotdbs.presentation.adapter.RoomBuildAdapter
 import com.vbeeon.iotdbs.presentation.adapter.SwitchBuildingAdapter
 import com.vbeeon.iotdbs.presentation.adapter.SwitchDetailAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
+import com.vbeeon.iotdbs.presentation.dialog.DetailSwitchBottomDialog
+import com.vbeeon.iotdbs.presentation.dialog.ListRoomBottomDialog
+import com.vbeeon.iotdbs.presentation.fragment.DemoFragment
+import com.vbeeon.iotdbs.utils.launchActivity
+import com.vbeeon.iotdbs.utils.openFragment
 import com.vbeeon.iotdbs.utils.setOnSafeClickListener
 import com.vbeeon.iotdbs.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_building.*
@@ -27,7 +35,29 @@ class SwitchDetailFragment : BaseFragment() {
     val mListSwitch: MutableList<SwitchDetailEntity> = ArrayList()
     lateinit var mainViewModel: MainViewModel
     lateinit var adapterSwitch : SwitchDetailAdapter
-
+    var switchId : Int = -1
+    var switchName : String = ""
+    lateinit var modalbottomSheetFragment : ListRoomBottomDialog
+    lateinit var detalbottomSheetFragment : DetailSwitchBottomDialog
+    companion object {
+        fun newInstance(id: Int, name:String): SwitchDetailFragment {
+            val fragment = SwitchDetailFragment()
+            val args = Bundle()
+            args.putInt("switch_id", id)
+            args.putString("switch_name", name)
+            fragment.setArguments(args)
+            return fragment
+        }
+    }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments?.getInt("switch_id")?.let {
+            switchId = it
+        }
+        arguments?.getString("switch_name")?.let {
+            switchName = it
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,15 +74,27 @@ class SwitchDetailFragment : BaseFragment() {
             activity?.onBackPressed()
         }
         tv_toolbar_title.text = "Tòa nhà"
-        imgBack.visibility = View.INVISIBLE
+        imgBack.visibility = View.VISIBLE
         initRcvSwitch()
+        Timber.e(""+switchId+switchName)
 
+        modalbottomSheetFragment = ListRoomBottomDialog(switchId,doneClick = {
+            Timber.e("dialog dimis")
+            modalbottomSheetFragment.dismiss()
+        })
+        tvLocationRoom.setOnSafeClickListener {
+            modalbottomSheetFragment.show(childFragmentManager,modalbottomSheetFragment.tag)
+        }
+        detalbottomSheetFragment = DetailSwitchBottomDialog(switchId, doneClick = {
+            detalbottomSheetFragment.dismiss()
+        })
     }
 
     private fun initRcvSwitch() {
-        adapterSwitch = activity?.let {
-            SwitchDetailAdapter(it, doneClick = {
-
+        adapterSwitch = context?.let {
+            SwitchDetailAdapter(it, itemClick = {
+                Timber.d("click item framgment")
+              detalbottomSheetFragment.show(childFragmentManager, detalbottomSheetFragment.tag)
             })
         }!!
         rcvListSwitchDetal.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL ,false)
