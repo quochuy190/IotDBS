@@ -21,7 +21,7 @@ import androidx.room.PrimaryKey
 data class SwitchEntity(
         @PrimaryKey()
         @ColumnInfo(name = "switch_id")
-        val id: Int,
+        val id: String,
         @ColumnInfo(name = "room_id")
         var idRoom: Int,
         @ColumnInfo(name = "switch_name")
@@ -30,5 +30,5 @@ data class SwitchEntity(
         var isChecked: Boolean = false,
         @ColumnInfo(name = "switch_type")
         var type: Int //công tắc 1, công tắc 2, công tắc 3, ...,
-
+        
 )

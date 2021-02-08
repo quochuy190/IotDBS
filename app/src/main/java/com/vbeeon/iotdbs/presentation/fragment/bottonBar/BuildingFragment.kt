@@ -88,14 +88,7 @@ class BuildingFragment : BaseFragment() {
 
     override fun initViewModel() {
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        val roomList: MutableList<RoomEntity> = ArrayList()
-        roomList.add(RoomEntity(0,"Phòng khách tầng 1", true))
-        roomList.add(RoomEntity(1,"Phòng bếp tâng 1", false))
-        roomList.add(RoomEntity(2,"Phòng ngủ tầng 2", false))
-        roomList.add(RoomEntity(3,"Phòng ngủ lớn tâng 2", false))
-        for (item in roomList){
-            mainViewModel.insert(item)
-        }
+
         mainViewModel.loadData(this)
 
     }
@@ -113,14 +106,14 @@ class BuildingFragment : BaseFragment() {
             switchOne.add(SwitchDetailEntity(0, 0, "Công tắc 1", false))
             switchOne.add(SwitchDetailEntity(1, 0, "Công tắc 2", false))
             switchOne.add(SwitchDetailEntity(2, 0, "Công tắc 3", false))
-            roomSwitch.add(SwitchEntity(0,0,"Công tắc 1 nút", true, 0))
-            roomSwitch.add(SwitchEntity(1,0,"Công tắc 3 nút", false, 0))
-            roomSwitch.add(SwitchEntity(2,0,"Công tắc rèm", false, 1))
-            roomSwitch.add(SwitchEntity(3,1,"Công tắc 1 nút", true, 0))
-            roomSwitch.add(SwitchEntity(4,1,"Cảm biến hông ngoại", false, 2))
-            roomSwitch.add(SwitchEntity(6,2,"Công tắc rèm", false, 1))
-            roomSwitch.add(SwitchEntity(5,2,"Công tắc rèm", false, 1))
-            roomSwitch.add(SwitchEntity(7,2,"Công tắc 2 nút", false, 1))
+//            roomSwitch.add(SwitchEntity(0,0,"Công tắc 1 nút", true, 0))
+//            roomSwitch.add(SwitchEntity(1,0,"Công tắc 3 nút", false, 0))
+//            roomSwitch.add(SwitchEntity(2,0,"Công tắc rèm", false, 1))
+//            roomSwitch.add(SwitchEntity(3,1,"Công tắc 1 nút", true, 0))
+//            roomSwitch.add(SwitchEntity(4,1,"Cảm biến hông ngoại", false, 2))
+//            roomSwitch.add(SwitchEntity(6,2,"Công tắc rèm", false, 1))
+//            roomSwitch.add(SwitchEntity(5,2,"Công tắc rèm", false, 1))
+//            roomSwitch.add(SwitchEntity(7,2,"Công tắc 2 nút", false, 1))
             for (item in roomSwitch){
                 mainViewModel.insertSwitch(item)
             }

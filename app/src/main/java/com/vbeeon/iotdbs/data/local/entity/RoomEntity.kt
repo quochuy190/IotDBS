@@ -19,6 +19,8 @@ data class RoomEntity(
     val id: Int ,
     @ColumnInfo(name = "room_name")
     val name: String,
+    @ColumnInfo(name = "floor")
+    val floor: Int,
     @ColumnInfo(name = "is_selected")
     var isSelected : Boolean= false
 
