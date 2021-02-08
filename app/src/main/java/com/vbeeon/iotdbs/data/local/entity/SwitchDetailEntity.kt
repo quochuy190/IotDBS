@@ -22,12 +22,16 @@ import androidx.room.PrimaryKey
 data class SwitchDetailEntity(
     @PrimaryKey()
     @ColumnInfo(name = "switch_detail_id")
-    val id: Int ,
+    val id: String ,
     @ColumnInfo(name = "switch_id")
-    var idSwitch: Int ,
+    var idSwitch: String ,
     @ColumnInfo(name = "switch_detail_name")
     val name: String,
+    @ColumnInfo(name = "sort_name")
+    val sortName: String,
     @ColumnInfo(name = "is_checked")
-    var isChecked : Boolean= false
+    var isChecked : Boolean= false,
+    @ColumnInfo(name = "type")
+    var type : Int // 0 đèn, 1: quạt gio, 3: rèm
 
 )

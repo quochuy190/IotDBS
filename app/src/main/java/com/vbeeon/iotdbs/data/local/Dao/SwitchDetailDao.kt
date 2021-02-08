@@ -24,10 +24,10 @@ interface SwitchDetailDao {
     fun insertListEntity(list: List<SwitchDetailEntity>)
     //ORDER BY room_name ASC
     @Query("SELECT * FROM switch_detail_entity")
-    fun loadAllSwitch(): LiveData<List<SwitchDetailEntity>>
+    fun loadAllSubSwitch(): List<SwitchDetailEntity>
 
     @Query("SELECT * FROM switch_detail_entity WHERE switch_id IN (:switch_id)")
-    fun loadSwitchByIdSwitch(switch_id: Int): LiveData<List<SwitchDetailEntity>>
+    fun loadSubSwitchByIdSwitch(switch_id: String): LiveData<List<SwitchDetailEntity>>
 
     @Query("DELETE FROM switch_detail_entity WHERE switch_id = :id")
     fun deleteObj(id: Int)
