@@ -45,7 +45,7 @@ class MainFragment : BaseFragment() {
 
     private fun initViewPager() {
         val adapter = MainViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(SwitchDetailFragment(), "")
+        adapter.addFragment(ScriptFragment(), "")
         adapter.addFragment(BuildingFragment(), "")
         adapter.addFragment(DemoFragment(), "")
         vp_main.adapter = adapter
@@ -130,8 +130,8 @@ class MainFragment : BaseFragment() {
         subSwitch.add(SwitchDetailEntity("SW00568sw1", "SW00568", "Đèn", "sw1", true, 0))
         subSwitch.add(SwitchDetailEntity("SW00584sw1", "SW00584", "Dãy trong", "sw1", false, 0))
         subSwitch.add(SwitchDetailEntity("SW00584sw3", "SW00584", "Dãy giữa", "sw3", false, 0))
-        subSwitch.add(SwitchDetailEntity("SW00581sw1", "SW00584", "Dãy cửa", "sw1", false, 0))
-        subSwitch.add(SwitchDetailEntity("SW00581sw3", "SW00584", "Quạt gió", "sw3", false, 1))
+        subSwitch.add(SwitchDetailEntity("SW00581sw1", "SW00581", "Dãy cửa", "sw1", false, 0))
+        subSwitch.add(SwitchDetailEntity("SW00581sw3", "SW00581", "Quạt gió", "sw3", false, 1))
         subSwitch.add(SwitchDetailEntity("SW00571sw1", "SW00571", "Quạt gió", "sw1", false, 1))
         subSwitch.add(SwitchDetailEntity("SW00571sw3", "SW00571", "Đèn", "sw3", false, 0))
         subSwitch.add(SwitchDetailEntity("SW00570sw1", "SW00570", "Quạt gió", "sw1", false, 1))

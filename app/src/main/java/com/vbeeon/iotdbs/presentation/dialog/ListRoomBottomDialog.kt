@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_building.*
  * Version: 1.0
  */
 
-public class ListRoomBottomDialog internal constructor(val idR: Int,val doneClick: (Int) -> Unit) : BottomSheetDialogFragment() {
+public class ListRoomBottomDialog internal constructor(val idSw: String,val doneClick: (String) -> Unit) : BottomSheetDialogFragment() {
     lateinit var mainViewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +44,7 @@ public class ListRoomBottomDialog internal constructor(val idR: Int,val doneClic
     override fun onResume() {
         super.onResume()
         adapterRoom = context?.let { RoomDialogAdapter(it, doneClick = {
-            doneClick(0)
+           // doneClick(0)
         }) }!!
         rcvListRoomBottomDialog.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL ,false)
         rcvListRoomBottomDialog.apply { adapter = adapterRoom }

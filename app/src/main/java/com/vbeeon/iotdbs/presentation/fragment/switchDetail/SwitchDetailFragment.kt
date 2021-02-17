@@ -35,15 +35,15 @@ class SwitchDetailFragment : BaseFragment() {
     val mListSwitch: MutableList<SwitchDetailEntity> = ArrayList()
     lateinit var mainViewModel: MainViewModel
     lateinit var adapterSwitch : SwitchDetailAdapter
-    var switchId : Int = -1
+    var switchId : String =""
     var switchName : String = ""
     lateinit var modalbottomSheetFragment : ListRoomBottomDialog
     lateinit var detalbottomSheetFragment : DetailSwitchBottomDialog
     companion object {
-        fun newInstance(id: Int, name:String): SwitchDetailFragment {
+        fun newInstance(id: String, name:String): SwitchDetailFragment {
             val fragment = SwitchDetailFragment()
             val args = Bundle()
-            args.putInt("switch_id", id)
+            args.putString("switch_id", id)
             args.putString("switch_name", name)
             fragment.setArguments(args)
             return fragment
@@ -51,7 +51,7 @@ class SwitchDetailFragment : BaseFragment() {
     }
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        arguments?.getInt("switch_id")?.let {
+        arguments?.getString("switch_id")?.let {
             switchId = it
         }
         arguments?.getString("switch_name")?.let {
@@ -85,9 +85,9 @@ class SwitchDetailFragment : BaseFragment() {
         tvLocationRoom.setOnSafeClickListener {
             modalbottomSheetFragment.show(childFragmentManager,modalbottomSheetFragment.tag)
         }
-        detalbottomSheetFragment = DetailSwitchBottomDialog(switchId, doneClick = {
-            detalbottomSheetFragment.dismiss()
-        })
+//        detalbottomSheetFragment = DetailSwitchBottomDialog(switchId, doneClick = {
+//            detalbottomSheetFragment.dismiss()
+//        })
     }
 
     private fun initRcvSwitch() {
@@ -101,21 +101,24 @@ class SwitchDetailFragment : BaseFragment() {
         rcvListSwitchDetal.apply { adapter = adapterSwitch }
 
         val switchOne: MutableList<SwitchDetailEntity> = ArrayList()
-        switchOne.add(SwitchDetailEntity(0, 0, "Công tắc 1", true))
-        switchOne.add(SwitchDetailEntity(1, 0, "Công tắc 2", false))
-        switchOne.add(SwitchDetailEntity(2, 0, "Công tắc 3", false))
-        adapterSwitch.setDatas(switchOne)
+//        switchOne.add(SwitchDetailEntity(0, 0, "Công tắc 1", true))
+//        switchOne.add(SwitchDetailEntity(1, 0, "Công tắc 2", false))
+//        switchOne.add(SwitchDetailEntity(2, 0, "Công tắc 3", false))
+        //adapterSwitch.setDatas(switchOne)
     }
 
     override fun initViewModel() {
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        mainViewModel.loadDataSubSwitch(this, switchId)
     }
 
 
 
     override fun observable() {
-        mainViewModel.devicesRes.observe(this, Observer {
+        mainViewModel.subSwRespon.observe(this, Observer {
             //create switch
+            Timber.d("list "+it.size)
+            adapterSwitch.setDatas(it)
         })
 
     }

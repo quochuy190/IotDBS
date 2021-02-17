@@ -11,12 +11,14 @@ import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.data.local.entity.RoomEntity
 import com.vbeeon.iotdbs.data.local.entity.SwitchDetailEntity
 import com.vbeeon.iotdbs.data.local.entity.SwitchEntity
+import com.vbeeon.iotdbs.data.model.Switch
 import com.vbeeon.iotdbs.presentation.activity.SwitchDetailActivity
 import com.vbeeon.iotdbs.presentation.adapter.RoomBuildAdapter
 import com.vbeeon.iotdbs.presentation.adapter.SwitchBuildingAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
 import com.vbeeon.iotdbs.presentation.fragment.DemoFragment
 import com.vbeeon.iotdbs.presentation.fragment.switchDetail.SwitchDetailFragment
+import com.vbeeon.iotdbs.utils.connvertSwitch
 import com.vbeeon.iotdbs.utils.launchActivity
 import com.vbeeon.iotdbs.utils.openFragment
 import com.vbeeon.iotdbs.utils.setOnSafeClickListener
@@ -30,7 +32,7 @@ import vn.neo.smsvietlott.common.di.util.ConstantCommon
 @Suppress("DEPRECATION")
 class BuildingFragment : BaseFragment() {
     val mListRoom: MutableList<RoomEntity> = ArrayList()
-    val mListSwitch: MutableList<SwitchEntity> = ArrayList()
+    val mListSwitch: MutableList<Switch> = ArrayList()
     lateinit var mainViewModel: MainViewModel
     lateinit var adapterRoom : RoomBuildAdapter
     lateinit var adapterSwitch : SwitchBuildingAdapter
@@ -101,28 +103,13 @@ class BuildingFragment : BaseFragment() {
             mListRoom.addAll(it)
             adapterRoom.setDatas(mListRoom)
             //create switch
-            val roomSwitch: MutableList<SwitchEntity> = ArrayList()
-            val switchOne: MutableList<SwitchDetailEntity> = ArrayList()
-            switchOne.add(SwitchDetailEntity(0, 0, "Công tắc 1", false))
-            switchOne.add(SwitchDetailEntity(1, 0, "Công tắc 2", false))
-            switchOne.add(SwitchDetailEntity(2, 0, "Công tắc 3", false))
-//            roomSwitch.add(SwitchEntity(0,0,"Công tắc 1 nút", true, 0))
-//            roomSwitch.add(SwitchEntity(1,0,"Công tắc 3 nút", false, 0))
-//            roomSwitch.add(SwitchEntity(2,0,"Công tắc rèm", false, 1))
-//            roomSwitch.add(SwitchEntity(3,1,"Công tắc 1 nút", true, 0))
-//            roomSwitch.add(SwitchEntity(4,1,"Cảm biến hông ngoại", false, 2))
-//            roomSwitch.add(SwitchEntity(6,2,"Công tắc rèm", false, 1))
-//            roomSwitch.add(SwitchEntity(5,2,"Công tắc rèm", false, 1))
-//            roomSwitch.add(SwitchEntity(7,2,"Công tắc 2 nút", false, 1))
-            for (item in roomSwitch){
-                mainViewModel.insertSwitch(item)
-            }
+
             mainViewModel.loadDataSwitch(this, mListRoom[0].id)
         })
         mainViewModel.switchRespon.observe(this, Observer {
             mListSwitch.clear()
             mListSwitch.addAll(it)
-            adapterSwitch.setDatas(mListSwitch)
+            adapterSwitch.setDatas(it)
         })
     }
 

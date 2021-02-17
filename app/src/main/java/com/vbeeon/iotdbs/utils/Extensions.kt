@@ -15,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import com.vbeeon.iotdbs.R
+import com.vbeeon.iotdbs.data.local.entity.SwitchDetailEntity
+import com.vbeeon.iotdbs.data.local.entity.SwitchEntity
+import com.vbeeon.iotdbs.data.model.Switch
 import java.util.concurrent.TimeUnit
 
 
@@ -127,4 +130,12 @@ fun setTextHTML(html: String): Spanned
         Html.fromHtml(html)
     }
     return result
+}
+
+fun connvertSwitch(list: List<SwitchEntity> , listSub: List<SwitchDetailEntity> ) : List<Switch>{
+    val switchs: MutableList<Switch> = ArrayList()
+    list.forEach {
+        switchs.add(Switch(it.id, it.idRoom, it.name, it.isChecked, it.type, listSub))
+    }
+    return switchs
 }

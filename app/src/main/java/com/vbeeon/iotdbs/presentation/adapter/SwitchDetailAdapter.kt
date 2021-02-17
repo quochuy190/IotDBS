@@ -26,6 +26,7 @@ class SwitchDetailAdapter internal constructor(val context: Context,
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         fun bind(entity: SwitchDetailEntity?) {
             itemSwitchBinding.data = entity
+            itemSwitchBinding.tvNameSwitchDetail.text = entity!!.name
             itemSwitchBinding.executePendingBindings()
             if (entity!!.isChecked){
                 itemSwitchBinding.imgSwitchDetail.setImageDrawable(context.getDrawable(R.drawable.ic_switch_detail_on))

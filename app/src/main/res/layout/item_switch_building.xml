@@ -7,10 +7,11 @@
 
         <variable
             name="data"
-            type="com.vbeeon.iotdbs.data.local.entity.SwitchEntity" />
+            type="com.vbeeon.iotdbs.data.model.Switch" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/dimen_5dp">
@@ -34,6 +35,7 @@
             android:layout_height="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/llItemSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

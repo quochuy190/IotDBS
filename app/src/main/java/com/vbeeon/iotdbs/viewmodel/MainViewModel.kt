@@ -9,11 +9,13 @@ import com.vbeeon.iotdbs.data.local.entity.RoomEntity
 import com.vbeeon.iotdbs.data.local.entity.ScriptEntity
 import com.vbeeon.iotdbs.data.local.entity.SwitchDetailEntity
 import com.vbeeon.iotdbs.data.local.entity.SwitchEntity
+import com.vbeeon.iotdbs.data.model.Switch
 import com.vbeeon.iotdbs.data.repository.RoomRepository
 import com.vbeeon.iotdbs.data.repository.ScriptRepository
 import com.vbeeon.iotdbs.data.repository.SubSwichRepository
 import com.vbeeon.iotdbs.data.repository.SwichRepository
 import com.vbeeon.iotdbs.presentation.base.BaseViewModel
+import com.vbeeon.iotdbs.utils.connvertSwitch
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
@@ -36,7 +38,8 @@ class MainViewModel  : BaseViewModel() {
     lateinit var repositoryScript: ScriptRepository
     val devicesRes : MutableLiveData<List<RoomEntity>> = MutableLiveData()
     val scriptsRes : MutableLiveData<List<ScriptEntity>> = MutableLiveData()
-    val switchRespon : MutableLiveData<List<SwitchEntity>> = MutableLiveData()
+    val switchRespon : MutableLiveData<List<Switch>> = MutableLiveData()
+    val subSwRespon : MutableLiveData<List<SwitchDetailEntity>> = MutableLiveData()
     init {
         Timber.e("init")
         val roomDao = IoTDbsDatabase.getInstance(IotDBSApplication.instance)?.roomDao()
@@ -57,7 +60,19 @@ class MainViewModel  : BaseViewModel() {
     }
     fun loadDataSwitch( lifecycleOwner: LifecycleOwner, idRoom: Int) {
         repositorySwitch.loadSwitchByRoomId(idRoom).observe(lifecycleOwner, Observer {
-            switchRespon.postValue(it)
+            val switchs: MutableList<Switch> = ArrayList()
+            for (switch in it){
+                repositorySubSwitch.loadSwitchBySwitchId(switch.id).observe(lifecycleOwner, Observer {
+                    switchs.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, it))
+                })
+            }
+            switchRespon.postValue(switchs)
+        })
+        // resRoom.postValue()
+    }
+    fun loadDataSubSwitch( lifecycleOwner: LifecycleOwner, idSwitch: String) {
+        repositorySubSwitch.loadSwitchBySwitchId(idSwitch).observe(lifecycleOwner, Observer {
+            subSwRespon.postValue(it)
         })
         // resRoom.postValue()
     }

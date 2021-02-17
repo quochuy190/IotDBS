@@ -19,30 +19,30 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SubSwichRepository(val roomDao: SwitchDetailDao) {
+class SubSwichRepository(val subSwDao: SwitchDetailDao) {
 
-    fun loadSwitchByRoomId(room_id: String) :  LiveData<List<SwitchDetailEntity>>{
-        return roomDao.loadSubSwitchByIdSwitch(room_id)
+    fun loadSwitchBySwitchId(id: String) :  LiveData<List<SwitchDetailEntity>>{
+        return subSwDao.loadSubSwitchByIdSwitch(id)
     }
     fun loadAllSubSwitch() : List<SwitchDetailEntity>{
-        return roomDao.loadAllSubSwitch()
+        return subSwDao.loadAllSubSwitch()
     }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(obj: SwitchDetailEntity) {
-        roomDao.insertEntity(obj)
+        subSwDao.insertEntity(obj)
     }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insertList(list: List<SwitchDetailEntity>) {
-        roomDao.insertListEntity(list)
+        subSwDao.insertListEntity(list)
     }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun update(obj: SwitchDetailEntity) {
-        roomDao.updatetoDao(obj)
+        subSwDao.updatetoDao(obj)
     }
 }
