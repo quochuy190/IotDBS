@@ -105,9 +105,8 @@ class MainFragment : BaseFragment() {
         roomList.add(RoomEntity(8,"Phòng giám đốc",2,  false))
         roomList.add(RoomEntity(9,"Phòng làm việc",2,  false))
         roomList.add(RoomEntity(10,"Phòng ăn",2,  false))
-        for (item in roomList){
-            mainViewModel.insert(item)
-        }
+        mainViewModel.insert(roomList)
+        Thread.sleep(1000)
         val roomSwitch: MutableList<SwitchEntity> = ArrayList()
         roomSwitch.add(SwitchEntity("SW00568",0,"Đèn", true, 1))
         roomSwitch.add(SwitchEntity("SW00584",1,"Phòng làm việc T1 trên", true, 2))
@@ -123,9 +122,8 @@ class MainFragment : BaseFragment() {
         roomSwitch.add(SwitchEntity("SW00572",9,"Phòng làm việc T2", true, 2))
         roomSwitch.add(SwitchEntity("SW00575",9,"Phòng làm việc T2", true, 3))
         roomSwitch.add(SwitchEntity("SW00578",10,"Phòng Pantry T2", true, 2))
-        for (item in roomSwitch){
-            mainViewModel.insertSwitch(item)
-        }
+        mainViewModel.insertSwitch(roomSwitch)
+        Thread.sleep(1000)
         val subSwitch: MutableList<SwitchDetailEntity> = ArrayList()
         subSwitch.add(SwitchDetailEntity("SW00568sw1", "SW00568", "Đèn", "sw1", true, 0))
         subSwitch.add(SwitchDetailEntity("SW00584sw1", "SW00584", "Dãy trong", "sw1", false, 0))
@@ -154,7 +152,6 @@ class MainFragment : BaseFragment() {
         subSwitch.add(SwitchDetailEntity("SW00575sw3", "SW00575", "Đèn hành lang T2", "sw3", true, 0))
         subSwitch.add(SwitchDetailEntity("SW00578sw1", "SW00578", "Nút 1", "sw1", true, 0))
         subSwitch.add(SwitchDetailEntity("SW00578sw3", "SW00578", "Đèn", "sw3", true, 0))
-
         mainViewModel.insertSubSwitch(subSwitch)
         initViewPager();
     }

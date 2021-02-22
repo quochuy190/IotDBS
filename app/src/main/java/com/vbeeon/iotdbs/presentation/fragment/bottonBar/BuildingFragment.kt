@@ -32,7 +32,9 @@ import vn.neo.smsvietlott.common.di.util.ConstantCommon
 @Suppress("DEPRECATION")
 class BuildingFragment : BaseFragment() {
     val mListRoom: MutableList<RoomEntity> = ArrayList()
-    val mListSwitch: MutableList<Switch> = ArrayList()
+    val mListSwitch: MutableList<SwitchEntity> = ArrayList()
+    val mListSW: MutableList<SwitchDetailEntity> = ArrayList()
+    val mList: MutableList<Switch> = ArrayList()
     lateinit var mainViewModel: MainViewModel
     lateinit var adapterRoom : RoomBuildAdapter
     lateinit var adapterSwitch : SwitchBuildingAdapter
@@ -64,6 +66,8 @@ class BuildingFragment : BaseFragment() {
             }
             rcvRoomBuildingView.scrollToPosition(it)
             adapterRoom.notifyDataSetChanged()
+            Timber.e(""+ mListRoom[it].id)
+            mListSwitch.clear()
             mainViewModel.loadDataSwitch(this, mListRoom[it].id)
         }) }!!
         rcvRoomBuildingView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL ,false)
@@ -103,14 +107,36 @@ class BuildingFragment : BaseFragment() {
             mListRoom.addAll(it)
             adapterRoom.setDatas(mListRoom)
             //create switch
-
+            Timber.e("room id"+ mListRoom[0].id)
+            mListSwitch.clear()
             mainViewModel.loadDataSwitch(this, mListRoom[0].id)
         })
-        mainViewModel.switchRespon.observe(this, Observer {
+        mainViewModel.swRespon.observe(this, Observer {
             mListSwitch.clear()
             mListSwitch.addAll(it)
-            adapterSwitch.setDatas(it)
+            Timber.e("switchs = "+it.size)
+            var ids : MutableList<String> = mutableListOf()
+            for (switch in it){
+                ids.add(switch.id)
+            }
+            mainViewModel.loadSubSwitchBySwitchId(this, ids)
         })
+        mainViewModel.switchRespon.observe(this, Observer {
+            mList.clear()
+            mListSW.clear()
+            mListSW.addAll(it)
+            for (switch in mListSwitch){
+                var subSw : MutableList<SwitchDetailEntity> = mutableListOf()
+                for (sw in mListSW){
+                    if (switch.id.equals(sw.idSwitch)){
+                        subSw.add(sw)
+                    }
+                }
+                mList.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw))
+            }
+            adapterSwitch.setDatas(mList)
+        })
+
     }
 
 

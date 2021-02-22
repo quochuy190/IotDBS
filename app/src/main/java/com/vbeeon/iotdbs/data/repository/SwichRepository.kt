@@ -31,6 +31,12 @@ class SwichRepository(val roomDao: SwitchDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
+    suspend fun insertList(obj: List<SwitchEntity>) {
+        roomDao.insertListEntity(obj)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun update(obj: SwitchEntity) {
         roomDao.updatetoDao(obj)
     }

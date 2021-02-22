@@ -3,6 +3,7 @@ package com.vbeeon.iotdbs.viewmodel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.map
 import com.vbeeon.iotdbs.IotDBSApplication
 import com.vbeeon.iotdbs.data.local.IoTDbsDatabase
 import com.vbeeon.iotdbs.data.local.entity.RoomEntity
@@ -17,6 +18,7 @@ import com.vbeeon.iotdbs.data.repository.SwichRepository
 import com.vbeeon.iotdbs.presentation.base.BaseViewModel
 import com.vbeeon.iotdbs.utils.connvertSwitch
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +40,8 @@ class MainViewModel  : BaseViewModel() {
     lateinit var repositoryScript: ScriptRepository
     val devicesRes : MutableLiveData<List<RoomEntity>> = MutableLiveData()
     val scriptsRes : MutableLiveData<List<ScriptEntity>> = MutableLiveData()
-    val switchRespon : MutableLiveData<List<Switch>> = MutableLiveData()
+    val switchRespon : MutableLiveData<List<SwitchDetailEntity>> = MutableLiveData()
+    val swRespon : MutableLiveData<List<SwitchEntity>> = MutableLiveData()
     val subSwRespon : MutableLiveData<List<SwitchDetailEntity>> = MutableLiveData()
     init {
         Timber.e("init")
@@ -60,21 +63,29 @@ class MainViewModel  : BaseViewModel() {
     }
     fun loadDataSwitch( lifecycleOwner: LifecycleOwner, idRoom: Int) {
         repositorySwitch.loadSwitchByRoomId(idRoom).observe(lifecycleOwner, Observer {
-            val switchs: MutableList<Switch> = ArrayList()
-            for (switch in it){
-                repositorySubSwitch.loadSwitchBySwitchId(switch.id).observe(lifecycleOwner, Observer {
-                    switchs.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, it))
-                })
-            }
-            switchRespon.postValue(switchs)
+            swRespon.postValue(it)
         })
         // resRoom.postValue()
+    }
+    fun loadSubSwitchBySwitchId( lifecycleOwner: LifecycleOwner, ids: List<String>){
+        val listSW: MutableList<Switch> = ArrayList()
+        repositorySubSwitch.loadSwitchBySwitchIdList(ids).observe(lifecycleOwner, Observer {
+            switchRespon.postValue(it)
+
+        })
+//        Timber.e("loadSubSwitchBySwitchId= "+switch.id)
+//        repositorySubSwitch.loadSwitchBySwitchId(switch.id).map {
+//            switchRespon.postValue(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, it))
+//        }
     }
     fun loadDataSubSwitch( lifecycleOwner: LifecycleOwner, idSwitch: String) {
         repositorySubSwitch.loadSwitchBySwitchId(idSwitch).observe(lifecycleOwner, Observer {
             subSwRespon.postValue(it)
         })
         // resRoom.postValue()
+    }
+    fun loadDataSub(room: List<RoomEntity>) = scope.launch(Dispatchers.IO) {
+        repository.insertList(room)
     }
     override fun onCleared() {
         super.onCleared()
@@ -83,11 +94,11 @@ class MainViewModel  : BaseViewModel() {
     private fun handleError(throwable: Throwable) {
         error.value = throwable
     }
-    fun insert(room: RoomEntity) = scope.launch(Dispatchers.IO) {
-        repository.insert(room)
+    fun insert(room: List<RoomEntity>) = scope.launch(Dispatchers.IO) {
+        repository.insertList(room)
     }
-    fun insertSwitch(obj: SwitchEntity) = scope.launch(Dispatchers.IO) {
-        repositorySwitch.insert(obj)
+    fun insertSwitch(obj: List<SwitchEntity>) = scope.launch(Dispatchers.IO) {
+        repositorySwitch.insertList(obj)
     }
     fun insertSubSwitch(list: List<SwitchDetailEntity>) = scope.launch(Dispatchers.IO) {
         repositorySubSwitch.insertList(list)

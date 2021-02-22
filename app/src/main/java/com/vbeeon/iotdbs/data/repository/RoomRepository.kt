@@ -29,6 +29,12 @@ class RoomRepository(val roomDao: RoomDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
+    suspend fun insertList(word: List<RoomEntity>) {
+        roomDao.insertListEntity(word)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun update(word: RoomEntity) {
         roomDao.updatetoDao(word)
     }

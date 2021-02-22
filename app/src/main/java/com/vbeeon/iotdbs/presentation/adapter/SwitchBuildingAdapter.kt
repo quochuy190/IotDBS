@@ -79,5 +79,9 @@ class SwitchBuildingAdapter internal constructor(val context: Context,
         this.listRoom = list
         notifyDataSetChanged()
     }
+    internal fun updateDatas(list: List<Switch>) {
+        this.listRoom = list
+        notifyDataSetChanged()
+    }
 
 }
