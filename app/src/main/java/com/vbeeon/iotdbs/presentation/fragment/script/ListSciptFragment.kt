@@ -5,15 +5,21 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vbeeon.iotdbs.MainActivity
 import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.data.local.entity.RoomEntity
 import com.vbeeon.iotdbs.data.local.entity.ScriptEntity
+import com.vbeeon.iotdbs.presentation.activity.ScriptActivity
+import com.vbeeon.iotdbs.presentation.activity.SwitchDetailActivity
 import com.vbeeon.iotdbs.presentation.adapter.RoomBuildAdapter
 import com.vbeeon.iotdbs.presentation.adapter.ScriptAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
+import com.vbeeon.iotdbs.utils.launchActivity
+import com.vbeeon.iotdbs.utils.setOnSafeClickListener
 import com.vbeeon.iotdbs.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_building.*
 import kotlinx.android.synthetic.main.fragment_list_script.*
+import vn.neo.smsvietlott.common.di.util.ConstantCommon
 
 
 @Suppress("DEPRECATION")
@@ -38,6 +44,11 @@ class ListSciptFragment : BaseFragment() {
         rcvListScript.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL ,false)
         rcvListScript.apply { adapter = adapterScript }
         // recyclerView.layoutManager = LinearLayoutManager(this)
+
+        fbtnAddScript.setOnSafeClickListener {
+            (context as MainActivity).launchActivity<ScriptActivity>{
+            }
+        }
     }
 
     override fun initViewModel() {

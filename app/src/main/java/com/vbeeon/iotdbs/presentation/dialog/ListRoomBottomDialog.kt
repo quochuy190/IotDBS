@@ -49,7 +49,7 @@ public class ListRoomBottomDialog internal constructor(val idSw: String,val done
         rcvListRoomBottomDialog.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL ,false)
         rcvListRoomBottomDialog.apply { adapter = adapterRoom }
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        mainViewModel.loadData(this)
+        mainViewModel.loadData(this, 1)
         mainViewModel.devicesRes.observe(this, Observer {
             mListRoom.clear()
             mListRoom.addAll(it)

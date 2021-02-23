@@ -73,7 +73,7 @@ class SwitchDetailFragment : BaseFragment() {
             Timber.e("ib_toolbar_close.setOnSafeClickListener")
             activity?.onBackPressed()
         }
-        tv_toolbar_title.text = "Tòa nhà"
+        tv_toolbar_title.text = ""
         imgBack.visibility = View.VISIBLE
         initRcvSwitch()
         Timber.e(""+switchId+switchName)

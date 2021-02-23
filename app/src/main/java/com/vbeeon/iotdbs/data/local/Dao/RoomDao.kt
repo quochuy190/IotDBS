@@ -24,6 +24,9 @@ interface RoomDao {
     @Query("SELECT * FROM room_entity")
     fun loadAllRoom(): LiveData<List<RoomEntity>>
 
+    @Query("SELECT * FROM room_entity WHERE floor IN (:id)")
+    fun loadRoomByFloor(id: Int): LiveData<List<RoomEntity>>
+
     @Query("SELECT * FROM room_entity WHERE room_id IN (:id)")
     fun loadRoomById(id: Int): RoomEntity
 

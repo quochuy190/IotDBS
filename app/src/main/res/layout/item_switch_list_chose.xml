@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.vbeeon.iotdbs.data.model.Switch" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/bgr_item_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_05dp"
+        >
+        <TextView
+            android:background="@color/grey_20"
+            android:textColor="@color/black"
+            android:id="@+id/tvSwName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:duplicateParentState="true"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:maxLines="2"
+            android:padding="@dimen/dimen_10dp"
+            android:text="@{data.name}"
+            android:textSize="@dimen/sp_18"
+            app:layout_constraintStart_toEndOf="@+id/imgItemMenu"
+            app:layout_constraintTop_toTopOf="@+id/imgItemMenu"
+            app:layout_constraintBottom_toBottomOf="@+id/imgItemMenu"
+            tools:text="Gio va Thoi tiet" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvListSWChose"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSwName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+<!--        <androidx.appcompat.widget.SwitchCompat-->
+<!--            android:checked="false"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"/>-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -10,6 +10,7 @@
     <color name="colorBgMain">#374EA2</color>
     <color name="colorWelcome">#6F6FBF</color>
     <color name="textAppbar">#026BBE</color>
+    <color name="tabSelected">#374EA2</color>
 
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>

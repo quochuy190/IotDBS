@@ -1,5 +1,6 @@
 package com.vbeeon.iotdbs.presentation.fragment.bottonBar
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -16,6 +17,7 @@ import com.vbeeon.iotdbs.presentation.activity.SwitchDetailActivity
 import com.vbeeon.iotdbs.presentation.adapter.RoomBuildAdapter
 import com.vbeeon.iotdbs.presentation.adapter.SwitchBuildingAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
+import com.vbeeon.iotdbs.presentation.fragment.switchDetail.SwitchDetailFragment
 import com.vbeeon.iotdbs.utils.launchActivity
 import com.vbeeon.iotdbs.utils.openFragment
 import com.vbeeon.iotdbs.utils.setOnSafeClickListener
@@ -35,8 +37,23 @@ class BuildingFragment : BaseFragment() {
     lateinit var mainViewModel: MainViewModel
     lateinit var adapterRoom : RoomBuildAdapter
     lateinit var adapterSwitch : SwitchBuildingAdapter
+    var floor : Int =-1
+    companion object {
+        fun newInstance(floor: Int): BuildingFragment {
+            val fragment = BuildingFragment()
+            val args = Bundle()
+            args.putInt("floor", floor)
+            fragment.setArguments(args)
+            return fragment
+        }
+    }
 
-
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments?.getInt("floor")?.let {
+            floor = it
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -85,9 +102,7 @@ class BuildingFragment : BaseFragment() {
 
     override fun initViewModel() {
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
-        mainViewModel.loadData(this)
-
+        mainViewModel.loadData(this, floor)
     }
 
 
@@ -124,7 +139,7 @@ class BuildingFragment : BaseFragment() {
                         subSw.add(sw)
                     }
                 }
-                mList.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw, switch.floor, switch.nameRoom))
+                mList.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw, switch.floor, switch.nameRoom, 2))
             }
             adapterSwitch.setDatas(mList)
         })

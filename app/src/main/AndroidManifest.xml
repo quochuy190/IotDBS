@@ -35,6 +35,11 @@
             android:name=".presentation.activity.SwitchDetailActivity">
 
         </activity>
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".presentation.activity.ScriptActivity">
+
+        </activity>
     </application>
 
 </manifest>

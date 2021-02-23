@@ -41,11 +41,11 @@ class BuildMainFragment : BaseFragment() {
     private fun initViewPager() {
         val adapter = MainViewPagerAdapter(childFragmentManager)
         adapter.addFragment(BuildingAllFloorFragment(), "Tòa nhà Si")
-        adapter.addFragment(BuildingFragment(), "Tầng 1")
-        adapter.addFragment(BuildingFragment(), "Tầng 2")
+        adapter.addFragment(BuildingFragment.newInstance(1), "Tầng 1")
+        adapter.addFragment(BuildingFragment.newInstance(2), "Tầng 2")
         vpBuildingMain.adapter = adapter
         vpBuildingMain.setOffscreenPageLimit(3)
-        vpBuildingMain.setPageScrollEnabled(false)
+        vpBuildingMain.setPageScrollEnabled(true)
         vpBuildingMain.currentItem = 0
         tabBuildingMain.setupWithViewPager(vpBuildingMain)
 

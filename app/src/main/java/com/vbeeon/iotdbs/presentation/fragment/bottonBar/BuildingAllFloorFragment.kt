@@ -112,7 +112,7 @@ class BuildingAllFloorFragment : BaseFragment() {
                         subSw.add(sw)
                     }
                 }
-                mList1.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw, switch.floor, switch.nameRoom))
+                mList1.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw, switch.floor, switch.nameRoom, 1))
             }
             for (switch in mListSwitch2){
                 var subSw : MutableList<SwitchDetailEntity> = mutableListOf()
@@ -121,7 +121,7 @@ class BuildingAllFloorFragment : BaseFragment() {
                         subSw.add(sw)
                     }
                 }
-                mList2.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw, switch.floor, switch.nameRoom))
+                mList2.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw, switch.floor, switch.nameRoom, 1))
             }
             adapterSwitch1.setDatas(mList1)
             adapterSwitch2.setDatas(mList2)

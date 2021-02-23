@@ -42,7 +42,7 @@ public class DetailSwitchBottomDialog internal constructor(val idR: Int, val don
     override fun onResume() {
         super.onResume()
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        mainViewModel.loadData(this)
+        mainViewModel.loadAllData(this)
         mainViewModel.devicesRes.observe(this, Observer {
 
         })

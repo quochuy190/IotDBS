@@ -12,7 +12,7 @@
         android:id="@+id/cardInfoRoom"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/dimen_15dp"
+        android:layout_marginTop="@dimen/dimen_20dp"
         app:cardCornerRadius="@dimen/dimen_5dp"
         app:cardElevation="@dimen/dimen_7dp"
         app:layout_constraintDimensionRatio="3 :1"
@@ -102,20 +102,31 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_20dp"
         android:text="@string/tvControl"
-        android:textColor="@color/black"
+        android:textColor="@color/textAppBar"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardInfoRoom" />
+    <ImageView
+        android:layout_marginStart="@dimen/dimen_7dp"
+        app:layout_constraintDimensionRatio="1:0.03"
+        android:layout_marginEnd="@dimen/dimen_20dp"
+        app:layout_constraintStart_toEndOf="@+id/tvLableControl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvLableControl"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLableControl"
+        android:src="@drawable/line_control"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvListSwitchDetal"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/dimen_5dp"
+        android:layout_marginTop="@dimen/dimen_20dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.18"
+        app:layout_constraintHeight_percent="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLableControl" />
 
@@ -126,15 +137,27 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_20dp"
         android:text="@string/tvUtil"
-        android:textColor="@color/black"
+        android:textColor="@color/textAppBar"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rcvListSwitchDetal" />
+
+    <ImageView
+        android:rotation="180"
+        app:layout_constraintDimensionRatio="1:0.03"
+        android:layout_marginEnd="@dimen/dimen_7dp"
+        app:layout_constraintStart_toStartOf="@+id/tvLableControl"
+        app:layout_constraintEnd_toStartOf="@+id/tvLableUtil"
+        app:layout_constraintTop_toTopOf="@+id/tvLableUtil"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLableUtil"
+        android:src="@drawable/line_control"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/dimen_5dp"
+        android:layout_marginTop="@dimen/dimen_20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.18"
         app:layout_constraintStart_toStartOf="parent"
@@ -147,10 +170,11 @@
             android:layout_weight="1">
 
             <ImageView
+                android:padding="@dimen/dimen_10dp"
                 android:id="@+id/imgSwitchOnAll"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:src="@drawable/ic_switch_detail_on"
+                android:src="@drawable/turn_on_default"
                 app:layout_constraintBottom_toTopOf="@+id/tvSwitchOnAll"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -179,10 +203,11 @@
             android:layout_weight="1">
 
             <ImageView
+                android:padding="@dimen/dimen_10dp"
                 android:id="@+id/imgSwitchOffAll"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:src="@drawable/ic_switch_detail_on"
+                android:src="@drawable/turn_off_default"
                 app:layout_constraintBottom_toTopOf="@+id/tvSwitchOffAll"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -211,10 +236,11 @@
             android:layout_weight="1">
 
             <ImageView
+                android:padding="@dimen/dimen_10dp"
                 android:id="@+id/imgTimer"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:src="@drawable/ic_switch_detail_on"
+                android:src="@drawable/timer_default"
                 app:layout_constraintBottom_toTopOf="@+id/tvTimer"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -243,10 +269,11 @@
             android:layout_weight="1">
 
             <ImageView
+                android:padding="@dimen/dimen_10dp"
                 android:id="@+id/imgDownTime"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:src="@drawable/ic_switch_detail_on"
+                android:src="@drawable/count_down_default"
                 app:layout_constraintBottom_toTopOf="@+id/tvDownTime"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"

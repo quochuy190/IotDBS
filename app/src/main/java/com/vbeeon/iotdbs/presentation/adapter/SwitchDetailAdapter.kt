@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.data.local.entity.SwitchDetailEntity
-import com.vbeeon.iotdbs.databinding.ItemSwitchBuildingBinding
 import com.vbeeon.iotdbs.databinding.ItemSwitchDetailBinding
 import com.vbeeon.iotdbs.utils.setOnSafeClickListener
 import timber.log.Timber
@@ -31,7 +30,7 @@ class SwitchDetailAdapter internal constructor(val context: Context,
             if (entity!!.isChecked){
                 itemSwitchBinding.imgSwitchDetail.setImageDrawable(context.getDrawable(R.drawable.ic_switch_detail_on))
             }else{
-                itemSwitchBinding.imgSwitchDetail.setImageDrawable(context.getDrawable(R.drawable.ic_switch_detail_off))
+                itemSwitchBinding.imgSwitchDetail.setImageDrawable(context.getDrawable(R.drawable.ic_switch_detal_off))
 //                val sysTitle = "<font color='#FF000000'>"+entity.name+"</font>"
 //                itemRoomBinding.tvTimeCalName.text = setTextHTML(sysTitle)
             }

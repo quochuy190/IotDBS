@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.tabs.TabLayout
+        app:tabTextAppearance="@style/MyCustomTextAppearance"
         android:layout_margin="@dimen/dimen_5dp"
         app:layout_constraintHeight_percent="0.055"
         app:layout_constraintWidth_percent="0.8"

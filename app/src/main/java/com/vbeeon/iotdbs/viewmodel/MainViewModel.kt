@@ -54,7 +54,13 @@ class MainViewModel  : BaseViewModel() {
         repositorySubSwitch = SubSwichRepository(subSwitchDao!!)
         //repository.insertAll()
     }
-    fun loadData( lifecycleOwner: LifecycleOwner) {
+    fun loadData( lifecycleOwner: LifecycleOwner, floor: Int) {
+        repository.loadRoomByFloor(floor).observe(lifecycleOwner, Observer {
+            devicesRes.postValue(it)
+        })
+        // resRoom.postValue()
+    }
+    fun loadAllData( lifecycleOwner: LifecycleOwner) {
         repository.allRooms.observe(lifecycleOwner, Observer {
             devicesRes.postValue(it)
         })
@@ -69,6 +75,12 @@ class MainViewModel  : BaseViewModel() {
 
     fun loadAllDataSwitch( lifecycleOwner: LifecycleOwner) {
         repositorySwitch.loadAllSwitch().observe(lifecycleOwner, Observer {
+            swRespon.postValue(it)
+        })
+        // resRoom.postValue()
+    }
+    fun loadAllDataSwitchbyFloor( lifecycleOwner: LifecycleOwner, floor: Int) {
+        repositorySwitch.loadAllSwitchByFloor(floor).observe(lifecycleOwner, Observer {
             swRespon.postValue(it)
         })
         // resRoom.postValue()

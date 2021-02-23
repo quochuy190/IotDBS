@@ -24,5 +24,6 @@ data class Switch(
         var type: Int, //công tắc 1, công tắc 2, công tắc 3, ...,
         var listSubSw : List<SwitchDetailEntity>,
         var floor: Int,
-        var nameRoom: String
+        var nameRoom: String,
+        var typeView: Int
 ) : Serializable

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include layout="@layout/toolbar_main"/>
+
+    <TextView
+        android:id="@+id/tvLableFloor"
+        style="@style/TextSp16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_5dp"
+        android:text="@string/tvUtil"
+        android:textColor="@color/textAppBar"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tabFloor"
+        app:layout_constraintTop_toBottomOf="@+id/appBarMain" />
+    <com.google.android.material.tabs.TabLayout
+        app:tabTextAppearance="@style/MyCustomTextAppearance"
+        android:layout_margin="@dimen/dimen_5dp"
+        app:layout_constraintHeight_percent="0.055"
+        app:layout_constraintWidth_percent="0.9"
+        android:id="@+id/tabFloor"
+        app:layout_constraintTop_toBottomOf="@+id/tvLableFloor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_tab"
+        app:tabGravity="fill"
+        app:tabBackground="@drawable/selector_tab"
+        app:tabIndicatorColor="@android:color/transparent"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed"
+        app:tabRippleColor="@null"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="@color/black"  >
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItemFloor1"
+            android:layout_width="wrap_content"
+            android:text="@string/txtFloor_1"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItemFloor2"
+            android:text="@string/txtFloor_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.tabs.TabLayout>
+
+    <TextView
+        android:id="@+id/tvLableName"
+        style="@style/TextSp16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15dp"
+        android:text="@string/tvUtil"
+        android:textColor="@color/textAppBar"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tabFloor"
+        app:layout_constraintTop_toBottomOf="@+id/tabFloor" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvNameScript"
+        android:layout_marginTop="@dimen/dimen_5dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/dimen_15dp"
+        app:cardCornerRadius="@dimen/dimen_5dp"
+        app:cardElevation="@dimen/dimen_5dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvLableName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.9">
+
+        <LinearLayout
+            android:padding="@dimen/dimen_2dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/dimen_1dp"
+                android:background="@color/white"
+                android:fontFamily="@font/roboto_medium"
+                android:hint="@string/hind_name_script"
+                android:padding="@dimen/dimen_5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey_20"
+                android:textSize="@dimen/sp_15" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvLableSwitch"
+        style="@style/TextSp16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15dp"
+        android:text="@string/tvUtil"
+        android:textColor="@color/textAppBar"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tabFloor"
+        app:layout_constraintTop_toBottomOf="@+id/cvNameScript" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvSWbyFloor"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLableSwitch" />
+
+    <Button
+        android:layout_margin="@dimen/dimen_5dp"
+        android:id="@+id/buttonLogin"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/height_toolbar"
+        android:background="@drawable/shape_button_blue"
+        android:text="@string/btnLogin"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.8" />
+</androidx.constraintlayout.widget.ConstraintLayout>
