@@ -16,25 +16,29 @@ import com.vbeeon.iotdbs.presentation.activity.SwitchDetailActivity
 import com.vbeeon.iotdbs.presentation.adapter.RoomBuildAdapter
 import com.vbeeon.iotdbs.presentation.adapter.SwitchBuildingAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
+import com.vbeeon.iotdbs.presentation.fragment.DemoFragment
+import com.vbeeon.iotdbs.presentation.fragment.switchDetail.SwitchDetailFragment
 import com.vbeeon.iotdbs.utils.launchActivity
 import com.vbeeon.iotdbs.utils.openFragment
 import com.vbeeon.iotdbs.utils.setOnSafeClickListener
 import com.vbeeon.iotdbs.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_building.*
+import kotlinx.android.synthetic.main.fragment_building_all_floor.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 import timber.log.Timber
 import vn.neo.smsvietlott.common.di.util.ConstantCommon
 
 
 @Suppress("DEPRECATION")
-class BuildingFragment : BaseFragment() {
-    val mListRoom: MutableList<RoomEntity> = ArrayList()
-    val mListSwitch: MutableList<SwitchEntity> = ArrayList()
+class BuildingAllFloorFragment : BaseFragment() {
+    val mListSwitch1: MutableList<SwitchEntity> = ArrayList()
+    val mListSwitch2: MutableList<SwitchEntity> = ArrayList()
     val mListSW: MutableList<SwitchDetailEntity> = ArrayList()
-    val mList: MutableList<Switch> = ArrayList()
+    val mList1: MutableList<Switch> = ArrayList()
+    val mList2: MutableList<Switch> = ArrayList()
     lateinit var mainViewModel: MainViewModel
-    lateinit var adapterRoom : RoomBuildAdapter
-    lateinit var adapterSwitch : SwitchBuildingAdapter
+    lateinit var adapterSwitch1: SwitchBuildingAdapter
+    lateinit var adapterSwitch2 : SwitchBuildingAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,90 +47,84 @@ class BuildingFragment : BaseFragment() {
     }
 
     override fun getLayoutRes(): Int {
-        return R.layout.fragment_building
+        return R.layout.fragment_building_all_floor
     }
 
     override fun initView() {
-        adapterRoom = context?.let { RoomBuildAdapter(it, doneClick = {
-            for (item in mListRoom){
-                if (mListRoom[it].id==item.id){
-                    item.isSelected = true
-                }else{
-                    item.isSelected = false
-                }
-            }
-            rcvRoomBuildingView.scrollToPosition(it)
-            adapterRoom.notifyDataSetChanged()
-            Timber.e(""+ mListRoom[it].id)
-            mListSwitch.clear()
-            mainViewModel.loadDataSwitch(this, mListRoom[it].id)
+        adapterSwitch1 = context?.let { SwitchBuildingAdapter(it, doneClick = {
+
         }) }!!
-        rcvRoomBuildingView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL ,false)
-        rcvRoomBuildingView.apply { adapter = adapterRoom }
+        rcvListSWFloor1.layoutManager = GridLayoutManager(context, 2)
+        rcvListSWFloor1.apply { adapter = adapterSwitch1 }
        // recyclerView.layoutManager = LinearLayoutManager(this)
+        rcvListSWFloor1.isNestedScrollingEnabled = false
         initRcvSwitch()
 
     }
 
     private fun initRcvSwitch() {
-        adapterSwitch = activity?.let {
+        adapterSwitch2 = activity?.let {
             SwitchBuildingAdapter(it, doneClick = {
 //                (context as MainActivity).
 //                openFragment(SwitchDetailFragment.newInstance(mListSwitch[it].id,mListSwitch[it].name ), true)
                 (context as MainActivity).launchActivity<SwitchDetailActivity>{
-                    putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mListSwitch[it].id)
-                    putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mListSwitch[it].name)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mListSwitch2[it].id)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mListSwitch2[it].name)
                 }
             })
         }!!
-        rcvSwitchBuildingView.layoutManager = GridLayoutManager(context, 2)
-        rcvSwitchBuildingView.apply { adapter = adapterSwitch }
+        rcvListSWFloor2.layoutManager = GridLayoutManager(context, 2)
+        rcvListSWFloor2.apply { adapter = adapterSwitch2 }
+        rcvListSWFloor2.isNestedScrollingEnabled = false
     }
 
     override fun initViewModel() {
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
-        mainViewModel.loadData(this)
+        mainViewModel.loadAllDataSwitch(this)
 
     }
 
 
 
     override fun observable() {
-        mainViewModel.devicesRes.observe(this, Observer {
-            mListRoom.clear()
-            mListRoom.addAll(it)
-            adapterRoom.setDatas(mListRoom)
-            //create switch
-            Timber.e("room id"+ mListRoom[0].id)
-            mListSwitch.clear()
-            mainViewModel.loadDataSwitch(this, mListRoom[0].id)
-        })
         mainViewModel.swRespon.observe(this, Observer {
-            mListSwitch.clear()
-            mListSwitch.addAll(it)
-            Timber.e("switchs = "+it.size)
-            var ids : MutableList<String> = mutableListOf()
+            mListSwitch2.clear()
+            mListSwitch1.clear()
             for (switch in it){
-                ids.add(switch.id)
+                if (switch.idRoom<7){
+                    mListSwitch1.add(switch)
+                }else
+                    mListSwitch2.add(switch)
             }
-            mainViewModel.loadSubSwitchBySwitchId(this, ids)
+            Timber.e(""+mListSwitch1.size +":"+mListSwitch2.size)
+            mainViewModel.loadAllSubSwitch(this)
         })
         mainViewModel.switchRespon.observe(this, Observer {
-            mList.clear()
+            mList1.clear()
+            mList2.clear()
             mListSW.clear()
             mListSW.addAll(it)
             Timber.e("size sw="+it.size)
-            for (switch in mListSwitch){
+            for (switch in mListSwitch1){
                 var subSw : MutableList<SwitchDetailEntity> = mutableListOf()
                 for (sw in mListSW){
                     if (switch.id.equals(sw.idSwitch)){
                         subSw.add(sw)
                     }
                 }
-                mList.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw, switch.floor, switch.nameRoom))
+                mList1.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw, switch.floor, switch.nameRoom))
             }
-            adapterSwitch.setDatas(mList)
+            for (switch in mListSwitch2){
+                var subSw : MutableList<SwitchDetailEntity> = mutableListOf()
+                for (sw in mListSW){
+                    if (switch.id.equals(sw.idSwitch)){
+                        subSw.add(sw)
+                    }
+                }
+                mList2.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw, switch.floor, switch.nameRoom))
+            }
+            adapterSwitch1.setDatas(mList1)
+            adapterSwitch2.setDatas(mList2)
         })
 
     }

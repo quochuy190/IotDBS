@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+    <ImageView
+        android:id="@+id/imgCoverBuildingAll"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_building"
+        app:layout_constraintDimensionRatio="2.3:1"
+        app:layout_constraintTop_toBottomOf="@+id/appBarMain"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+    <androidx.core.widget.NestedScrollView
+        app:layout_constraintTop_toBottomOf="@+id/imgCoverBuildingAll"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:background="@color/gray"
+                android:id="@+id/lableFloor1"
+                android:gravity="left"
+                style="@style/TextSp20"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:padding="@dimen/dimen_7dp"
+                android:text="@string/txtFloor_1"
+                app:layout_constraintTop_toBottomOf="@+id/imgCoverBuildingAll"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:visibility="visible"
+                android:id="@+id/rcvListSWFloor1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lableFloor1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:background="@color/gray"
+                android:id="@+id/lableFloor2"
+                android:gravity="left"
+                style="@style/TextSp20"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:padding="@dimen/dimen_7dp"
+                android:text="@string/txtFloor_2"
+                app:layout_constraintTop_toBottomOf="@+id/rcvListSWFloor1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:visibility="visible"
+                android:id="@+id/rcvListSWFloor2"
+                app:layout_constraintHeight_percent="0.12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lableFloor2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

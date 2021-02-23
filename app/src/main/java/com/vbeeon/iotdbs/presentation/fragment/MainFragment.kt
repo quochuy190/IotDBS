@@ -11,7 +11,9 @@ import com.vbeeon.iotdbs.data.local.entity.SwitchDetailEntity
 import com.vbeeon.iotdbs.data.local.entity.SwitchEntity
 import com.vbeeon.iotdbs.presentation.adapter.MainViewPagerAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
+import com.vbeeon.iotdbs.presentation.fragment.bottonBar.BuildMainFragment
 import com.vbeeon.iotdbs.presentation.fragment.bottonBar.BuildingFragment
+import com.vbeeon.iotdbs.presentation.fragment.bottonBar.MenuFragment
 import com.vbeeon.iotdbs.presentation.fragment.bottonBar.ScriptFragment
 import com.vbeeon.iotdbs.presentation.fragment.switchDetail.SwitchDetailFragment
 import com.vbeeon.iotdbs.utils.setOnSafeClickListener
@@ -46,8 +48,8 @@ class MainFragment : BaseFragment() {
     private fun initViewPager() {
         val adapter = MainViewPagerAdapter(childFragmentManager)
         adapter.addFragment(ScriptFragment(), "")
-        adapter.addFragment(BuildingFragment(), "")
-        adapter.addFragment(DemoFragment(), "")
+        adapter.addFragment(BuildMainFragment(), "")
+        adapter.addFragment(MenuFragment(), "")
         vp_main.adapter = adapter
         vp_main.setOffscreenPageLimit(3)
         vp_main.setPageScrollEnabled(false)
@@ -108,20 +110,22 @@ class MainFragment : BaseFragment() {
         mainViewModel.insert(roomList)
         Thread.sleep(1000)
         val roomSwitch: MutableList<SwitchEntity> = ArrayList()
-        roomSwitch.add(SwitchEntity("SW00568",0,"Đèn", true, 1))
-        roomSwitch.add(SwitchEntity("SW00584",1,"Phòng làm việc T1 trên", true, 2))
-        roomSwitch.add(SwitchEntity("SW00581",1,"Phòng làm việc T1 dưới", true, 2))
-        roomSwitch.add(SwitchEntity("SW00571",2,"Phòng họp 1", true, 2))
-        roomSwitch.add(SwitchEntity("SW00570",3,"Phòng họp 3", true, 2))
-        roomSwitch.add(SwitchEntity("SW00574",4,"Phòng phó giám đốc", true, 2))
-        roomSwitch.add(SwitchEntity("SW00585",5,"Phòng phó giám đốc", true, 2))
-        roomSwitch.add(SwitchEntity("SW00582",6,"Phòng Pantry", true, 2))
+        roomSwitch.add(SwitchEntity("SW00568",0,"P.TH", true, 1, 1, "Phòng tổng hợp"))
+        roomSwitch.add(SwitchEntity("SW00590",0,"Cảm biến nhiệt độ, độ ẩm T1", false, 1, 1, "Phòng tổng hợp"))
+        roomSwitch.add(SwitchEntity("SW00584",1,"P.Làm việc T1 trên", true, 2, 1, "Phòng làm việc"))
+        roomSwitch.add(SwitchEntity("SW00581",1,"P.Làm việc T1 dưới", true, 2, 1, "Phòng làm việc"))
+        roomSwitch.add(SwitchEntity("SW00571",2,"P.Họp 1", true, 2, 1, "Phòng hợp 1"))
+        roomSwitch.add(SwitchEntity("SW00570",3,"P.Họp 3", true, 2, 1, "Phòng họp 3"))
+        roomSwitch.add(SwitchEntity("SW00574",4,"P.Phó giám đốc", true, 2, 1, "Phòng phó giám đốc"))
+        roomSwitch.add(SwitchEntity("SW00585",5,"P.Phó giám đốc", true, 2, 1, "Phòng phó giám đốc"))
+        roomSwitch.add(SwitchEntity("SW00582",6,"P.Pantry", true, 2, 1, "Phòng ăn"))
 
-        roomSwitch.add(SwitchEntity("SW00580",7,"Phòng họp", true, 3))
-        roomSwitch.add(SwitchEntity("SW00577",8,"Phòng giám đốc", true, 2))
-        roomSwitch.add(SwitchEntity("SW00572",9,"Phòng làm việc T2", true, 2))
-        roomSwitch.add(SwitchEntity("SW00575",9,"Phòng làm việc T2", true, 3))
-        roomSwitch.add(SwitchEntity("SW00578",10,"Phòng Pantry T2", true, 2))
+        roomSwitch.add(SwitchEntity("SW00580",7,"P.Họp", true, 3, 2, "Phòng họp"))
+        roomSwitch.add(SwitchEntity("SW00577",8,"P.Giám đốc", true, 2, 2, "Phòng giám đốc"))
+        roomSwitch.add(SwitchEntity("SW00572",9,"P.Làm việc T2", true, 2, 2, "Phòng làm việc"))
+        roomSwitch.add(SwitchEntity("SW00575",9,"P.Làm việc T2", true, 3, 2, "Phòng làm việc"))
+        roomSwitch.add(SwitchEntity("SW00591",9,"Cảm biến nhiệt độ, độ ẩm T2", true, 3, 2, "Phòng làm việc"))
+        roomSwitch.add(SwitchEntity("SW00578",10,"P.Pantry T2", true, 2, 2, "Phòng ăn T2"))
         mainViewModel.insertSwitch(roomSwitch)
         Thread.sleep(1000)
         val subSwitch: MutableList<SwitchDetailEntity> = ArrayList()

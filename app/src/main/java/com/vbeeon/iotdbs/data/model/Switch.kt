@@ -22,6 +22,7 @@ data class Switch(
         val name: String,
         var isChecked: Boolean = false,
         var type: Int, //công tắc 1, công tắc 2, công tắc 3, ...,
-        var listSubSw : List<SwitchDetailEntity>
-        
+        var listSubSw : List<SwitchDetailEntity>,
+        var floor: Int,
+        var nameRoom: String
 ) : Serializable

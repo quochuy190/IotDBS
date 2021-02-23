@@ -11,79 +11,139 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
+        android:padding="@dimen/dimen_2dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dimen_5dp">
+       >
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvSwitch"
-            android:padding="@dimen/dimen_5dp"
-            android:background="@color/white"
-            app:cardCornerRadius="@dimen/dimen_5dp"
-            android:layout_marginBottom="@dimen/dimen_10dp"
-            android:elevation="@dimen/dimen_5dp"
-            app:cardElevation="@dimen/dimen_5dp"
-            android:layout_marginLeft="@dimen/dimen_10dp"
-            android:layout_marginRight="@dimen/dimen_10dp"
-            android:layout_marginTop="@dimen/dimen_10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintDimensionRatio="1.3:1"
             android:layout_width="0dp"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/dimen_5dp"
+            android:background="@color/white"
+            android:elevation="@dimen/dimen_5dp"
+            android:padding="@dimen/dimen_5dp"
+            app:cardCornerRadius="@dimen/dimen_5dp"
+            app:cardElevation="@dimen/dimen_5dp"
+            app:layout_constraintDimensionRatio="1.15:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:paddingEnd="@dimen/dimen_7dp"
+                android:paddingBottom="@dimen/dimen_2dp"
                 android:id="@+id/llItemSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <androidx.cardview.widget.CardView
+                    android:layout_margin="@dimen/dimen_7dp"
+                    android:id="@+id/imgSwitchCover"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@color/colorBgMain"
                     app:cardCornerRadius="@dimen/dimen_3dp"
                     app:cardElevation="@dimen/dimen_3dp"
-                    android:id="@+id/imgSwitchCover"
-                    android:src="@color/colorBgMain"
-                    android:layout_margin="@dimen/dimen_15dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintWidth_percent="0.25"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.2">
 
                     <ImageView
-                        android:src="@drawable/switch_three"
+                        android:id="@+id/imgSW"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:src="@drawable/switch_three" />
 
                 </androidx.cardview.widget.CardView>
+
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:src="@drawable/icon_switch_on"
-                    android:layout_margin="@dimen/dimen_15dp"
-                    app:layout_constraintTop_toTopOf="@+id/imgSwitchCover"
-                    app:layout_constraintBottom_toBottomOf="@+id/imgSwitchCover"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintWidth_percent="0.12"
+                    android:id="@+id/imgSW1"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"/>
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/dimen_5dp"
+                    android:src="@drawable/ic_switch_detail_on"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgSwitchCover"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/imgSwitchCover"
+                    app:layout_constraintWidth_percent="0.15" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgSW2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/dimen_5dp"
+                    android:src="@drawable/ic_switch_detail_off"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgSwitchCover"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/imgSW1"
+                    app:layout_constraintTop_toTopOf="@+id/imgSwitchCover"
+                    app:layout_constraintWidth_percent="0.15" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgSW3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/dimen_5dp"
+                    android:src="@drawable/ic_switch_detail_off"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgSwitchCover"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/imgSW2"
+                    app:layout_constraintTop_toTopOf="@+id/imgSwitchCover"
+                    app:layout_constraintWidth_percent="0.15" />
 
                 <TextView
+                    android:layout_marginTop="@dimen/dimen_5dp"
+                    android:maxLines="2"
+                    android:id="@+id/tvSwitchName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:duplicateParentState="true"
+                    android:ellipsize="end"
+                    android:gravity="left"
+                    android:padding="@dimen/dimen_2dp"
+                    android:text="@{data.name}"
                     android:textColor="@color/black"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/imgSwitchCover"
+                    app:layout_constraintTop_toBottomOf="@+id/imgSwitchCover"
+                    tools:text="Gio va Thoi tiet" />
+
+                <TextView
+                    android:id="@+id/tvFloor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:duplicateParentState="true"
+                    android:ellipsize="end"
+                    android:gravity="left"
+                    android:padding="@dimen/dimen_2dp"
+                    android:text="@{`Tầng ` +data.floor}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_15"
+                    app:layout_constraintStart_toStartOf="@+id/imgSwitchCover"
+                    app:layout_constraintTop_toBottomOf="@+id/tvSwitchName" />
+
+                <TextView
                     android:id="@+id/tvTimeCalName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:duplicateParentState="true"
                     android:ellipsize="end"
                     android:gravity="left"
-                    android:maxLines="2"
-                    android:padding="@dimen/dimen_5dp"
-                    android:text="@{data.name}"
+                    android:padding="@dimen/dimen_2dp"
+                    android:text="@{data.nameRoom}"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/sp_15"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    tools:text="Gio va Thoi tiet" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvFloor"
+                    app:layout_constraintStart_toStartOf="@+id/imgSwitchCover" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -91,18 +151,17 @@
         </androidx.cardview.widget.CardView>
 
         <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_7dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cvSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintTop_toBottomOf="@+id/cvSwitch" />
 
 
-
-<!--        <androidx.appcompat.widget.SwitchCompat-->
-<!--            android:checked="false"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"/>-->
+        <!--        <androidx.appcompat.widget.SwitchCompat-->
+        <!--            android:checked="false"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"/>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -29,6 +29,10 @@ data class SwitchEntity(
         @ColumnInfo(name = "is_checked")
         var isChecked: Boolean = false,
         @ColumnInfo(name = "switch_type")
-        var type: Int //công tắc 1, công tắc 2, công tắc 3, ...,
+        var type: Int, //công tắc 1, công tắc 2, công tắc 3, ...,
+        @ColumnInfo(name = "floor")
+        var floor: Int,
+        @ColumnInfo(name = "room_name")
+        var nameRoom: String
         
 )

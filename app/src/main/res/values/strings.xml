@@ -46,6 +46,17 @@
     <string name="txt_Timer">Hẹn giờ</string>
     <string name="txt_Downtime">Đếm ngược</string>
     <string name="txtAddScipt">Thêm kịch bản</string>
+    <string name="txtFloor_1">Tầng 1</string>
+    <string name="txtFloor_2">Tầng 2</string>
+    <string name="tvSetup">Cài đặt</string>
+    <string name="tvMenu_0">Quản lý tòa nhà</string>
+    <string name="tvMenu_1">Quản lý thiết bị</string>
+    <string name="tvMenu_2">Cài đặt</string>
+    <string name="tvMenu_3">Giới thiệu</string>
+    <string name="tvMenu_4">Tài khoản</string>
+    <string name="tvMenu_5">Trợ giúp</string>
+    <string name="tvMenu_6">Đăng xuất</string>
+
 <!--    Script-->
     <string name="hind_name_script">Tên kịch bản</string>
 

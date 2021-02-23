@@ -26,7 +26,7 @@ interface SwitchDetailDao {
     fun insertListEntity(list: List<SwitchDetailEntity>)
     //ORDER BY room_name ASC
     @Query("SELECT * FROM switch_detail_entity")
-    fun loadAllSubSwitch(): List<SwitchDetailEntity>
+    fun loadAllSubSwitch(): LiveData<List<SwitchDetailEntity>>
 
     @Query("SELECT * FROM switch_detail_entity WHERE switch_id IN (:switch_id)")
     fun loadSubSwitchByIdSwitch(switch_id: String): LiveData<List<SwitchDetailEntity>>

@@ -15,7 +15,7 @@ class SubSwichRepository(val subSwDao: SwitchDetailDao) {
     fun loadSwitchBySwitchIdList(ids: List<String>) : LiveData<List<SwitchDetailEntity>>{
         return subSwDao.loadSubSwitchByIdList(ids)
     }
-    fun loadAllSubSwitch() : List<SwitchDetailEntity>{
+    fun loadAllSubSwitch() : LiveData<List<SwitchDetailEntity>>{
         return subSwDao.loadAllSubSwitch()
     }
 

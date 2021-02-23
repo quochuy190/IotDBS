@@ -23,6 +23,10 @@ class SwichRepository(val roomDao: SwitchDao) {
         return roomDao.loadSwitchByIdRoom(room_id)
     }
 
+    fun loadAllSwitch() :  LiveData<List<SwitchEntity>>{
+        return roomDao.loadAllSwitch()
+    }
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(obj: SwitchEntity) {

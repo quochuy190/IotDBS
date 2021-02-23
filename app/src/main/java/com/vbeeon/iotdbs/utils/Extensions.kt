@@ -131,11 +131,3 @@ fun setTextHTML(html: String): Spanned
     }
     return result
 }
-
-fun connvertSwitch(list: List<SwitchEntity> , listSub: List<SwitchDetailEntity> ) : List<Switch>{
-    val switchs: MutableList<Switch> = ArrayList()
-    list.forEach {
-        switchs.add(Switch(it.id, it.idRoom, it.name, it.isChecked, it.type, listSub))
-    }
-    return switchs
-}

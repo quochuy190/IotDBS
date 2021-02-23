@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.vbeeon.iotdbs.data.model.ItemMenu" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/bgr_item_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_05dp"
+        android:padding="@dimen/dimen_7dp">
+
+        <ImageView
+            android:padding="@dimen/dimen_5dp"
+            android:id="@+id/imgItemMenu"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.12"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+
+        <TextView
+            android:layout_marginStart="@dimen/dimen_7dp"
+            android:textColor="@color/black"
+            android:id="@+id/tvMenuName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:duplicateParentState="true"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:maxLines="2"
+            android:padding="@dimen/dimen_5dp"
+            android:text="@{data.name}"
+            android:textSize="@dimen/sp_18"
+            app:layout_constraintStart_toEndOf="@+id/imgItemMenu"
+            app:layout_constraintTop_toTopOf="@+id/imgItemMenu"
+            app:layout_constraintBottom_toBottomOf="@+id/imgItemMenu"
+            tools:text="Gio va Thoi tiet" />
+
+
+<!--        <androidx.appcompat.widget.SwitchCompat-->
+<!--            android:checked="false"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"/>-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
