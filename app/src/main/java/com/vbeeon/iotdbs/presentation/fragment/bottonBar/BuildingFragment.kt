@@ -2,11 +2,11 @@ package com.vbeeon.iotdbs.presentation.fragment.bottonBar
 
 import android.content.Context
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.vbeeon.iotdbs.MainActivity
 import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.data.local.entity.RoomEntity
@@ -17,13 +17,9 @@ import com.vbeeon.iotdbs.presentation.activity.SwitchDetailActivity
 import com.vbeeon.iotdbs.presentation.adapter.RoomBuildAdapter
 import com.vbeeon.iotdbs.presentation.adapter.SwitchBuildingAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
-import com.vbeeon.iotdbs.presentation.fragment.switchDetail.SwitchDetailFragment
 import com.vbeeon.iotdbs.utils.launchActivity
-import com.vbeeon.iotdbs.utils.openFragment
-import com.vbeeon.iotdbs.utils.setOnSafeClickListener
 import com.vbeeon.iotdbs.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_building.*
-import kotlinx.android.synthetic.main.toolbar_main.*
 import timber.log.Timber
 import vn.neo.smsvietlott.common.di.util.ConstantCommon
 
@@ -64,6 +60,12 @@ class BuildingFragment : BaseFragment() {
     }
 
     override fun initView() {
+        lableFloor.text = "Tầng "+ floor
+        tvNhietDo.text = "20 " + 0x00B0.toChar()+"C"
+        if (floor==1)
+            Glide.with(this).load(R.drawable.cover_floor_one).into(imgCoverBuilding)
+        else
+            Glide.with(this).load(R.drawable.cover_floor_two).into(imgCoverBuilding)
         adapterRoom = context?.let { RoomBuildAdapter(it, doneClick = {
             for (item in mListRoom){
                 if (mListRoom[it].id==item.id){

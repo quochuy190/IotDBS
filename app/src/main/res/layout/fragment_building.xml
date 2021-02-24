@@ -4,15 +4,91 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
+
     <ImageView
         android:id="@+id/imgCoverBuilding"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_building"
-        app:layout_constraintDimensionRatio="2.3:1"
-        app:layout_constraintTop_toBottomOf="@+id/appBarMain"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="2:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarMain" />
+    <View
+        android:background="@color/black_bg_img"
+        app:layout_constraintStart_toStartOf="@+id/imgCoverBuilding"
+        app:layout_constraintTop_toTopOf="@+id/imgCoverBuilding"
+        app:layout_constraintEnd_toEndOf="@id/imgCoverBuilding"
+        app:layout_constraintBottom_toBottomOf="@+id/imgCoverBuilding"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+    <TextView
+        android:layout_marginBottom="@dimen/dimen_15dp"
+        android:layout_marginStart="@dimen/dimen_15dp"
+        android:id="@+id/lableFloor"
+        android:gravity="left"
+        style="@style/TextSp18"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:padding="@dimen/dimen_7dp"
+        android:text="@string/txtFloor_1"
+        app:layout_constraintStart_toStartOf="@+id/imgCoverBuilding"
+        app:layout_constraintBottom_toTopOf="@+id/iconNhietdo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:layout_marginStart="@dimen/dimen_20dp"
+        android:scaleType="fitXY"
+        android:layout_marginBottom="@dimen/dimen_15dp"
+        android:id="@+id/iconNhietdo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="@dimen/dimen_2dp"
+        android:src="@drawable/icon_nhietdo"
+        app:layout_constraintBottom_toBottomOf="@+id/imgCoverBuilding"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="@+id/lableFloor"
+        app:layout_constraintWidth_percent="0.08" />
+    <TextView
+        android:text="abc"
+        android:layout_marginStart="@dimen/dimen_5dp"
+        android:id="@+id/tvNhietDo"
+        style="@style/TextSp18"
+        android:gravity="center"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/iconNhietdo"
+        app:layout_constraintTop_toTopOf="@+id/iconNhietdo"
+        app:layout_constraintBottom_toBottomOf="@+id/iconNhietdo"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"/>
+
+    <ImageView
+        android:layout_marginEnd="@dimen/dimen_5dp"
+        android:layout_marginStart="@dimen/dimen_20dp"
+        android:scaleType="fitXY"
+        android:layout_marginBottom="@dimen/dimen_10dp"
+        android:id="@+id/iconDoam"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="@dimen/dimen_2dp"
+        android:src="@drawable/icon_doam"
+        app:layout_constraintBottom_toBottomOf="@+id/imgCoverBuilding"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/tvDoam"
+        app:layout_constraintWidth_percent="0.08" />
+    <TextView
+        android:text="80 %"
+        android:layout_marginEnd="@dimen/dimen_35dp"
+        android:id="@+id/tvDoam"
+        style="@style/TextSp18"
+        android:gravity="center"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iconNhietdo"
+        app:layout_constraintBottom_toBottomOf="@+id/iconNhietdo"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"/>
 
     <androidx.recyclerview.widget.RecyclerView

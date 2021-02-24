@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.vbeeon.iotdbs.MainActivity
 import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.data.local.entity.RoomEntity
@@ -51,6 +52,9 @@ class BuildingAllFloorFragment : BaseFragment() {
     }
 
     override fun initView() {
+        tvNhietDo1.text = "23 " + 0x00B0.toChar()+"C"
+        tvNhietDo2.text = "25 " + 0x00B0.toChar()+"C"
+        Glide.with(this).load(R.drawable.img_build_all).into(imgCoverBuildingAll)
         adapterSwitch1 = context?.let { SwitchBuildingAdapter(it, doneClick = {
 
         }) }!!

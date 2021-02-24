@@ -46,7 +46,7 @@ class MenuFragment : BaseFragment() {
         mList.add(ItemMenu(3,getString(R.string.tvMenu_3), R.drawable.menu_introduce))
         mList.add(ItemMenu(4,getString(R.string.tvMenu_4), R.drawable.menu_account))
         mList.add(ItemMenu(5,getString(R.string.tvMenu_5), R.drawable.menu_help))
-        mList.add(ItemMenu(6,getString(R.string.tvMenu_6), R.drawable.menu_account))
+        mList.add(ItemMenu(6,getString(R.string.tvMenu_6), R.drawable.menu_logout))
 
         adapterMenu.setDatas(mList)
         tvVersion.text = "Version: "+BuildConfig.VERSION_NAME

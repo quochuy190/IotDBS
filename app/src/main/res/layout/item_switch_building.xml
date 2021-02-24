@@ -91,7 +91,8 @@
                     app:layout_constraintWidth_percent="0.12" />
 
                 <TextView
-                    android:maxLines="1"
+                    android:minLines="2"
+                    android:maxLines="2"
                     android:id="@+id/tvSwitchName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

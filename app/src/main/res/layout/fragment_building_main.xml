@@ -7,8 +7,8 @@
     <com.google.android.material.tabs.TabLayout
         app:tabTextAppearance="@style/MyCustomTextAppearance"
         android:layout_margin="@dimen/dimen_5dp"
-        app:layout_constraintHeight_percent="0.055"
-        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintWidth_percent="0.9"
         android:id="@+id/tabBuildingMain"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.IotDBS" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="IotDBS" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -13,10 +13,11 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/appBar</item>
-        <item name="colorPrimaryDark">@color/appBar</item>
+        <item name="colorPrimaryDark">@color/grey_20</item>
+        <item name="colorButtonNormal">@color/black</item>
         <item name="colorAccent">@color/appBar</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -78,7 +79,6 @@
     </style>
 
     <style name="TextSp18" parent="TextAppearance.AppCompat.Medium">
-        <item name="fontFamily">@font/roboto_medium</item>
         <item name="android:textSize">@dimen/sp_18</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
@@ -176,6 +176,7 @@
     <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">15sp</item>
         <item name="textAllCaps">false</item>
+        <item name="android:textStyle">normal</item>
         <item name="android:textAllCaps">false</item>
     </style>
 </resources>
