@@ -10,12 +10,7 @@ import com.vbeeon.iotdbs.data.local.Dao.SwitchDao
 import com.vbeeon.iotdbs.data.local.IoTDbsDatabase
 import com.vbeeon.iotdbs.data.local.entity.RoomEntity
 import com.vbeeon.iotdbs.data.local.entity.SwitchEntity
-import com.vbeeon.iotdbs.data.model.User
-import com.vbeeon.iotdbs.retrofit.RetrofitClient
-import io.reactivex.rxjava3.core.Single
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
 
 class SwichRepository(val roomDao: SwitchDao) {
 

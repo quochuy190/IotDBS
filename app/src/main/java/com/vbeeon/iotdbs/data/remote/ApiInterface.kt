@@ -1,8 +1,10 @@
 package com.vbeeon.iotdbs.data.remote
 
-import com.vbeeon.iotdbs.data.model.User
+import com.vbeeon.iotdbs.data.model.*
 import io.reactivex.rxjava3.core.Single
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ApiInterface {
@@ -14,4 +16,10 @@ interface ApiInterface {
 
     @GET("movie/{movie_id}")
     fun getMovieDetails(@Path("movie_id") id: Int): Single<User>
+
+    @POST("api/v1/subscriber/login")
+    fun login(            @Body loginRequest: LoginRequest): Single<ApiResult<LoginEntity>>
+
+    @POST("api/v1/supervisor/login")
+    fun loginSupervisor(@Body request: LoginSuperVisorRequest): Single<ApiResult<LoginSupervisorRemoteEntity>>
 }

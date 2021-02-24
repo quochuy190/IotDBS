@@ -46,6 +46,7 @@ class MainFragment : BaseFragment() {
     }
 
     private fun initViewPager() {
+        mainViewModel.exe(this, "")
         val adapter = MainViewPagerAdapter(childFragmentManager)
         adapter.addFragment(ScriptFragment(), "")
         adapter.addFragment(BuildMainFragment(), "")
