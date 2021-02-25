@@ -6,6 +6,7 @@ import com.vbeeon.iotdbs.data.local.Dao.SwitchDetailDao
 import com.vbeeon.iotdbs.data.local.entity.SwitchDetailEntity
 import io.reactivex.rxjava3.core.Single
 import timber.log.Timber
+import java.util.concurrent.Callable
 
 class SubSwichRepository(val subSwDao: SwitchDetailDao) {
 
@@ -17,6 +18,12 @@ class SubSwichRepository(val subSwDao: SwitchDetailDao) {
     }
     fun loadAllSubSwitch() : LiveData<List<SwitchDetailEntity>>{
         return subSwDao.loadAllSubSwitch()
+    }
+
+    fun loadAllSubSwitchFloor(floor: Int) : Single<List<SwitchDetailEntity>>{
+        return Single.fromCallable(Callable {
+            subSwDao.loadAllSubSwitchByFloor(floor)
+        })
     }
 
     @Suppress("RedundantSuspendModifier")
@@ -35,5 +42,10 @@ class SubSwichRepository(val subSwDao: SwitchDetailDao) {
     @WorkerThread
     suspend fun update(obj: SwitchDetailEntity) {
         subSwDao.updatetoDao(obj)
+    }
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun updateList(list: List<SwitchDetailEntity>) {
+        subSwDao.updateListtoDao(list)
     }
 }

@@ -19,7 +19,7 @@ abstract class BaseViewModel : ViewModel() {
 
     protected val disposables: CompositeDisposable = CompositeDisposable()
 
-    val status = MutableLiveData<@Status Int>()
+    val loading = MutableLiveData<@Status Boolean>()
 
     val error = MutableLiveData<Throwable>()
 

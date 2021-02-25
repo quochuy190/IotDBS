@@ -32,6 +32,8 @@ data class SwitchDetailEntity(
     @ColumnInfo(name = "is_checked")
     var isChecked : Boolean= false,
     @ColumnInfo(name = "type")
-    var type : Int // 0 đèn, 1: quạt gio, 3: rèm
+    var type : Int, // 0 đèn, 1: quạt gio, 3: rèm
+    @ColumnInfo(name = "floor")
+    var floor : Int
 
 )

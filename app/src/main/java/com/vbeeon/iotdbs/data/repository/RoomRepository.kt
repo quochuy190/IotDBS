@@ -12,7 +12,7 @@ import timber.log.Timber
 import java.util.concurrent.Callable
 
 class RoomRepository(val roomDao: RoomDao) {
-    val retrofit = ApiClient.getClient()
+    val retrofit = ApiClient.getClientFloor1()
 
     val resRoom = MutableLiveData<List<RoomEntity>>()
 

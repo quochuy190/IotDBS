@@ -23,12 +23,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import vn.neo.smsvietlott.common.di.util.ConfigNetwork
+import java.util.concurrent.TimeUnit
 import kotlin.coroutines.CoroutineContext
 
 
 class MainViewModel : BaseViewModel() {
     private var parentJob = Job()
-    val retrofit = ApiClient.getClient()
+    val apiFloor1 = ApiClient.getClientFloor1()
+    val apiFloor2 = ApiClient.getClientFloor2()
+
     // By default all the coroutines launched in this scope should be using the Main dispatcher
     private val coroutineContext: CoroutineContext
         get() = parentJob + Dispatchers.Main
@@ -44,7 +48,6 @@ class MainViewModel : BaseViewModel() {
     val subSwRespon: MutableLiveData<List<SwitchDetailEntity>> = MutableLiveData()
 
     init {
-        Timber.e("init")
         val roomDao = IoTDbsDatabase.getInstance(IotDBSApplication.instance)?.roomDao()
         repository = RoomRepository(roomDao!!)
         val switchDao = IoTDbsDatabase.getInstance(IotDBSApplication.instance)?.switchDao()
@@ -53,14 +56,12 @@ class MainViewModel : BaseViewModel() {
         repositoryScript = ScriptRepository(scriptDao!!)
         val subSwitchDao = IoTDbsDatabase.getInstance(IotDBSApplication.instance)?.switchDetailDao()
         repositorySubSwitch = SubSwichRepository(subSwitchDao!!)
-        //repository.insertAll()
     }
 
     fun loadData(lifecycleOwner: LifecycleOwner, floor: Int) {
         repository.loadRoomByFloor(floor).observe(lifecycleOwner, Observer {
             devicesRes.postValue(it)
         })
-        // resRoom.postValue()
     }
 
     fun loadAllData(lifecycleOwner: LifecycleOwner) {
@@ -70,20 +71,7 @@ class MainViewModel : BaseViewModel() {
         // resRoom.postValue()
     }
 
-    //    fun loadAllDataTest( lifecycleOwner: LifecycleOwner) {
-//        repository.loadDatatoRemote().flatMap {  }
-//        repository.allRooms.observe(lifecycleOwner, Observer {
-//            devicesRes.postValue(it)
-//        })
-//        // resRoom.postValue()
-//    }
     fun exe(lifecycleOwner: LifecycleOwner, pass: String) {
-//        Timber.e("call api exe")
-//        repository.loginRemote().observeOn(AndroidSchedulers.mainThread())
-//                .subscribeOn(Schedulers.io())
-//                .doOnSubscribe {
-//                    Timber.e("call api success")
-//                    loadAllData(lifecycleOwner) }
         val request = LoginSuperVisorRequest();
         Timber.e("call loginRemote")
         request.password = "fd6aa3889d2415bcbc13803f303f1137"
@@ -93,10 +81,10 @@ class MainViewModel : BaseViewModel() {
         Timber.e("call loginRemote")
         requestLogin.password = "fd6aa3889d2415bcbc13803f303f1137"
         requestLogin.username = "e92947d6-2dcf-3375-b3c8-7789f969de6a"
-        retrofit.loginSupervisor(request)
+        apiFloor1.loginSupervisor(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap({it -> retrofit.login(requestLogin)})
+                .flatMap({ it -> apiFloor2.login(requestLogin) })
                 .subscribe { t1: ApiResult<LoginEntity>?, t2: Throwable? ->
 
                 }
@@ -106,36 +94,68 @@ class MainViewModel : BaseViewModel() {
 
     }
 
+    fun exeGetStateFromRemote() {
+        var mListSWFl1: MutableList<SwitchDetailEntity> = mutableListOf()
+        var mListSWFl2: MutableList<String> = mutableListOf()
+        repositorySubSwitch.loadAllSubSwitchFloor(1)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe { loading.postValue(true) }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError {
+                    loading.postValue(false)
+                    error.postValue(it)
+                }
+                .flatMap({ it ->
+                    mListSWFl1.addAll(it)
+                    return@flatMap apiFloor2.getStateGroup(ConfigNetwork.mIoTServerFloor2,
+                            ConfigNetwork.mIoTServerNameFloor2, ConfigNetwork.mIoTClientNameFloor2, ConfigNetwork.mGroupNameReportDeviceFloor2);
+                })
+                .doOnError {
+                    loading.postValue(false)
+                    error.postValue(it)
+                }
+                .timeout(20, TimeUnit.SECONDS)
+                .subscribe { t1: ResponGetStateGroup?, t2: Throwable? ->
+                    try {
+                        if (t1!!.responsePrimitive.size > 0)
+                            for (i in 0..t1!!.responsePrimitive.size) {
+                                if (t1!!.responsePrimitive[i].content.con.sw_report == 1)
+                                    mListSWFl1[i].isChecked = true
+                                else
+                                    mListSWFl1[i].isChecked = false
+                            }
+                        updateListSubSW(mListSWFl1)
+                    } catch (ex: Exception) {
+                        loading.postValue(false)
+                        ex.printStackTrace()
+                        error.postValue(ex)
+                    }
+
+                }
+    }
+
     fun loadDataSwitch(lifecycleOwner: LifecycleOwner, idRoom: Int) {
         repositorySwitch.loadSwitchByRoomId(idRoom).observe(lifecycleOwner, Observer {
             swRespon.postValue(it)
         })
-        // resRoom.postValue()
     }
 
     fun loadAllDataSwitch(lifecycleOwner: LifecycleOwner) {
         repositorySwitch.loadAllSwitch().observe(lifecycleOwner, Observer {
             swRespon.postValue(it)
         })
-        // resRoom.postValue()
     }
 
     fun loadAllDataSwitchbyFloor(lifecycleOwner: LifecycleOwner, floor: Int) {
         repositorySwitch.loadAllSwitchByFloor(floor).observe(lifecycleOwner, Observer {
             swRespon.postValue(it)
         })
-        // resRoom.postValue()
     }
 
     fun loadAllSubSwitch(lifecycleOwner: LifecycleOwner) {
-        val listSW: MutableList<Switch> = ArrayList()
         repositorySubSwitch.loadAllSubSwitch().observe(lifecycleOwner, Observer {
             switchRespon.postValue(it)
         })
-//        Timber.e("loadSubSwitchBySwitchId= "+switch.id)
-//        repositorySubSwitch.loadSwitchBySwitchId(switch.id).map {
-//            switchRespon.postValue(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, it))
-//        }
     }
 
     fun loadSubSwitchBySwitchId(lifecycleOwner: LifecycleOwner, ids: List<String>) {
@@ -144,17 +164,12 @@ class MainViewModel : BaseViewModel() {
             switchRespon.postValue(it)
 
         })
-//        Timber.e("loadSubSwitchBySwitchId= "+switch.id)
-//        repositorySubSwitch.loadSwitchBySwitchId(switch.id).map {
-//            switchRespon.postValue(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, it))
-//        }
     }
 
     fun loadDataSubSwitch(lifecycleOwner: LifecycleOwner, idSwitch: String) {
         repositorySubSwitch.loadSwitchBySwitchId(idSwitch).observe(lifecycleOwner, Observer {
             subSwRespon.postValue(it)
         })
-        // resRoom.postValue()
     }
 
     override fun onCleared() {
@@ -164,6 +179,8 @@ class MainViewModel : BaseViewModel() {
 
     private fun handleError(throwable: Throwable) {
         error.value = throwable
+        loading.postValue(false)
+        Timber.e("here" + error.value)
     }
 
     fun insert(room: List<RoomEntity>) = scope.launch(Dispatchers.IO) {
@@ -182,10 +199,15 @@ class MainViewModel : BaseViewModel() {
         repositoryScript.insert(obj)
     }
 
+    fun updateListSubSW(list: List<SwitchDetailEntity>) = scope.launch(Dispatchers.IO) {
+        repositorySubSwitch.updateList(list)
+    }
+
     fun loadDataScript(lifecycleOwner: LifecycleOwner) {
         repositoryScript.loadAllScript().observe(lifecycleOwner, Observer {
             scriptsRes.postValue(it)
         })
         // resRoom.postValue()
     }
+
 }

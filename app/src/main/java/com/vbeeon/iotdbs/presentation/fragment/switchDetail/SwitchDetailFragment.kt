@@ -34,13 +34,14 @@ import timber.log.Timber
 class SwitchDetailFragment : BaseFragment() {
     val mListSwitch: MutableList<SwitchDetailEntity> = ArrayList()
     lateinit var mainViewModel: MainViewModel
-    lateinit var adapterSwitch : SwitchDetailAdapter
-    var switchId : String =""
-    var switchName : String = ""
-    lateinit var modalbottomSheetFragment : ListRoomBottomDialog
-    lateinit var detalbottomSheetFragment : DetailSwitchBottomDialog
+    lateinit var adapterSwitch: SwitchDetailAdapter
+    var switchId: String = ""
+    var switchName: String = ""
+    lateinit var modalbottomSheetFragment: ListRoomBottomDialog
+    lateinit var detalbottomSheetFragment: DetailSwitchBottomDialog
+
     companion object {
-        fun newInstance(id: String, name:String): SwitchDetailFragment {
+        fun newInstance(id: String, name: String): SwitchDetailFragment {
             val fragment = SwitchDetailFragment()
             val args = Bundle()
             args.putString("switch_id", id)
@@ -49,6 +50,7 @@ class SwitchDetailFragment : BaseFragment() {
             return fragment
         }
     }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.getString("switch_id")?.let {
@@ -76,14 +78,14 @@ class SwitchDetailFragment : BaseFragment() {
         tv_toolbar_title.text = ""
         imgBack.visibility = View.VISIBLE
         initRcvSwitch()
-        Timber.e(""+switchId+switchName)
+        Timber.e("" + switchId + switchName)
 
-        modalbottomSheetFragment = ListRoomBottomDialog(switchId,doneClick = {
+        modalbottomSheetFragment = ListRoomBottomDialog(switchId, doneClick = {
             Timber.e("dialog dimis")
             modalbottomSheetFragment.dismiss()
         })
         tvLocationRoom.setOnSafeClickListener {
-            modalbottomSheetFragment.show(childFragmentManager,modalbottomSheetFragment.tag)
+            //modalbottomSheetFragment.show(childFragmentManager,modalbottomSheetFragment.tag)
         }
 //        detalbottomSheetFragment = DetailSwitchBottomDialog(switchId, doneClick = {
 //            detalbottomSheetFragment.dismiss()
@@ -94,10 +96,10 @@ class SwitchDetailFragment : BaseFragment() {
         adapterSwitch = context?.let {
             SwitchDetailAdapter(it, itemClick = {
                 Timber.d("click item framgment")
-              detalbottomSheetFragment.show(childFragmentManager, detalbottomSheetFragment.tag)
+
             })
         }!!
-        rcvListSwitchDetal.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL ,false)
+        rcvListSwitchDetal.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         rcvListSwitchDetal.apply { adapter = adapterSwitch }
 
         val switchOne: MutableList<SwitchDetailEntity> = ArrayList()
@@ -113,11 +115,10 @@ class SwitchDetailFragment : BaseFragment() {
     }
 
 
-
     override fun observable() {
         mainViewModel.subSwRespon.observe(this, Observer {
             //create switch
-            Timber.d("list "+it.size)
+            Timber.d("list " + it.size)
             adapterSwitch.setDatas(it)
         })
 

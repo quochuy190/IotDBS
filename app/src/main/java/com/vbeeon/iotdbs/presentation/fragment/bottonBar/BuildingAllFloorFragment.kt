@@ -56,7 +56,10 @@ class BuildingAllFloorFragment : BaseFragment() {
         tvNhietDo2.text = "25 " + 0x00B0.toChar()+"C"
         Glide.with(this).load(R.drawable.img_build_all).into(imgCoverBuildingAll)
         adapterSwitch1 = context?.let { SwitchBuildingAdapter(it, doneClick = {
-
+            (context as MainActivity).launchActivity<SwitchDetailActivity>{
+                putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mListSwitch1[it].id)
+                putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mListSwitch1[it].name)
+            }
         }) }!!
         rcvListSWFloor1.layoutManager = GridLayoutManager(context, 2)
         rcvListSWFloor1.apply { adapter = adapterSwitch1 }

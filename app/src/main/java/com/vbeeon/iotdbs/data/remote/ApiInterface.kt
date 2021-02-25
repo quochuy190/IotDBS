@@ -18,8 +18,21 @@ interface ApiInterface {
     fun getMovieDetails(@Path("movie_id") id: Int): Single<User>
 
     @POST("api/v1/subscriber/login")
-    fun login(            @Body loginRequest: LoginRequest): Single<ApiResult<LoginEntity>>
+    fun login(@Body loginRequest: LoginRequest): Single<ApiResult<LoginEntity>>
 
     @POST("api/v1/supervisor/login")
     fun loginSupervisor(@Body request: LoginSuperVisorRequest): Single<ApiResult<LoginSupervisorRemoteEntity>>
+
+    @POST("{iotserver_id}/{iotserver_name}/{iotclient_name}/{group_name}")
+    fun createGroup(@Body request: CreateGroupRequest,
+                    @Path("iotserver_id") iotserver_id: String,
+                    @Path("iotserver_name") iotserver_name: String,
+                    @Path("iotclient_name") iotclient_name: String,
+                    @Path("group_name") id: String): Single<ApiResult<LoginSupervisorRemoteEntity>>
+
+    @POST("{iotserver_id}/{iotserver_name}/{iotclient_name}/{group_name}/fopt")
+    fun getStateGroup(@Path("iotserver_id") iotserver_id: String,
+                      @Path("iotserver_name") iotserver_name: String,
+                      @Path("iotclient_name") iotclient_name: String,
+                      @Path("group_name") id: String): Single<ResponGetStateGroup>
 }

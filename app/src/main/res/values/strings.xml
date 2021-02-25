@@ -4,6 +4,8 @@
     <string name="title_permission">Quyền truy cập</string>
     <string name="message_error_permission">Một số quyền chưa được cấp. Hãy vào cài đặt và cấp quyền để ứng dụng có thể hoạt động bình thường.</string>
     <string name="exit">Thoát</string>
+    <string name="title_notify">Thông báo</string>
+    <string name="system_error">Lỗi kết nối, kiểm tra lại mạng và thử lại</string>
     <string name="menu_home">Thoát</string>
     <string name="menu_menu">Thoát</string>
     <string name="menu_sun">Thoát</string>
