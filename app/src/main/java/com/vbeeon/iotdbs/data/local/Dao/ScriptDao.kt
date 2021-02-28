@@ -18,7 +18,7 @@ import io.reactivex.rxjava3.core.Single
 @Dao
 interface ScriptDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertRoomEntity(room: ScriptEntity)
+    fun insertEntity(room: ScriptEntity)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertListEntity(list: List<ScriptEntity>)
@@ -26,8 +26,8 @@ interface ScriptDao {
     @Query("SELECT * FROM script_entity")
     fun loadAllScript(): LiveData<List<ScriptEntity>>
 
-    @Query("SELECT * FROM script_entity WHERE room_id IN (:room_id)")
-    fun loadScriptByIdRoom(room_id: Int): LiveData<List<ScriptEntity>>
+    @Query("SELECT * FROM script_entity WHERE type IN (:type)")
+    fun loadScriptByType(type: Int): LiveData<List<ScriptEntity>>
 
     @Query("DELETE FROM script_entity WHERE script_id = :id")
     fun deleteObj(id: Int)

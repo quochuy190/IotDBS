@@ -11,7 +11,6 @@ import com.vbeeon.iotdbs.presentation.fragment.bottonBar.MenuFragment
 import com.vbeeon.iotdbs.presentation.fragment.bottonBar.ScriptFragment
 import com.vbeeon.iotdbs.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
-import timber.log.Timber
 
 
 @Suppress("DEPRECATION")
@@ -31,7 +30,7 @@ class MainFragment : BaseFragment() {
 
     override fun initView() {
         pull_refesh.setOnRefreshListener {
-           // refreshAction()                    // refresh your list contents somehow
+            // refreshAction()                    // refresh your list contents somehow
             mainViewModel.exeGetStateFromRemote1()
             pull_refesh.isRefreshing = false
             // reset the SwipeRefreshLayout (stop the loading spinner)
@@ -54,15 +53,15 @@ class MainFragment : BaseFragment() {
         bnv.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.it_script -> {
-                    vp_main.currentItem =0
+                    vp_main.currentItem = 0
                     //( context as MainActivity).setTitleMain(getString(R.string.menu_home))
                 }
                 R.id.it_building -> {
-                    vp_main.currentItem =1
+                    vp_main.currentItem = 1
                     //( context as MainActivity).setTitleMain(getString(R.string.menu_monitoring))
                 }
                 R.id.it_menu -> {
-                    vp_main.currentItem =2
+                    vp_main.currentItem = 2
                     //( context as MainActivity).setTitleMain(getString(R.string.menu_online))
                 }
             }
@@ -73,18 +72,21 @@ class MainFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
     }
+
     override fun initViewModel() {
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         mainViewModel.loading.observeForever(this::showProgressDialog)
-        mainViewModel.error.observeForever({ throwable -> showDialogMessage(context,
-                getString(R.string.system_error)) })
+        mainViewModel.error.observeForever({ throwable ->
+            showDialogMessage(context, getString(R.string.system_error))
+            initViewPager();
+        })
 
         mainViewModel.exeGetStateFromRemote1()
         mainViewModel.resGetStateMain.observe(this, Observer {
             if (it)
                 initViewPager();
         })
-        //initViewPager();
+        initViewPager();
     }
 
     override fun observable() {

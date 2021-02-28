@@ -1,19 +1,23 @@
 package com.vbeeon.iotdbs.presentation.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.bumptech.glide.Glide
+import androidx.appcompat.app.AppCompatActivity
 import com.vbeeon.iotdbs.R
-import com.vbeeon.iotdbs.presentation.fragment.MainFragment
+import com.vbeeon.iotdbs.presentation.fragment.login.IntroduceFragment
 import com.vbeeon.iotdbs.presentation.fragment.login.LoginFragment
+import com.vbeeon.iotdbs.utils.SharedPrefs
 import com.vbeeon.iotdbs.utils.openFragment
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_splashscreen.*
+import vn.neo.smsvietlott.common.di.util.ConstantCommon
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        openFragment(LoginFragment(), false)
+        val isFirs =
+            SharedPrefs.instance.get(ConstantCommon.IS_FIRST_OPEN_APP, Boolean::class.java)
+        if (!isFirs)
+            openFragment(IntroduceFragment(), false)
+        else
+            openFragment(LoginFragment(), false)
     }
 }

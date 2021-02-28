@@ -13,20 +13,22 @@ import androidx.room.PrimaryKey
  * Time: 22:16
  * Version: 1.0
  */
-@Entity(tableName = "script_entity", foreignKeys = arrayOf(
-        ForeignKey(entity = RoomEntity::class,
-                parentColumns = arrayOf("room_id"),
-                childColumns = arrayOf("room_id"),
-                onDelete = CASCADE)))
+@Entity(tableName = "script_entity")
 data class ScriptEntity(
         @PrimaryKey()
         @ColumnInfo(name = "script_id")
-        val id: Int,
-        @ColumnInfo(name = "room_id")
-        var idRoom: Int,
+        val id: Long,
+        @ColumnInfo(name = "script_des")
+        var description: String,
         @ColumnInfo(name = "script_name")
         val name: String,
         @ColumnInfo(name = "is_checked")
-        var isChecked: Boolean = false
+        var isChecked: Boolean = false,
+        @ColumnInfo(name = "mid")
+        var mid: List<String>,
+        @ColumnInfo(name = "control")
+        var control :Int,
+        @ColumnInfo(name = "type")
+        var type :Int
 
 )

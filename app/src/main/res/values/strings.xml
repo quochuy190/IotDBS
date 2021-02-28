@@ -10,6 +10,7 @@
     <string name="menu_menu">Thoát</string>
     <string name="menu_sun">Thoát</string>
     <string name="hind_email">Email</string>
+    <string name="hind_username">Tên đăng nhập</string>
     <string name="hind_wifi">Tên Wifi</string>
     <string name="hind_ip_gateway">IP Gateway</string>
     <string name="hind_name_gateway">Tên Gateway</string>
@@ -17,12 +18,19 @@
  TÍCH HỢP HỆ THỐNG (SI)</string>
     <string name="hind_pass">Mật khẩu</string>
     <string name="btnLogin">Đăng nhập</string>
+    <string name="btnStart">Bắt đầu</string>
     <string name="btnAddScript">Tạo ngữ cảnh</string>
     <string name="btnRemoveSwitch">Gỡ thiết bị</string>
     <string name="btnNext">Tiếp tục</string>
     <string name="tvRegister">Đăng ký</string>
     <string name="tvRemember">Quên mật khẩu</string>
+    <string name="tvIntro">Smart Building là hệ thống tòa nhà thông minh có nhiệm vụ tích hợp các thiết bị và tiện ích bên trong tòa nhà.</string>
+    <string name="tvScriptNull">Chưa có ngữ cảnh</string>
+
+    <string name="tvSlogan">IoT Digitalized Building Solution</string>
+    <string name="tvvnpt">VNPT IoT Platform</string>
     <string name="tvGuild">Hướng dẫn</string>
+    <string name="tvWelcome">Xin chào</string>
     <string name="tvEmtryPassWifi">Để trống nếu không có mật khẩu</string>
     <string name="tvConfig">Cấu hình</string>
     <string name="tvControl">Điều khiển</string>
@@ -60,7 +68,11 @@
     <string name="tvMenu_5">Trợ giúp</string>
     <string name="tvMenu_6">Đăng xuất</string>
 
-<!--    Script-->
+    <!--    Script-->
     <string name="hind_name_script">Tên kịch bản</string>
+
+    <string name="validate_Username">Bạn chưa nhập vào tên đăng nhập!</string>
+    <string name="validate_Pass">Bạn chưa nhập vào mật khẩu đăng nhập!</string>
+    <string name="error_login">Tài khoản hoặc mật khẩu không chính xác!</string>
 
 </resources>

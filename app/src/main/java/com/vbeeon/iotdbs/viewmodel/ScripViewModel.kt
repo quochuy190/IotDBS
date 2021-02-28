@@ -18,6 +18,7 @@ import com.vbeeon.iotdbs.data.repository.ScriptRepository
 import com.vbeeon.iotdbs.data.repository.SubSwichRepository
 import com.vbeeon.iotdbs.data.repository.SwichRepository
 import com.vbeeon.iotdbs.presentation.base.BaseViewModel
+import com.vbeeon.iotdbs.utils.SharedPrefs
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
@@ -29,13 +30,13 @@ import okhttp3.RequestBody
 import retrofit2.adapter.rxjava3.Result.response
 import timber.log.Timber
 import vn.neo.smsvietlott.common.di.util.ConfigNetwork
+import vn.neo.smsvietlott.common.di.util.ConstantCommon
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.CoroutineContext
 
 
-class LoginViewModel : BaseViewModel() {
+class ScripViewModel : BaseViewModel() {
     private var parentJob = Job()
-
     // By default all the coroutines launched in this scope should be using the Main dispatcher
     val apiFloor1 = ApiClient.getClientFloor1()
     val apiFloor2 = ApiClient.getClientFloor2()
@@ -66,80 +67,30 @@ class LoginViewModel : BaseViewModel() {
         //repository.insertAll()
     }
 
-    fun exeCreateGroupRemote(mListSWFl1: List<String>, listFL2: List<String>) {
-        try {
-            val groupFl1 = Group(ConfigNetwork.mGroupNameReportDeviceFloor1, 44, 67, mListSWFl1)
-            val mediaType: MediaType = MediaType.parse("application/json;ty=9")!!
-            val gson = Gson()
-            val responseString = gson.toJson(CreateGroupRequest(groupFl1))
-            val body = RequestBody.create(mediaType, responseString)
-            apiFloor1.createGroup(
-                ConfigNetwork.mIoTServerFloor1, ConfigNetwork.mIoTServerFloor1_2,
-                ConfigNetwork.mIoTServerNameFloor1, body
-            )
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { loading.postValue(true) }
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError {
-                    loading.postValue(false)
-                    error.postValue(it)
-                }
-                .subscribe { t1: CreateGroupRequest?, t2: Throwable? ->
-                    loading.postValue(false)
-                    resCreateGr.postValue(true)
-                }
-            val groupFl2 = Group(ConfigNetwork.mGroupNameReportDeviceFloor2, 44, 67, listFL2)
-            val responseStringFL2 = gson.toJson(CreateGroupRequest(groupFl2))
-            val bodyFL2 = RequestBody.create(mediaType, responseStringFL2)
-            apiFloor2.createGroup(
-                ConfigNetwork.mIoTServerFloor2, ConfigNetwork.mIoTServerFloor2_2,
-                ConfigNetwork.mIoTServerNameFloor2, bodyFL2
-            )
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { loading.postValue(true) }
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError {
-                    loading.postValue(false)
-                    error.postValue(it)
-                }
-                .subscribe { t1: CreateGroupRequest?, t2: Throwable? ->
-                    loading.postValue(false)
-                }
-        } catch (ex: Exception) {
-            loading.postValue(false)
-            ex.printStackTrace()
-            error.postValue(ex)
-        }
-
-
-
-    }
-
     override fun onCleared() {
         super.onCleared()
         Timber.e("here")
     }
 
-    fun insert(room: List<RoomEntity>) = scope.launch(Dispatchers.IO) {
-        repository.insertList(room)
+    fun insertScript() = scope.launch(Dispatchers.IO) {
+        var listAutoScript : MutableList<ScriptEntity> = mutableListOf()
+        var mListString : MutableList<String> = mutableListOf()
+        listAutoScript.add(ScriptEntity(0, "12h 30 tự động tắt đèn khu làm việc tầng 1", "Tắt đèn tầng 1", true, mListString, 1, 0))
+        listAutoScript.add(ScriptEntity(1, "13h 30 tự động bật đèn khu làm việc tầng 1", "Bật đèn tầng 1", true, mListString, 1, 0))
+        listAutoScript.add(ScriptEntity(2, "12h 30 tự động tắt đèn khu làm việc tầng 2", "Tắt đèn tầng 2", true, mListString, 1, 0))
+        listAutoScript.add(ScriptEntity(3, "12h 30 tự động bật đèn khu làm việc tầng 2", "Bật đèn tầng 2", true, mListString, 1, 0))
+        repositoryScript.insertList(listAutoScript)
+        SharedPrefs.instance.put(ConstantCommon.KEY_INSERT_AUTO_SCRIPT, true)
     }
 
-    fun insertSwitch(obj: List<SwitchEntity>) = scope.launch(Dispatchers.IO) {
-        repositorySwitch.insertList(obj)
+    fun loadDataScriptAuto(lifecycleOwner: LifecycleOwner) {
+        repositoryScript.loadScriptByRoomId(0).observe(lifecycleOwner, Observer {
+            scriptsRes.postValue(it)
+        })
+        // resRoom.postValue()
     }
-
-    fun insertSubSwitch(list: List<SwitchDetailEntity>) = scope.launch(Dispatchers.IO) {
-        repositorySubSwitch.insertList(list)
-    }
-
-    fun insertScript(obj: ScriptEntity) = scope.launch(Dispatchers.IO) {
-        repositoryScript.insert(obj)
-    }
-
     fun loadDataScript(lifecycleOwner: LifecycleOwner) {
-        repositoryScript.loadAllScript().observe(lifecycleOwner, Observer {
+        repositoryScript.loadScriptByRoomId(1).observe(lifecycleOwner, Observer {
             scriptsRes.postValue(it)
         })
         // resRoom.postValue()

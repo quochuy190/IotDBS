@@ -47,7 +47,7 @@ class ScriptAdapter internal constructor(context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemScriptBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context),
-                R.layout.item_room, parent, false)
+                R.layout.item_script, parent, false)
         return ViewHolder(binding)
     }
 

@@ -10,16 +10,26 @@ import com.vbeeon.iotdbs.data.local.entity.ScriptEntity
 class ScriptRepository(val scriptDao: ScriptDao) {
 
     fun loadScriptByRoomId(room_id: Int) :  LiveData<List<ScriptEntity>>{
-        return scriptDao.loadScriptByIdRoom(room_id)
+        return scriptDao.loadScriptByType(room_id)
     }
     fun loadAllScript() :  LiveData<List<ScriptEntity>>{
+        return scriptDao.loadAllScript()
+    }
+    fun loadAllScriptbByType(type: Int) :  LiveData<List<ScriptEntity>>{
         return scriptDao.loadAllScript()
     }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(obj: ScriptEntity) {
-        scriptDao.insertRoomEntity(obj)
+        scriptDao.insertEntity(obj)
+    }
+
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun insertList(list: List<ScriptEntity>) {
+        scriptDao.insertListEntity(list)
     }
 
     @Suppress("RedundantSuspendModifier")

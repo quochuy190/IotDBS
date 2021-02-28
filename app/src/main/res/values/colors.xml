@@ -19,6 +19,7 @@
     <color name="red">#FF2A00</color>
     <color name="appBar">#010D29</color>
     <color name="textAppBar">#3497FD</color>
+    <color name="textMain">#026BBE</color>
     <color name="textBtn">#374EA2</color>
     <color name="tvTimeClock">#00FFFF</color>
     <color name="leftMenu">#F7010D29</color>

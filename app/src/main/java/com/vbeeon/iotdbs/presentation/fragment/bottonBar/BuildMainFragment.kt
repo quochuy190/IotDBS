@@ -45,7 +45,7 @@ class BuildMainFragment : BaseFragment() {
         adapter.addFragment(BuildingFragment.newInstance(2), "Tầng 2")
         vpBuildingMain.adapter = adapter
         vpBuildingMain.setOffscreenPageLimit(3)
-        vpBuildingMain.setPageScrollEnabled(true)
+        vpBuildingMain.setPageScrollEnabled(false)
         vpBuildingMain.currentItem = 0
         tabBuildingMain.setupWithViewPager(vpBuildingMain)
 

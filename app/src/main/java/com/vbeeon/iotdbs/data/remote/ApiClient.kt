@@ -26,7 +26,7 @@ object ApiClient {
             .writeTimeout(REQUEST_TIMEOUT.toLong(), TimeUnit.SECONDS)
             .connectTimeout(REQUEST_TIMEOUT.toLong(), TimeUnit.SECONDS)
             .addInterceptor(httpLoggingInterceptor())
-            .addInterceptor(ApiExceptionInterceptor())
+          //  .addInterceptor(ApiExceptionInterceptor())
             .addInterceptor( HttpHeaderInterceptor())
             .build()
 

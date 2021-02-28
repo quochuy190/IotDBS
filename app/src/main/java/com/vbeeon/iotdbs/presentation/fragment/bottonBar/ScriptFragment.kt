@@ -10,6 +10,7 @@ import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.presentation.adapter.MainViewPagerAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
 import com.vbeeon.iotdbs.presentation.fragment.DemoFragment
+import com.vbeeon.iotdbs.presentation.fragment.script.AutoScriptFragment
 import com.vbeeon.iotdbs.presentation.fragment.script.ListSciptFragment
 import com.vbeeon.iotdbs.utils.setOnSafeClickListener
 import com.vbeeon.iotdbs.viewmodel.MainViewModel
@@ -53,10 +54,10 @@ class ScriptFragment : BaseFragment() {
     private fun initViewPager() {
         val adapter = MainViewPagerAdapter(childFragmentManager)
         adapter.addFragment(ListSciptFragment(), "Ngữ cảnh")
-        adapter.addFragment(DemoFragment(), "Tự động")
+        adapter.addFragment(AutoScriptFragment(), "Tự động")
         vpgScript.adapter = adapter
         vpgScript.setOffscreenPageLimit(2)
-        vpgScript.setPageScrollEnabled(true)
+        vpgScript.setPageScrollEnabled(false)
         tabScript.setupWithViewPager(vpgScript)
         setupTabIcons()
     }

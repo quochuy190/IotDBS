@@ -9,16 +9,20 @@ import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.data.local.entity.SwitchDetailEntity
 import com.vbeeon.iotdbs.data.model.ItemMenu
 import com.vbeeon.iotdbs.data.model.Switch
+import com.vbeeon.iotdbs.presentation.activity.LoginActivity
 import com.vbeeon.iotdbs.presentation.adapter.ItemMenuAdapter
 import com.vbeeon.iotdbs.presentation.adapter.RoomBuildAdapter
 import com.vbeeon.iotdbs.presentation.adapter.SwitchBuildingAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
+import com.vbeeon.iotdbs.utils.SharedPrefs
+import com.vbeeon.iotdbs.utils.launchActivity
 import com.vbeeon.iotdbs.utils.setOnSafeClickListener
 import com.vbeeon.iotdbs.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_building.*
 import kotlinx.android.synthetic.main.fragment_menu.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 import timber.log.Timber
+import vn.neo.smsvietlott.common.di.util.ConstantCommon
 
 
 @Suppress("DEPRECATION")
@@ -45,7 +49,11 @@ class MenuFragment : BaseFragment() {
         imgBack.visibility = View.INVISIBLE
         adapterMenu = context?.let {
             ItemMenuAdapter(it, doneClick = {
-
+                if (it==6){
+                    SharedPrefs.instance.put(ConstantCommon.IS_LOGIN, false)
+                    activity?.finish()
+                    activity?.launchActivity<LoginActivity>()
+                }
             })
         }!!
         rcvMenu.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL ,false)

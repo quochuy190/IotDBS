@@ -31,6 +31,7 @@ abstract class BaseFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(getLayoutRes(), container, false)
         progressDialog = ProgressDialog(context)
+        progressDialog.setCancelable(false)
         return view
     }
 
