@@ -17,6 +17,7 @@
  TÍCH HỢP HỆ THỐNG (SI)</string>
     <string name="hind_pass">Mật khẩu</string>
     <string name="btnLogin">Đăng nhập</string>
+    <string name="btnAddScript">Tạo ngữ cảnh</string>
     <string name="btnRemoveSwitch">Gỡ thiết bị</string>
     <string name="btnNext">Tiếp tục</string>
     <string name="tvRegister">Đăng ký</string>

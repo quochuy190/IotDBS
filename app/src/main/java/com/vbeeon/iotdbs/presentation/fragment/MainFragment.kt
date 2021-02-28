@@ -1,6 +1,7 @@
 package com.vbeeon.iotdbs.presentation.fragment
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.presentation.adapter.MainViewPagerAdapter
@@ -10,6 +11,7 @@ import com.vbeeon.iotdbs.presentation.fragment.bottonBar.MenuFragment
 import com.vbeeon.iotdbs.presentation.fragment.bottonBar.ScriptFragment
 import com.vbeeon.iotdbs.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
+import timber.log.Timber
 
 
 @Suppress("DEPRECATION")
@@ -30,12 +32,13 @@ class MainFragment : BaseFragment() {
     override fun initView() {
         pull_refesh.setOnRefreshListener {
            // refreshAction()                    // refresh your list contents somehow
-            pull_refesh.isRefreshing = false   // reset the SwipeRefreshLayout (stop the loading spinner)
+            mainViewModel.exeGetStateFromRemote1()
+            pull_refesh.isRefreshing = false
+            // reset the SwipeRefreshLayout (stop the loading spinner)
         }
     }
 
     private fun initViewPager() {
-        mainViewModel.exeGetStateFromRemote()
         val adapter = MainViewPagerAdapter(childFragmentManager)
         adapter.addFragment(ScriptFragment(), "")
         adapter.addFragment(BuildMainFragment(), "")
@@ -67,26 +70,21 @@ class MainFragment : BaseFragment() {
         }
     }
 
-//    private fun initViewPager() {
-//        val adapter = MainViewPagerAdapter(childFragmentManager)
-//        adapter.addFragment(SwitchDetailFragment(), "")
-//        adapter.addFragment(BuildingFragment(), "")
-//        adapter.addFragment(ScriptFragment(), "")
-//
-//        vp_main.adapter = adapter
-//        vp_main.setOffscreenPageLimit(3)
-//        vp_main.setPageScrollEnabled(false)
-//        vp_main.currentItem = 1
-//        bnv.setSelectedItemId(R.id.it_building);
-//
-//    }
-
+    override fun onResume() {
+        super.onResume()
+    }
     override fun initViewModel() {
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         mainViewModel.loading.observeForever(this::showProgressDialog)
         mainViewModel.error.observeForever({ throwable -> showDialogMessage(context,
                 getString(R.string.system_error)) })
-        initViewPager();
+
+        mainViewModel.exeGetStateFromRemote1()
+        mainViewModel.resGetStateMain.observe(this, Observer {
+            if (it)
+                initViewPager();
+        })
+        //initViewPager();
     }
 
     override fun observable() {

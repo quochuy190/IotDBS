@@ -6,25 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
-    <TextView
-        android:id="@+id/tvTitle"
-        app:layout_constraintHeight_percent="0.055"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        style="@style/TextSp18"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="@string/tvSetup"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"/>
-    <View
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/grey_80"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_05dp"/>
+    <include layout="@layout/toolbar_main"/>
 
     <TextView
 
@@ -38,7 +20,7 @@
         app:layout_constraintDimensionRatio="1:1"
         android:src="@drawable/ic_logo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@+id/appBarMain"
         android:layout_width="0dp"
         android:layout_height="0dp"/>
 

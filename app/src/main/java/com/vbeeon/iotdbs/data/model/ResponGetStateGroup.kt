@@ -1,3 +1,7 @@
 package com.vbeeon.iotdbs.data.model
 
-data class ResponGetStateGroup(val responsePrimitive: List<ResponSubSw>)
+import com.google.gson.annotations.SerializedName
+
+data class ResponGetStateGroup(
+    @SerializedName("responsePrimitive")
+    val responsePrimitive: List<ResponSubSw>)

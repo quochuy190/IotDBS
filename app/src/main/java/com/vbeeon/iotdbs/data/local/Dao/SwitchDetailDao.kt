@@ -32,6 +32,9 @@ interface SwitchDetailDao {
     fun loadAllSubSwitchByFloor(floor: Int): List<SwitchDetailEntity>
 
     @Query("SELECT * FROM switch_detail_entity WHERE switch_id IN (:switch_id)")
+    fun loadAllSubSwitchBySWid(switch_id: String): List<SwitchDetailEntity>
+
+    @Query("SELECT * FROM switch_detail_entity WHERE switch_id IN (:switch_id)")
     fun loadSubSwitchByIdSwitch(switch_id: String): LiveData<List<SwitchDetailEntity>>
 
     @Query("SELECT * FROM switch_detail_entity WHERE switch_id IN (:switch_ids)")

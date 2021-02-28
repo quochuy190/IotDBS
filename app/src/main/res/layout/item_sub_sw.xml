@@ -25,6 +25,7 @@
             app:layout_constraintTop_toTopOf="@+id/cbSubSW" />
 
         <CheckBox
+            android:checked="@{data.checked}"
             android:id="@+id/cbSubSW"
             android:layout_marginTop="@dimen/dimen_15dp"
             app:layout_constraintTop_toTopOf="parent"

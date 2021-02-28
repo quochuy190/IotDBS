@@ -17,13 +17,13 @@ import java.io.Serializable
  */
 
 data class Switch(
-        val id: String,
-        var idRoom: Int,
-        val name: String,
-        var isChecked: Boolean = false,
-        var type: Int, //công tắc 1, công tắc 2, công tắc 3, ...,
-        var listSubSw : List<SwitchDetailEntity>,
-        var floor: Int,
-        var nameRoom: String,
-        var typeView: Int
+    val id: String,
+    var idRoom: Int,
+    val name: String,
+    var isChecked: Boolean = false,
+    var type: Int, //công tắc 1, công tắc 2, công tắc 3, ...,
+    var listSubSw: List<SwitchDetailEntity>,
+    var floor: Int,
+    var nameRoom: String,
+    var typeView: Int
 ) : Serializable

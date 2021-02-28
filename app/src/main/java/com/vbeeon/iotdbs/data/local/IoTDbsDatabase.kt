@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.vbeeon.iotdbs.data.local.Dao.RoomDao
 import com.vbeeon.iotdbs.data.local.Dao.ScriptDao
 import com.vbeeon.iotdbs.data.local.Dao.SwitchDao
@@ -18,7 +19,8 @@ import com.vbeeon.iotdbs.data.local.entity.*
  * Version: 1.0
  */
 @Database(entities = arrayOf(RoomEntity::class, UserEntity::class,
-        SwitchEntity::class, SwitchDetailEntity::class, ScriptEntity::class), version = 1)
+        SwitchEntity::class, SwitchDetailEntity::class, ScriptEntity::class, GroupEntity::class), version = 1)
+@TypeConverters(StringListConverter::class)
 abstract class IoTDbsDatabase : RoomDatabase() {
 
     abstract fun roomDao(): RoomDao

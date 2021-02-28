@@ -118,12 +118,12 @@
 
     <Button
         android:layout_margin="@dimen/dimen_5dp"
-        android:id="@+id/buttonLogin"
+        android:id="@+id/btnAddScript"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/height_toolbar"
         android:background="@drawable/shape_button_blue"
-        android:text="@string/btnLogin"
+        android:text="@string/btnAddScript"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_16"
         app:layout_constraintEnd_toEndOf="parent"

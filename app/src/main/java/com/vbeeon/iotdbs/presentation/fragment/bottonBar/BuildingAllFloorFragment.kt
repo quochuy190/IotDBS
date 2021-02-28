@@ -46,7 +46,12 @@ class BuildingAllFloorFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
-
+    override fun onResume() {
+        super.onResume()
+        Timber.e("resume")
+        // mainViewModel.exeGetStateFromRemote1()
+      //  mainViewModel.loadAllDataSwitch(this)
+    }
     override fun getLayoutRes(): Int {
         return R.layout.fragment_building_all_floor
     }

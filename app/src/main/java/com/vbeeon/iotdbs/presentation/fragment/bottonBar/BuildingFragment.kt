@@ -31,9 +31,10 @@ class BuildingFragment : BaseFragment() {
     val mListSW: MutableList<SwitchDetailEntity> = ArrayList()
     val mList: MutableList<Switch> = ArrayList()
     lateinit var mainViewModel: MainViewModel
-    lateinit var adapterRoom : RoomBuildAdapter
-    lateinit var adapterSwitch : SwitchBuildingAdapter
-    var floor : Int =-1
+    lateinit var adapterRoom: RoomBuildAdapter
+    lateinit var adapterSwitch: SwitchBuildingAdapter
+    var floor: Int = -1
+
     companion object {
         fun newInstance(floor: Int): BuildingFragment {
             val fragment = BuildingFragment()
@@ -50,6 +51,7 @@ class BuildingFragment : BaseFragment() {
             floor = it
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -60,42 +62,51 @@ class BuildingFragment : BaseFragment() {
     }
 
     override fun initView() {
-        lableFloor.text = "Tầng "+ floor
-        tvNhietDo.text = "20 " + 0x00B0.toChar()+"C"
-        if (floor==1)
+        lableFloor.text = "Tầng " + floor
+        tvNhietDo.text = "20 " + 0x00B0.toChar() + "C"
+        if (floor == 1)
             Glide.with(this).load(R.drawable.cover_floor_one).into(imgCoverBuilding)
         else
             Glide.with(this).load(R.drawable.cover_floor_two).into(imgCoverBuilding)
-        adapterRoom = context?.let { RoomBuildAdapter(it, doneClick = {
-            for (item in mListRoom){
-                if (mListRoom[it].id==item.id){
-                    item.isSelected = true
-                }else{
-                    item.isSelected = false
+        adapterRoom = context?.let {
+            RoomBuildAdapter(it, doneClick = {
+                for (item in mListRoom) {
+                    if (mListRoom[it].id == item.id) {
+                        item.isSelected = true
+                    } else {
+                        item.isSelected = false
+                    }
                 }
-            }
-            rcvRoomBuildingView.scrollToPosition(it)
-            adapterRoom.notifyDataSetChanged()
-            Timber.e(""+ mListRoom[it].id)
-            mListSwitch.clear()
-            mainViewModel.loadDataSwitch(this, mListRoom[it].id)
-        }) }!!
-        rcvRoomBuildingView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL ,false)
+                rcvRoomBuildingView.scrollToPosition(it)
+                adapterRoom.notifyDataSetChanged()
+                Timber.e("" + mListRoom[it].id)
+                mListSwitch.clear()
+                mainViewModel.loadDataSwitch(this, mListRoom[it].id)
+            })
+        }!!
+        rcvRoomBuildingView.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         rcvRoomBuildingView.apply { adapter = adapterRoom }
-       // recyclerView.layoutManager = LinearLayoutManager(this)
+        // recyclerView.layoutManager = LinearLayoutManager(this)
         initRcvSwitch()
 
     }
-
+    override fun onResume() {
+        super.onResume()
+        Timber.e("resume")
+        // mainViewModel.exeGetStateFromRemote1()
+      //  mainViewModel.loadData(this, floor)
+    }
     private fun initRcvSwitch() {
         adapterSwitch = activity?.let {
             SwitchBuildingAdapter(it, doneClick = {
 //                (context as MainActivity).
 //                openFragment(SwitchDetailFragment.newInstance(mListSwitch[it].id,mListSwitch[it].name ), true)
-                (context as MainActivity).launchActivity<SwitchDetailActivity>{
-                    putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mListSwitch[it].id)
-                    putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mListSwitch[it].name)
-                }
+                if (mListSwitch[it].type != 4)
+                    (context as MainActivity).launchActivity<SwitchDetailActivity> {
+                        putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mListSwitch[it].id)
+                        putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mListSwitch[it].name)
+                    }
             })
         }!!
         rcvSwitchBuildingView.layoutManager = GridLayoutManager(context, 2)
@@ -108,23 +119,22 @@ class BuildingFragment : BaseFragment() {
     }
 
 
-
     override fun observable() {
         mainViewModel.devicesRes.observe(this, Observer {
             mListRoom.clear()
             mListRoom.addAll(it)
             adapterRoom.setDatas(mListRoom)
             //create switch
-            Timber.e("room id"+ mListRoom[0].id)
+            Timber.e("room id" + mListRoom[0].id)
             mListSwitch.clear()
             mainViewModel.loadDataSwitch(this, mListRoom[0].id)
         })
         mainViewModel.swRespon.observe(this, Observer {
             mListSwitch.clear()
             mListSwitch.addAll(it)
-            Timber.e("switchs = "+it.size)
-            var ids : MutableList<String> = mutableListOf()
-            for (switch in it){
+            Timber.e("switchs = " + it.size)
+            var ids: MutableList<String> = mutableListOf()
+            for (switch in it) {
                 ids.add(switch.id)
             }
             mainViewModel.loadSubSwitchBySwitchId(this, ids)
@@ -133,15 +143,27 @@ class BuildingFragment : BaseFragment() {
             mList.clear()
             mListSW.clear()
             mListSW.addAll(it)
-            Timber.e("size sw="+it.size)
-            for (switch in mListSwitch){
-                var subSw : MutableList<SwitchDetailEntity> = mutableListOf()
-                for (sw in mListSW){
-                    if (switch.id.equals(sw.idSwitch)){
+            Timber.e("size sw=" + it.size)
+            for (switch in mListSwitch) {
+                var subSw: MutableList<SwitchDetailEntity> = mutableListOf()
+                for (sw in mListSW) {
+                    if (switch.id.equals(sw.idSwitch)) {
                         subSw.add(sw)
                     }
                 }
-                mList.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw, switch.floor, switch.nameRoom, 2))
+                mList.add(
+                    Switch(
+                        switch.id,
+                        switch.idRoom,
+                        switch.name,
+                        switch.isChecked,
+                        switch.type,
+                        subSw,
+                        switch.floor,
+                        switch.nameRoom,
+                        2
+                    )
+                )
             }
             adapterSwitch.setDatas(mList)
         })

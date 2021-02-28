@@ -32,8 +32,8 @@ class SetupScriptFragment : BaseFragment() {
     val mListSwitch: MutableList<SwitchEntity> = ArrayList()
     val mListSW: MutableList<SwitchDetailEntity> = ArrayList()
     val mList: MutableList<Switch> = ArrayList()
-    lateinit var adapterSwitch : SwitchListChoseAdapter
-    var floor : Int =-1
+    lateinit var adapterSwitch: SwitchListChoseAdapter
+    var floor: Int = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -52,7 +52,7 @@ class SetupScriptFragment : BaseFragment() {
         imgBack.visibility = View.VISIBLE
         tabFloor.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                when (tab.position){
+                when (tab.position) {
                     0 -> {
                         activity?.let { mainViewModel.loadAllDataSwitchbyFloor(it, 1) }
                     }
@@ -68,11 +68,18 @@ class SetupScriptFragment : BaseFragment() {
 
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
-        adapterSwitch = context?.let { SwitchListChoseAdapter(it, doneClick = {
+        adapterSwitch = context?.let {
+            SwitchListChoseAdapter(it, doneClick = {
 
-        }) }!!
-        rcvSWbyFloor.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL ,false)
+            })
+        }!!
+        rcvSWbyFloor.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         rcvSWbyFloor.apply { adapter = adapterSwitch }
+
+        btnAddScript.setOnSafeClickListener {
+            Timber.e("" + mList.size)
+        }
     }
 
     override fun initViewModel() {
@@ -84,9 +91,9 @@ class SetupScriptFragment : BaseFragment() {
         mainViewModel.swRespon.observe(this, Observer {
             mListSwitch.clear()
             mListSwitch.addAll(it)
-            Timber.e("switchs = "+it.size)
-            var ids : MutableList<String> = mutableListOf()
-            for (switch in it){
+            Timber.e("switchs = " + it.size)
+            var ids: MutableList<String> = mutableListOf()
+            for (switch in it) {
                 ids.add(switch.id)
             }
             mainViewModel.loadSubSwitchBySwitchId(this, ids)
@@ -95,15 +102,26 @@ class SetupScriptFragment : BaseFragment() {
             mList.clear()
             mListSW.clear()
             mListSW.addAll(it)
-            Timber.e("size sw="+it.size)
-            for (switch in mListSwitch){
-                var subSw : MutableList<SwitchDetailEntity> = mutableListOf()
-                for (sw in mListSW){
-                    if (switch.id.equals(sw.idSwitch)){
+            Timber.e("size sw=" + it.size)
+            for (switch in mListSwitch) {
+                var subSw: MutableList<SwitchDetailEntity> = mutableListOf()
+                for (sw in mListSW) {
+                    if (switch.id.equals(sw.idSwitch)) {
+                        sw.isChecked = false
                         subSw.add(sw)
                     }
                 }
-                mList.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw, switch.floor, switch.nameRoom, 2))
+                mList.add(
+                    Switch(
+                        switch.id, switch.idRoom, switch.name,
+                        false,
+                        switch.type,
+                        subSw,
+                        switch.floor,
+                        switch.nameRoom,
+                        2
+                    )
+                )
             }
             adapterSwitch.setDatas(mList)
         })

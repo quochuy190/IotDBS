@@ -1,6 +1,7 @@
 package com.vbeeon.iotdbs.presentation.fragment.bottonBar
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vbeeon.iotdbs.BuildConfig
@@ -12,9 +13,12 @@ import com.vbeeon.iotdbs.presentation.adapter.ItemMenuAdapter
 import com.vbeeon.iotdbs.presentation.adapter.RoomBuildAdapter
 import com.vbeeon.iotdbs.presentation.adapter.SwitchBuildingAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
+import com.vbeeon.iotdbs.utils.setOnSafeClickListener
 import com.vbeeon.iotdbs.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_building.*
 import kotlinx.android.synthetic.main.fragment_menu.*
+import kotlinx.android.synthetic.main.toolbar_main.*
+import timber.log.Timber
 
 
 @Suppress("DEPRECATION")
@@ -33,6 +37,12 @@ class MenuFragment : BaseFragment() {
     }
 
     override fun initView() {
+        imgBack.setOnSafeClickListener {
+            Timber.e("ib_toolbar_close.setOnSafeClickListener")
+            activity?.onBackPressed()
+        }
+        tv_toolbar_title.text = "Cài đặt"
+        imgBack.visibility = View.INVISIBLE
         adapterMenu = context?.let {
             ItemMenuAdapter(it, doneClick = {
 

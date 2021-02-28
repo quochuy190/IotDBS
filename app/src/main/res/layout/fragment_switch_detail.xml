@@ -76,18 +76,18 @@
                 app:tint="@color/black" />
 
             <TextView
+                android:textColor="@color/textAppBar"
                 android:id="@+id/tvLocationRoom"
-                style="@style/TextSp15"
+                style="@style/TextSp16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_5dp"
                 android:background="@drawable/bgr_tv_name_room_detail_switch"
-                android:paddingStart="@dimen/dimen_10dp"
+                android:paddingStart="@dimen/dimen_20dp"
                 android:paddingTop="@dimen/dimen_5dp"
-                android:paddingEnd="@dimen/dimen_10dp"
+                android:paddingEnd="@dimen/dimen_20dp"
                 android:paddingBottom="@dimen/dimen_5dp"
                 android:text="Phòng khách tầng 1/ tầng 2"
-                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/imgNextDetailSwitch"
                 app:layout_constraintStart_toEndOf="@id/imgNextDetailSwitch"
                 app:layout_constraintTop_toTopOf="@+id/imgNextDetailSwitch" />

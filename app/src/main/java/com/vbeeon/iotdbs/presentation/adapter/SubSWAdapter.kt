@@ -19,6 +19,7 @@ import com.vbeeon.iotdbs.databinding.ItemScriptBinding
 import com.vbeeon.iotdbs.databinding.ItemSubSwBinding
 import com.vbeeon.iotdbs.utils.setOnSafeClickListener
 import com.vbeeon.iotdbs.utils.setTextHTML
+import kotlinx.android.synthetic.main.item_sub_sw.view.*
 import timber.log.Timber
 
 
@@ -47,9 +48,9 @@ class SubSWAdapter internal constructor(val context: Context,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(listMenu[position])
-        holder.itemView.setOnSafeClickListener {
-            Timber.d("click item")
-            doneClick(position)
+        holder.itemMenuBinding.cbSubSW.setOnCheckedChangeListener { buttonView, isChecked ->
+            listMenu[position].isChecked = isChecked
+            notifyDataSetChanged()
         }
     }
     internal fun setDatas(list: List<SwitchDetailEntity>) {

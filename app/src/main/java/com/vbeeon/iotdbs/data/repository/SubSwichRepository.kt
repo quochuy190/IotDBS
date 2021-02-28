@@ -26,6 +26,12 @@ class SubSwichRepository(val subSwDao: SwitchDetailDao) {
         })
     }
 
+    fun loadSubSwitchWithSwId(id: String) : Single<List<SwitchDetailEntity>>{
+        return Single.fromCallable(Callable {
+            subSwDao.loadAllSubSwitchBySWid(id)
+        })
+    }
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(obj: SwitchDetailEntity) {

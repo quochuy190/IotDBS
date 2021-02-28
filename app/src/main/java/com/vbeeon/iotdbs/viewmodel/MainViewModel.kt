@@ -3,6 +3,7 @@ package com.vbeeon.iotdbs.viewmodel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.google.gson.Gson
 import com.vbeeon.iotdbs.IotDBSApplication
 import com.vbeeon.iotdbs.data.local.IoTDbsDatabase
 import com.vbeeon.iotdbs.data.local.entity.RoomEntity
@@ -22,6 +23,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import timber.log.Timber
 import vn.neo.smsvietlott.common.di.util.ConfigNetwork
 import java.util.concurrent.TimeUnit
@@ -46,6 +54,9 @@ class MainViewModel : BaseViewModel() {
     val switchRespon: MutableLiveData<List<SwitchDetailEntity>> = MutableLiveData()
     val swRespon: MutableLiveData<List<SwitchEntity>> = MutableLiveData()
     val subSwRespon: MutableLiveData<List<SwitchDetailEntity>> = MutableLiveData()
+    val resControlSubSW: MutableLiveData<Int> = MutableLiveData()
+    val resGetStateMain: MutableLiveData<Boolean> = MutableLiveData()
+    val resControlAll: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         val roomDao = IoTDbsDatabase.getInstance(IotDBSApplication.instance)?.roomDao()
@@ -82,56 +93,324 @@ class MainViewModel : BaseViewModel() {
         requestLogin.password = "fd6aa3889d2415bcbc13803f303f1137"
         requestLogin.username = "e92947d6-2dcf-3375-b3c8-7789f969de6a"
         apiFloor1.loginSupervisor(request)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMap({ it -> apiFloor2.login(requestLogin) })
-                .subscribe { t1: ApiResult<LoginEntity>?, t2: Throwable? ->
-
-                }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .flatMap({ it -> apiFloor2.login(requestLogin) })
+            .subscribe { t1: ApiResult<LoginEntity>?, t2: Throwable? ->
+                loading.postValue(false)
+            }
 //                .subscribe { t1: ApiResult<LoginSupervisorRemoteEntity>?, t2: Throwable? ->
 //                    Timber.e(t1!!.errorMessage)
 //                }
 
     }
 
-    fun exeGetStateFromRemote() {
-        var mListSWFl1: MutableList<SwitchDetailEntity> = mutableListOf()
-        var mListSWFl2: MutableList<String> = mutableListOf()
+    fun exeGetStateFromRemote1() {
         repositorySubSwitch.loadAllSubSwitchFloor(1)
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe { loading.postValue(true) }
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError {
-                    loading.postValue(false)
-                    error.postValue(it)
-                }
-                .flatMap({ it ->
-                    mListSWFl1.addAll(it)
-                    return@flatMap apiFloor2.getStateGroup(ConfigNetwork.mIoTServerFloor2,
-                            ConfigNetwork.mIoTServerNameFloor2, ConfigNetwork.mIoTClientNameFloor2, ConfigNetwork.mGroupNameReportDeviceFloor2);
-                })
-                .doOnError {
-                    loading.postValue(false)
-                    error.postValue(it)
-                }
-                .timeout(20, TimeUnit.SECONDS)
-                .subscribe { t1: ResponGetStateGroup?, t2: Throwable? ->
-                    try {
-                        if (t1!!.responsePrimitive.size > 0)
-                            for (i in 0..t1!!.responsePrimitive.size) {
-                                if (t1!!.responsePrimitive[i].content.con.sw_report == 1)
-                                    mListSWFl1[i].isChecked = true
-                                else
-                                    mListSWFl1[i].isChecked = false
-                            }
-                        updateListSubSW(mListSWFl1)
-                    } catch (ex: Exception) {
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { loading.postValue(true) }
+            .subscribe { t1, t2 ->
+                val call: Call<ResponseBody> = apiFloor1.getStateGroup(
+                    ConfigNetwork.mIoTServerFloor1, ConfigNetwork.mIoTServerFloor1_2,
+                    ConfigNetwork.mIoTServerNameFloor1,
+                    ConfigNetwork.mGroupNameReportDeviceFloor1
+                )
+                call.enqueue(object : Callback<ResponseBody> {
+                    override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
                         loading.postValue(false)
-                        ex.printStackTrace()
-                        error.postValue(ex)
+                        error.postValue(t)
                     }
 
+                    override fun onResponse(
+                        call: Call<ResponseBody>?,
+                        response: Response<ResponseBody>?
+                    ) {
+                        val json = response!!.body()!!.string();
+                        val gson = Gson()
+                        Timber.e("" + json)
+                        val json2: String = json.replace("m2m:cin", "m2m_cin")
+                        var testModel = gson.fromJson(json2, ResponGetStateGroup::class.java)
+                        Timber.e("" + testModel)
+                        var mListSWFl2: MutableList<SwitchDetailEntity> = mutableListOf()
+                        for (i in 0..(testModel!!.responsePrimitive.size - 1)) {
+                            if (i <= t1.size) {
+                                if (testModel!!.responsePrimitive[i].content.m2m.con.sw_report == 1)
+                                    t1[i].isChecked = true
+                                else
+                                    t1[i].isChecked = false
+                            }
+                        }
+                        updateListSubSW(t1)
+                        exeGetStateFromRemote2()
+                    }
+                })
+
+            }
+    }
+
+    fun exeGetStateFromRemote2() {
+        repositorySubSwitch.loadAllSubSwitchFloor(2)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { t1, t2 ->
+                val call: Call<ResponseBody> = apiFloor2.getStateGroup(
+                    ConfigNetwork.mIoTServerFloor2, ConfigNetwork.mIoTServerFloor2_2,
+                    ConfigNetwork.mIoTServerNameFloor2,
+                    ConfigNetwork.mGroupNameReportDeviceFloor2
+                )
+                call.enqueue(object : Callback<ResponseBody> {
+                    override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
+                        loading.postValue(false)
+                        error.postValue(t)
+                    }
+
+                    override fun onResponse(
+                        call: Call<ResponseBody>?,
+                        response: Response<ResponseBody>?
+                    ) {
+                        loading.postValue(false)
+                        val json = response!!.body()!!.string();
+                        val gson = Gson()
+                        Timber.e("" + json)
+                        val json2: String = json.replace("m2m:cin", "m2m_cin")
+                        var testModel = gson.fromJson(json2, ResponGetStateGroup::class.java)
+                        Timber.e("" + testModel)
+                        var mListSWFl2: MutableList<SwitchDetailEntity> = mutableListOf()
+                        for (i in 0..(testModel!!.responsePrimitive.size - 1)) {
+                            if (i <= t1.size) {
+                                if (testModel!!.responsePrimitive[i].content.m2m.con.sw_report == 1)
+                                    t1[i].isChecked = true
+                                else
+                                    t1[i].isChecked = false
+                            }
+                        }
+                        updateListSubSW(t1)
+                        resGetStateMain.postValue(true)
+                    }
+                })
+
+            }
+
+    }
+
+    //    fun exeCreateGroupRemoteBySW(switchid: String) {
+//        var mListSWFl1: MutableList<String> = mutableListOf()
+//        var mListSWFl2: MutableList<String> = mutableListOf()
+//        repositorySubSwitch.loadSubSwitchWithSwId(switchid)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .flatMap({ it ->
+//                    if (it[0].floor == 1) {
+//                        Timber.e("" + it.size)
+//                        for (sw in it) {
+//                            mListSWFl1.add(sw.sortName)
+//                        }
+//                        val groupFl1 = Group(ConfigNetwork.mGroupNameReportDeviceFloor1, 44, 67, mListSWFl1)
+//
+//                        return@flatMap apiFloor1.createGroup(ConfigNetwork.mIoTServerFloor1,ConfigNetwork.mIoTServerFloor1_2,
+//                                ConfigNetwork.mIoTServerNameFloor1, CreateGroupRequest(groupFl1))
+//                    } else {
+//                        Timber.e("" + it.size)
+//                        for (sw in it) {
+//                            mListSWFl2.add(sw.sortName)
+//                        }
+//                        val groupFl2 = Group(ConfigNetwork.mGroupNameReportDeviceFloor2, 44, 67, mListSWFl2)
+//
+//                        return@flatMap apiFloor2.createGroup( ConfigNetwork.mIoTServerFloor2,ConfigNetwork.mIoTServerFloor2_2,
+//                                ConfigNetwork.mIoTServerNameFloor2, CreateGroupRequest(groupFl2))
+//                    }
+//
+//                })
+//                .subscribe { t1: CreateGroupRequest, t2: Throwable? ->
+//
+//                }
+//    }
+//
+    fun exeCreateScriptRemoteF2(groupName: String, listSW: List<String>) {
+        val groupFl2 = Group(groupName, 44, 67, listSW)
+
+        val mediaType: MediaType = MediaType.parse("application/json;ty=9")!!
+        Timber.e(groupFl2.mid[0])
+        val gson = Gson()
+        val responseString = gson.toJson(CreateGroupRequest(groupFl2))
+        val body = RequestBody.create(mediaType, responseString)
+        apiFloor2.createGroup(
+            ConfigNetwork.mIoTServerFloor2, ConfigNetwork.mIoTServerFloor2_2,
+            ConfigNetwork.mIoTServerNameFloor2, body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { loading.postValue(true) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                loading.postValue(false)
+                error.postValue(it)
+            }
+            .subscribe { t1: CreateGroupRequest?, t2: Throwable? ->
+                loading.postValue(false)
+            }
+    }
+
+    fun exeCreateScriptRemoteF1(groupName: String, listSW: List<String>) {
+        val groupF1 = Group(groupName, 44, 67, listSW)
+        val mediaType: MediaType = MediaType.parse("application/json;ty=9")!!
+        val gson = Gson()
+        val responseString = gson.toJson(CreateGroupRequest(groupF1))
+        val body = RequestBody.create(mediaType, responseString)
+        apiFloor1.createGroup(
+            ConfigNetwork.mIoTServerFloor1, ConfigNetwork.mIoTServerFloor1_2,
+            ConfigNetwork.mIoTServerNameFloor1, body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { loading.postValue(true) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                loading.postValue(false)
+                error.postValue(it)
+            }
+            .subscribe { t1: CreateGroupRequest?, t2: Throwable? ->
+                loading.postValue(false)
+            }
+    }
+
+    fun exeControlGroup1(state: Int, nameGroup: String) {
+        val controlValue = ControlSubSw(state)
+        val controlSW = ControlSwObj("application/json", controlValue)
+        val request = RequsetControlSubSw(controlSW)
+        val mediaType: MediaType = MediaType.parse("application/json;ty=9")!!
+        val gson = Gson()
+        val responseString = gson.toJson(request)
+        val body = RequestBody.create(mediaType, responseString)
+        apiFloor1.controlGroup(
+            ConfigNetwork.mIoTServerFloor1, ConfigNetwork.mIoTServerFloor1_2,
+            ConfigNetwork.mIoTServerNameFloor1, nameGroup, body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { loading.postValue(true) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                loading.postValue(false)
+                error.postValue(it)
+            }
+            .subscribe { t1: ResponGetStateGroup?, t2: Throwable? ->
+                try {
+                    if (state == 1)
+                        resControlAll.postValue(true)
+                    else
+                        resControlAll.postValue(false)
+                    loading.postValue(false)
+                } catch (ex: Exception) {
+                    loading.postValue(false)
+                    ex.printStackTrace()
+                    error.postValue(ex)
                 }
+
+            }
+    }
+
+    fun exeControlGroup2(state: Int, nameGroup: String) {
+        val controlValue = ControlSubSw(state)
+        val controlSW = ControlSwObj("application/json", controlValue)
+        val request = RequsetControlSubSw(controlSW)
+        val mediaType: MediaType = MediaType.parse("application/json;ty=9")!!
+        val gson = Gson()
+        val responseString = gson.toJson(request)
+        val body = RequestBody.create(mediaType, responseString)
+        apiFloor2.controlGroup(
+            ConfigNetwork.mIoTServerFloor2, ConfigNetwork.mIoTServerFloor2_2,
+            ConfigNetwork.mIoTServerNameFloor2, nameGroup, body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { loading.postValue(true) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                loading.postValue(false)
+                error.postValue(it)
+            }
+            .subscribe { t1: ResponGetStateGroup?, t2: Throwable? ->
+                try {
+                    if (state == 1)
+                        resControlAll.postValue(true)
+                    else
+                        resControlAll.postValue(false)
+                    loading.postValue(false)
+                } catch (ex: Exception) {
+                    loading.postValue(false)
+                    ex.printStackTrace()
+                    error.postValue(ex)
+                }
+
+            }
+    }
+
+    fun exeControlSubSW1(state: Int, linkSubSW: String) {
+        val controlValue = ControlSubSw(state)
+        val controlSW = ControlSwObj("application/json", controlValue)
+        val request = RequsetControlSubSw(controlSW)
+        val mediaType: MediaType = MediaType.parse("application/json;ty=4")!!
+        val gson = Gson()
+        val responseString = gson.toJson(request)
+        val body = RequestBody.create(mediaType, responseString)
+        apiFloor1.controlSubGroup(
+            ConfigNetwork.mIoTServerFloor1, ConfigNetwork.mIoTServerFloor1_2,
+            ConfigNetwork.mIoTServerNameFloor1, linkSubSW, body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { loading.postValue(true) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                loading.postValue(false)
+                error.postValue(it)
+            }
+            .subscribe { t1: ResponGetStateGroup?, t2: Throwable? ->
+                try {
+                    loading.postValue(false)
+                    resControlSubSW.postValue(state)
+                } catch (ex: Exception) {
+                    loading.postValue(false)
+                    ex.printStackTrace()
+                    error.postValue(ex)
+                }
+
+            }
+    }
+
+    fun exeControlSubSW2(state: Int, linkSubSW: String) {
+        val controlValue = ControlSubSw(state)
+        val controlSW = ControlSwObj("application/json", controlValue)
+        val request = RequsetControlSubSw(controlSW)
+        val mediaType: MediaType = MediaType.parse("application/json;ty=4")!!
+        val gson = Gson()
+        val responseString = gson.toJson(request)
+        val body = RequestBody.create(mediaType, responseString)
+        apiFloor2.controlSubGroup(
+            ConfigNetwork.mIoTServerFloor2, ConfigNetwork.mIoTServerFloor2_2,
+            ConfigNetwork.mIoTServerNameFloor2, linkSubSW, body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { loading.postValue(true) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                loading.postValue(false)
+                error.postValue(it)
+            }
+            .subscribe { t1: ResponGetStateGroup?, t2: Throwable? ->
+                try {
+                    loading.postValue(false)
+                    resControlSubSW.postValue(state)
+                } catch (ex: Exception) {
+                    loading.postValue(false)
+                    ex.printStackTrace()
+                    error.postValue(ex)
+                }
+
+            }
     }
 
     fun loadDataSwitch(lifecycleOwner: LifecycleOwner, idRoom: Int) {
@@ -167,9 +446,10 @@ class MainViewModel : BaseViewModel() {
     }
 
     fun loadDataSubSwitch(lifecycleOwner: LifecycleOwner, idSwitch: String) {
-        repositorySubSwitch.loadSwitchBySwitchId(idSwitch).observe(lifecycleOwner, Observer {
-            subSwRespon.postValue(it)
-        })
+        repositorySubSwitch.loadSwitchBySwitchId(idSwitch)
+            .observe(lifecycleOwner, Observer {
+                subSwRespon.postValue(it)
+            })
     }
 
     override fun onCleared() {
@@ -209,5 +489,91 @@ class MainViewModel : BaseViewModel() {
         })
         // resRoom.postValue()
     }
+    val resCreateGr: MutableLiveData<Boolean> = MutableLiveData()
+    fun exeCreateGroupRemote(lisFl1: String, lisFl2: String) {
+        try {
+            var mListSWFl1: MutableList<String> = mutableListOf()
+            var mListSWFl2: MutableList<String> = mutableListOf()
+            repositorySubSwitch.loadAllSubSwitchFloor(1)
+                .flatMap({ it ->
+                    Timber.e("" + it.size)
+                    for (sw in it) {
+                        mListSWFl1.add(
+                            "/" + ConfigNetwork.mIoTServerFloor1 +
+                                    "/" + ConfigNetwork.mIoTServerFloor1 +
+                                    "/" + ConfigNetwork.mIoTServerNameFloor1 +
+                                    "/" + sw.idSwitch +
+                                    "/" + sw.sortName + "/report/la"
+                        )
+                    }
+                    val groupFl1 =
+                        Group(ConfigNetwork.mGroupNameReportDeviceFloor1, 44, 67, mListSWFl1)
+                    val mediaType: MediaType = MediaType.parse("application/json;ty=9")!!
+                    val gson = Gson()
+                    val responseString = gson.toJson(CreateGroupRequest(groupFl1))
+                    val body = RequestBody.create(mediaType, responseString)
+                    return@flatMap apiFloor1.createGroup(
+                        ConfigNetwork.mIoTServerFloor1, ConfigNetwork.mIoTServerFloor1_2,
+                        ConfigNetwork.mIoTServerNameFloor1, body
+                    )
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError {
+                    loading.postValue(false)
+                    error.postValue(it)
+                }
+                .timeout(300, TimeUnit.SECONDS)
+                .subscribe { t1: CreateGroupRequest, t2: Throwable? ->
+                    repositorySubSwitch.loadAllSubSwitchFloor(2)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .flatMap({ it ->
+                            Timber.e("" + it.size)
+                            for (sw in it) {
+                                mListSWFl2.add(
+                                    "/" + ConfigNetwork.mIoTServerFloor2 +
+                                            "/" + ConfigNetwork.mIoTServerFloor2 +
+                                            "/" + ConfigNetwork.mIoTServerNameFloor2 +
+                                            "/" + sw.idSwitch +
+                                            "/" + sw.sortName + "/report/la"
+                                )
+                            }
+                            val groupFl2 = Group(
+                                ConfigNetwork.mGroupNameReportDeviceFloor2,
+                                44,
+                                67,
+                                mListSWFl2
+                            )
 
+                            val mediaType: MediaType = MediaType.parse("application/json;ty=9")!!
+                            Timber.e(groupFl2.mid[0])
+                            val gson = Gson()
+                            val responseString = gson.toJson(CreateGroupRequest(groupFl2))
+                            val body = RequestBody.create(mediaType, responseString)
+                            return@flatMap apiFloor2.createGroup(
+                                ConfigNetwork.mIoTServerFloor2, ConfigNetwork.mIoTServerFloor2_2,
+                                ConfigNetwork.mIoTServerNameFloor2, body
+                            )
+                        })
+                        .subscribe { t1: CreateGroupRequest, t2: Throwable? ->
+                            try {
+                                loading.postValue(false)
+                                resCreateGr.postValue(true)
+                            } catch (ex: Exception) {
+                                loading.postValue(false)
+                                ex.printStackTrace()
+                                error.postValue(ex)
+                            }
+                        }
+                }
+        } catch (ex: Exception) {
+            loading.postValue(false)
+            ex.printStackTrace()
+            error.postValue(ex)
+        }
+        var mListSWFl2: MutableList<String> = mutableListOf()
+
+
+    }
 }
