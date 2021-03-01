@@ -45,11 +45,12 @@ class SwitchDetailFragment : BaseFragment() {
     var floor = 0;
 
     companion object {
-        fun newInstance(id: String, name: String): SwitchDetailFragment {
+        fun newInstance(id: String, name: String, floor: Int): SwitchDetailFragment {
             val fragment = SwitchDetailFragment()
             val args = Bundle()
             args.putString("switch_id", id)
             args.putString("switch_name", name)
+            args.putInt("floor", floor)
             fragment.setArguments(args)
             return fragment
         }
@@ -62,6 +63,9 @@ class SwitchDetailFragment : BaseFragment() {
         }
         arguments?.getString("switch_name")?.let {
             switchName = it
+        }
+        arguments?.getInt("floor")?.let {
+            floor = it
         }
     }
 
@@ -189,30 +193,31 @@ class SwitchDetailFragment : BaseFragment() {
             mListSubSWString.clear()
             mListSwitch.clear()
             mListSwitch.addAll(it)
-            floor = mListSwitch[0].floor
             adapterSwitch.setDatas(mListSwitch)
-            if (floor == 1) {
-                for (sw in mListSwitch) {
-                    mListSubSWString.add(
-                        "/" + ConfigNetwork.mIoTServerFloor1 +
-                                "/" + ConfigNetwork.mIoTServerFloor1 +
-                                "/" + ConfigNetwork.mIoTServerNameFloor1 +
-                                "/" + sw.idSwitch +
-                                "/" + sw.sortName + "/control"
-                    )
+            if (it!=null&&it.size>0){
+                if (floor == 1) {
+                    for (sw in mListSwitch) {
+                        mListSubSWString.add(
+                            "/" + ConfigNetwork.mIoTServerFloor1 +
+                                    "/" + ConfigNetwork.mIoTServerFloor1 +
+                                    "/" + ConfigNetwork.mIoTServerNameFloor1 +
+                                    "/" + sw.idSwitch +
+                                    "/" + sw.sortName + "/control"
+                        )
+                    }
+                    mainViewModel.exeCreateScriptRemoteF1(switchId + "tang1_control_1", mListSubSWString)
+                } else {
+                    for (sw in mListSwitch) {
+                        mListSubSWString.add(
+                            "/" + ConfigNetwork.mIoTServerFloor2 +
+                                    "/" + ConfigNetwork.mIoTServerFloor2 +
+                                    "/" + ConfigNetwork.mIoTServerNameFloor2 +
+                                    "/" + sw.idSwitch +
+                                    "/" + sw.sortName + "/control"
+                        )
+                    }
+                    mainViewModel.exeCreateScriptRemoteF2(switchId + "tang2_control", mListSubSWString)
                 }
-                mainViewModel.exeCreateScriptRemoteF1(switchId + "tang1_control_1", mListSubSWString)
-            } else {
-                for (sw in mListSwitch) {
-                    mListSubSWString.add(
-                        "/" + ConfigNetwork.mIoTServerFloor2 +
-                                "/" + ConfigNetwork.mIoTServerFloor2 +
-                                "/" + ConfigNetwork.mIoTServerNameFloor2 +
-                                "/" + sw.idSwitch +
-                                "/" + sw.sortName + "/control"
-                    )
-                }
-                mainViewModel.exeCreateScriptRemoteF2(switchId + "tang2_control", mListSubSWString)
             }
         })
 

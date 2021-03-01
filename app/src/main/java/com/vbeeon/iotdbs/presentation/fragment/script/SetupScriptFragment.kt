@@ -1,29 +1,25 @@
 package com.vbeeon.iotdbs.presentation.fragment.script
 
-import android.graphics.Color
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.data.local.entity.SwitchDetailEntity
 import com.vbeeon.iotdbs.data.local.entity.SwitchEntity
 import com.vbeeon.iotdbs.data.model.Switch
-import com.vbeeon.iotdbs.presentation.adapter.RoomBuildAdapter
-import com.vbeeon.iotdbs.presentation.adapter.SwitchBuildingAdapter
 import com.vbeeon.iotdbs.presentation.adapter.SwitchListChoseAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
 import com.vbeeon.iotdbs.utils.setOnSafeClickListener
 import com.vbeeon.iotdbs.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.fragment_building.*
-import kotlinx.android.synthetic.main.fragment_script.*
 import kotlinx.android.synthetic.main.fragment_setup_script.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 import timber.log.Timber
+import vn.neo.smsvietlott.common.di.util.ConfigNetwork
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 @Suppress("DEPRECATION")
@@ -33,7 +29,7 @@ class SetupScriptFragment : BaseFragment() {
     val mListSW: MutableList<SwitchDetailEntity> = ArrayList()
     val mList: MutableList<Switch> = ArrayList()
     lateinit var adapterSwitch: SwitchListChoseAdapter
-    var floor: Int = -1
+    var floor: Int = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -54,18 +50,17 @@ class SetupScriptFragment : BaseFragment() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> {
+                        floor = 1
                         activity?.let { mainViewModel.loadAllDataSwitchbyFloor(it, 1) }
                     }
                     1 -> {
+                        floor = 2
                         activity?.let { mainViewModel.loadAllDataSwitchbyFloor(it, 2) }
                     }
                 }
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab) {
-
             }
-
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
         adapterSwitch = context?.let {
@@ -76,9 +71,40 @@ class SetupScriptFragment : BaseFragment() {
         rcvSWbyFloor.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         rcvSWbyFloor.apply { adapter = adapterSwitch }
-
+        val mListSubSWString: MutableList<String> = ArrayList()
         btnAddScript.setOnSafeClickListener {
-            Timber.e("" + mList.size)
+            mListSubSWString.clear()
+            if (floor == 1) {
+                for (sw in mList) {
+                    for (swDetail in sw.listSubSw){
+                        if (swDetail.isChecked){
+                            mListSubSWString.add(
+                                "/" + ConfigNetwork.mIoTServerFloor1 +
+                                        "/" + ConfigNetwork.mIoTServerFloor1 +
+                                        "/" + ConfigNetwork.mIoTServerNameFloor1 +
+                                        "/" + swDetail.idSwitch +
+                                        "/" + swDetail.sortName + "/control"
+                            )
+                        }
+                    }
+                }
+                mainViewModel.exeCreateScriptRemoteF1(Calendar.getInstance().getTime().toString(), mListSubSWString)
+            } else {
+                for (sw in mList) {
+                    for (swDetail in sw.listSubSw){
+                        if (swDetail.isChecked){
+                            mListSubSWString.add(
+                                "/" + ConfigNetwork.mIoTServerFloor1 +
+                                        "/" + ConfigNetwork.mIoTServerFloor1 +
+                                        "/" + ConfigNetwork.mIoTServerNameFloor1 +
+                                        "/" + swDetail.idSwitch +
+                                        "/" + swDetail.sortName + "/control"
+                            )
+                        }
+                    }
+                }
+                mainViewModel.exeCreateScriptRemoteF2(Calendar.getInstance().getTime().toString(), mListSubSWString)
+            }
         }
     }
 
@@ -111,17 +137,7 @@ class SetupScriptFragment : BaseFragment() {
                         subSw.add(sw)
                     }
                 }
-                mList.add(
-                    Switch(
-                        switch.id, switch.idRoom, switch.name,
-                        false,
-                        switch.type,
-                        subSw,
-                        switch.floor,
-                        switch.nameRoom,
-                        2
-                    )
-                )
+                mList.add(Switch(switch.id, switch.idRoom, switch.name, false, switch.type, subSw, switch.floor, switch.nameRoom, 2))
             }
             adapterSwitch.setDatas(mList)
         })

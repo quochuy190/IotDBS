@@ -467,6 +467,17 @@ class MainViewModel : BaseViewModel() {
         repository.insertList(room)
     }
 
+    fun updateNamePantry() = scope.launch(Dispatchers.IO) {
+        val mListRoom: MutableList<RoomEntity> = ArrayList()
+        val mListSW: MutableList<SwitchEntity> = ArrayList()
+        mListRoom.add(RoomEntity(6, "Phòng Pantry", 1, false))
+        mListRoom.add(RoomEntity(10, "Phòng Pantry", 2, false))
+        mListSW.add(SwitchEntity("SW00578", 10, "P.Pantry T2", true, 2, 2, "Phòng Pantry"))
+        mListSW.add(SwitchEntity("SW00582", 6, "P.Pantry", true, 2, 1, "Phòng Pantry"))
+        repository.updateList(mListRoom)
+        repositorySwitch.updateList(mListSW)
+    }
+
     fun insertSwitch(obj: List<SwitchEntity>) = scope.launch(Dispatchers.IO) {
         repositorySwitch.insertList(obj)
     }

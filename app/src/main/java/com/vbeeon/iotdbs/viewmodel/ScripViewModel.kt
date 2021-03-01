@@ -95,4 +95,52 @@ class ScripViewModel : BaseViewModel() {
         })
         // resRoom.postValue()
     }
+
+    fun exeCreateScriptRemoteF2(groupName: String, listSW: List<String>) {
+        val groupFl2 = Group(groupName, 44, 67, listSW)
+
+        val mediaType: MediaType = MediaType.parse("application/json;ty=9")!!
+        Timber.e(groupFl2.mid[0])
+        val gson = Gson()
+        val responseString = gson.toJson(CreateGroupRequest(groupFl2))
+        val body = RequestBody.create(mediaType, responseString)
+        apiFloor2.createGroup(
+            ConfigNetwork.mIoTServerFloor2, ConfigNetwork.mIoTServerFloor2_2,
+            ConfigNetwork.mIoTServerNameFloor2, body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            //.doOnSubscribe { loading.postValue(true) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                loading.postValue(false)
+                error.postValue(it)
+            }
+            .subscribe { t1: CreateGroupRequest?, t2: Throwable? ->
+                loading.postValue(false)
+            }
+    }
+
+    fun exeCreateScriptRemoteF1(groupName: String, listSW: List<String>) {
+        val groupF1 = Group(groupName, 44, 67, listSW)
+        val mediaType: MediaType = MediaType.parse("application/json;ty=9")!!
+        val gson = Gson()
+        val responseString = gson.toJson(CreateGroupRequest(groupF1))
+        val body = RequestBody.create(mediaType, responseString)
+        apiFloor1.createGroup(
+            ConfigNetwork.mIoTServerFloor1, ConfigNetwork.mIoTServerFloor1_2,
+            ConfigNetwork.mIoTServerNameFloor1, body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            // .doOnSubscribe { loading.postValue(true) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                loading.postValue(false)
+                error.postValue(it)
+            }
+            .subscribe { t1: CreateGroupRequest?, t2: Throwable? ->
+                loading.postValue(false)
+            }
+    }
 }

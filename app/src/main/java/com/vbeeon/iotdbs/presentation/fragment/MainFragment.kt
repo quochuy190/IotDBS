@@ -80,13 +80,15 @@ class MainFragment : BaseFragment() {
             showDialogMessage(context, getString(R.string.system_error))
             initViewPager();
         })
-
-        mainViewModel.exeGetStateFromRemote1()
         mainViewModel.resGetStateMain.observe(this, Observer {
             if (it)
                 initViewPager();
         })
         initViewPager();
+        mainViewModel.updateNamePantry()
+        Thread.sleep(500)
+        mainViewModel.exeGetStateFromRemote1()
+
     }
 
     override fun observable() {

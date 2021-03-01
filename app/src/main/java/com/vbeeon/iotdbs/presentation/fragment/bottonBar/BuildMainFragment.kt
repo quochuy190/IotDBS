@@ -40,7 +40,7 @@ class BuildMainFragment : BaseFragment() {
 
     private fun initViewPager() {
         val adapter = MainViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(BuildingAllFloorFragment(), "Tòa nhà Si")
+        adapter.addFragment(BuildingAllFloorFragment(), "Tòa nhà SI")
         adapter.addFragment(BuildingFragment.newInstance(1), "Tầng 1")
         adapter.addFragment(BuildingFragment.newInstance(2), "Tầng 2")
         vpBuildingMain.adapter = adapter

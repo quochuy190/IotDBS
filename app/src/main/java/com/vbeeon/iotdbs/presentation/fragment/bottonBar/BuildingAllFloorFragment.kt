@@ -64,6 +64,7 @@ class BuildingAllFloorFragment : BaseFragment() {
             (context as MainActivity).launchActivity<SwitchDetailActivity>{
                 putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mListSwitch1[it].id)
                 putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mListSwitch1[it].name)
+                putExtra(ConstantCommon.KEY_SEND_SWICH_FLOOR, mListSwitch1[it].floor)
             }
         }) }!!
         rcvListSWFloor1.layoutManager = GridLayoutManager(context, 2)
@@ -82,6 +83,7 @@ class BuildingAllFloorFragment : BaseFragment() {
                 (context as MainActivity).launchActivity<SwitchDetailActivity>{
                     putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mListSwitch2[it].id)
                     putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mListSwitch2[it].name)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_FLOOR, mListSwitch2[it].floor)
                 }
             })
         }!!

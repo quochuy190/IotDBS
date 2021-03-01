@@ -41,4 +41,7 @@ interface RoomDao {
 
     @Update
     fun updatetoDao(user: RoomEntity?)
+
+    @Update
+    fun updateListtoDao(list: List<RoomEntity>?)
 }

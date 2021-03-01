@@ -78,7 +78,7 @@
         app:layout_constraintEnd_toStartOf="@+id/tvDoam"
         app:layout_constraintWidth_percent="0.08" />
     <TextView
-        android:text="80 %"
+        android:text="78 %"
         android:layout_marginEnd="@dimen/dimen_35dp"
         android:id="@+id/tvDoam"
         style="@style/TextSp18"

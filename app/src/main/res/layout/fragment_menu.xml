@@ -9,14 +9,13 @@
     <include layout="@layout/toolbar_main"/>
 
     <TextView
-
         android:id="@+id/imgLogo"
         android:textColor="@color/white"
         style="@style/TextSp20"
         android:text="DBS"
         android:background="@drawable/bgr_circle"
         android:layout_margin="@dimen/dimen_10dp"
-        app:layout_constraintHeight_percent="0.13"
+        app:layout_constraintHeight_percent="0.11"
         app:layout_constraintDimensionRatio="1:1"
         android:src="@drawable/ic_logo"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +60,7 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="@dimen/dimen_10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:id="@+id/rcvMenu"
         app:layout_constraintBottom_toTopOf="@+id/tvVersion"

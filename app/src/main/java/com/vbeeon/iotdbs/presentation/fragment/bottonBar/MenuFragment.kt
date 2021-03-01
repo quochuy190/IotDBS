@@ -58,6 +58,7 @@ class MenuFragment : BaseFragment() {
         }!!
         rcvMenu.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL ,false)
         rcvMenu.apply { adapter = adapterMenu }
+        mList.clear()
         mList.add(ItemMenu(0,getString(R.string.tvMenu_0), R.drawable.menu_home))
         mList.add(ItemMenu(1,getString(R.string.tvMenu_1), R.drawable.menu_device))
         mList.add(ItemMenu(2,getString(R.string.tvMenu_2), R.drawable.menu_setting))
@@ -65,7 +66,6 @@ class MenuFragment : BaseFragment() {
         mList.add(ItemMenu(4,getString(R.string.tvMenu_4), R.drawable.menu_account))
         mList.add(ItemMenu(5,getString(R.string.tvMenu_5), R.drawable.menu_help))
         mList.add(ItemMenu(6,getString(R.string.tvMenu_6), R.drawable.menu_logout))
-
         adapterMenu.setDatas(mList)
         tvVersion.text = "Version: "+BuildConfig.VERSION_NAME
     }

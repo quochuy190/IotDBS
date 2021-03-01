@@ -39,4 +39,7 @@ interface SwitchDao {
 
     @Update
     fun updatetoDao(user: SwitchEntity?)
+
+    @Update
+    fun updateListToDao(user: List<SwitchEntity>?)
 }

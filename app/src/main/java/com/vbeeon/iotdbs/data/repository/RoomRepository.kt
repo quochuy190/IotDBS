@@ -59,6 +59,13 @@ class RoomRepository(val roomDao: RoomDao) {
     suspend fun update(word: RoomEntity) {
         roomDao.updatetoDao(word)
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun updateList(list: List<RoomEntity>) {
+        roomDao.updateListtoDao(list)
+    }
+
     private fun getTestApi(): Single<User> {
 
         return retrofit.getMovieDetails(1)

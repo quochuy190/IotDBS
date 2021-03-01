@@ -63,11 +63,19 @@ class BuildingFragment : BaseFragment() {
 
     override fun initView() {
         lableFloor.text = "Tầng " + floor
-        tvNhietDo.text = "20 " + 0x00B0.toChar() + "C"
-        if (floor == 1)
+
+        if (floor == 1){
+            tvDoam.text = "78 %"
+            tvNhietDo.text = "23 " + 0x00B0.toChar() + "C"
             Glide.with(this).load(R.drawable.cover_floor_one).into(imgCoverBuilding)
-        else
+        }
+
+        else{
+            tvDoam.text = "85 %"
+            tvNhietDo.text = "25 " + 0x00B0.toChar() + "C"
             Glide.with(this).load(R.drawable.cover_floor_two).into(imgCoverBuilding)
+        }
+
         adapterRoom = context?.let {
             RoomBuildAdapter(it, doneClick = {
                 for (item in mListRoom) {
@@ -101,11 +109,11 @@ class BuildingFragment : BaseFragment() {
         adapterSwitch = activity?.let {
             SwitchBuildingAdapter(it, doneClick = {
 //                (context as MainActivity).
-//                openFragment(SwitchDetailFragment.newInstance(mListSwitch[it].id,mListSwitch[it].name ), true)
-                if (mListSwitch[it].type != 4)
+//                openFragment(SwitchDetailFragment.newInstance(mListSwitch[it].id,mListSwitch[it].name ), true
                     (context as MainActivity).launchActivity<SwitchDetailActivity> {
                         putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mListSwitch[it].id)
                         putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mListSwitch[it].name)
+                        putExtra(ConstantCommon.KEY_SEND_SWICH_FLOOR, mListSwitch[it].floor)
                     }
             })
         }!!

@@ -19,6 +19,7 @@ class SwitchDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val id = intent.getStringExtra(ConstantCommon.KEY_SEND_SWICH_ID)
         val name = intent.getStringExtra(ConstantCommon.KEY_SEND_SWICH_NAME)
-        openFragment(SwitchDetailFragment.newInstance(id!!, name!!), false)
+        val floor = intent.getIntExtra(ConstantCommon.KEY_SEND_SWICH_FLOOR, -1)
+        openFragment(SwitchDetailFragment.newInstance(id!!, name!!, floor), false)
     }
 }
