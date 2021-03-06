@@ -124,7 +124,7 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintWidth_percent="0.2"
         android:src="@drawable/ic_switch_detail_on"
-        android:id="@+id/rcvListSwitchDetal"
+        android:id="@+id/imgSwitchDetalDimming"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/dimen_20dp"
@@ -144,7 +144,7 @@
         android:textColor="@color/textAppBar"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rcvListSwitchDetal" />
+        app:layout_constraintTop_toBottomOf="@+id/imgSwitchDetalDimming" />
 
     <ImageView
         android:layout_width="0dp"
@@ -207,6 +207,8 @@
         app:layout_constraintTop_toTopOf="@+id/tvLableSekbar" />
 
     <SeekBar
+        android:min="0"
+        android:max="225"
         android:id="@+id/sekbarDimming"
         style="@style/MySeekBar"
         app:layout_constraintStart_toStartOf="parent"

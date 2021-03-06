@@ -52,4 +52,11 @@ interface ApiInterface {
                      @Path("linkControl", encoded=true) id: String,
                      @Body request: RequestBody
     ): Single<ResponGetStateGroup>
+    @POST("{iotserver_id}/{iotserver_name}/{iotclient_name}/{linkControl}")
+    fun controlSwDimming(@Path("iotserver_id") iotserver_id: String,
+                        @Path("iotserver_name") iotserver_name: String,
+                        @Path("iotclient_name") iotclient_name: String,
+                        @Path("linkControl", encoded=true) id: String,
+                        @Body request: RequestBody
+    ): Single<ResponGetStateGroup>
 }

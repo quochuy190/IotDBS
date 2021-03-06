@@ -18,8 +18,10 @@ import com.vbeeon.iotdbs.utils.setOnSafeClickListener
 import timber.log.Timber
 
 
-class SwitchBuildingAdapter internal constructor(val context: Context,
-                                                 val doneClick: (Int) -> Unit) : RecyclerView.Adapter<SwitchBuildingAdapter.ViewHolder>(){
+class SwitchBuildingAdapter internal constructor(
+    val context: Context,
+    val doneClick: (Int) -> Unit
+) : RecyclerView.Adapter<SwitchBuildingAdapter.ViewHolder>() {
     private var listRoom = emptyList<Switch>() // Cached copy of words
 
     inner class ViewHolder(itemBinding: ItemSwitchBuildingBinding) : RecyclerView.ViewHolder(itemBinding.getRoot()) {
@@ -28,117 +30,119 @@ class SwitchBuildingAdapter internal constructor(val context: Context,
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         fun bind(entity: Switch?) {
             itemRoomBinding.data = entity
-            if (entity!!.typeView==1){
+            if (entity!!.typeView == 1) {
                 itemRoomBinding.tvFloor.visibility = View.VISIBLE
                 itemRoomBinding.tvRoomName.visibility = View.VISIBLE
-            }else  if (entity!!.typeView==2){
+            } else if (entity!!.typeView == 2) {
                 itemRoomBinding.tvFloor.visibility = View.GONE
                 itemRoomBinding.tvRoomName.visibility = View.GONE
             }
-            if (entity!!.listSubSw.size>0){
-                when (entity!!.listSubSw.size){
-                    1 -> {
-                        Glide.with(context)
-                                .load(context.getDrawable(R.drawable.switch_one))
-                                .into(itemRoomBinding.imgSwitchCover);
-                        itemRoomBinding.imgSW1.visibility = View.VISIBLE
-                        itemRoomBinding.imgSW2.visibility = View.GONE
-                        itemRoomBinding.imgSW3.visibility = View.GONE
-                        if (entity!!.listSubSw[0].isChecked){
-                            Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
-                                    .into(itemRoomBinding.imgSW1);
-                        }else{
-                            Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
-                                    .into(itemRoomBinding.imgSW1);
-                        }
-                    }
-                    2 -> {
-                        Glide.with(context)
-                                .load(context.getDrawable(R.drawable.switch_two))
-                                .into(itemRoomBinding.imgSwitchCover);
-                        itemRoomBinding.imgSW1.visibility = View.VISIBLE
-                        itemRoomBinding.imgSW2.visibility = View.VISIBLE
-                        itemRoomBinding.imgSW3.visibility = View.GONE
-                        if (entity!!.listSubSw[0].isChecked){
-                            Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
-                                    .into(itemRoomBinding.imgSW1);
-                        }else{
-                            Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
-                                    .into(itemRoomBinding.imgSW1);
-                        }
-                        if (entity!!.listSubSw[1].isChecked){
-                            Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
-                                    .into(itemRoomBinding.imgSW2);
-                        }else{
-                            Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
-                                    .into(itemRoomBinding.imgSW2);
-                        }
-                    }
-                    3 -> {
-                        Glide.with(context)
-                                .load(context.getDrawable(R.drawable.switch_three))
-                                .into(itemRoomBinding.imgSwitchCover);
-                        itemRoomBinding.imgSW1.visibility = View.VISIBLE
-                        itemRoomBinding.imgSW2.visibility = View.VISIBLE
-                        itemRoomBinding.imgSW3.visibility = View.VISIBLE
-                        if (entity!!.listSubSw[0].isChecked){
-                            Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
-                                    .into(itemRoomBinding.imgSW1);
-                        }else{
-                            Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
-                                    .into(itemRoomBinding.imgSW1);
-                        }
-                        if (entity!!.listSubSw[1].isChecked){
-                            Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
-                                    .into(itemRoomBinding.imgSW2);
-                        }else{
-                            Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
-                                    .into(itemRoomBinding.imgSW2);
-                        }
-                        if (entity!!.listSubSw[2].isChecked){
-                            Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
-                                    .into(itemRoomBinding.imgSW3);
-                        }else{
-                            Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
-                                    .into(itemRoomBinding.imgSW3);
-                        }
-                    }
-                }
-            }else{
-                if (entity!!.type ==4){
-                    Glide.with(context)
-                            .load(context.getDrawable(R.drawable.ic_motion_sensor))
-                            .into(itemRoomBinding.imgSwitchCover);
-                    itemRoomBinding.imgSW1.visibility = View.GONE
-
-                }else  if (entity!!.type ==5){
+            if (entity!!.listSubSw.size > 0) {
+                if (entity!!.type == 5) {
                     Glide.with(context)
                         .load(context.getDrawable(R.drawable.icon_sw_dimming))
                         .into(itemRoomBinding.imgSwitchCover);
                     itemRoomBinding.imgSW1.visibility = View.VISIBLE
-                    if (entity!!.isChecked){
+                    itemRoomBinding.imgSW2.visibility = View.GONE
+                    itemRoomBinding.imgSW3.visibility = View.GONE
+                    if (entity!!.isChecked) {
                         Glide.with(context)
                             .load(context.getDrawable(R.drawable.ic_switch_detail_on))
                             .into(itemRoomBinding.imgSW1);
-                    }else
+                    } else
                         Glide.with(context)
                             .load(context.getDrawable(R.drawable.ic_switch_detal_off))
                             .into(itemRoomBinding.imgSW1);
+                } else
+                    when (entity!!.listSubSw.size) {
+                        1 -> {
+                            Glide.with(context)
+                                .load(context.getDrawable(R.drawable.switch_one))
+                                .into(itemRoomBinding.imgSwitchCover);
+                            itemRoomBinding.imgSW1.visibility = View.VISIBLE
+                            itemRoomBinding.imgSW2.visibility = View.GONE
+                            itemRoomBinding.imgSW3.visibility = View.GONE
+                            if (entity!!.listSubSw[0].isChecked) {
+                                Glide.with(context)
+                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
+                                    .into(itemRoomBinding.imgSW1);
+                            } else {
+                                Glide.with(context)
+                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
+                                    .into(itemRoomBinding.imgSW1);
+                            }
+                        }
+                        2 -> {
+                            Glide.with(context)
+                                .load(context.getDrawable(R.drawable.switch_two))
+                                .into(itemRoomBinding.imgSwitchCover);
+                            itemRoomBinding.imgSW1.visibility = View.VISIBLE
+                            itemRoomBinding.imgSW2.visibility = View.VISIBLE
+                            itemRoomBinding.imgSW3.visibility = View.GONE
+                            if (entity!!.listSubSw[0].isChecked) {
+                                Glide.with(context)
+                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
+                                    .into(itemRoomBinding.imgSW1);
+                            } else {
+                                Glide.with(context)
+                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
+                                    .into(itemRoomBinding.imgSW1);
+                            }
+                            if (entity!!.listSubSw[1].isChecked) {
+                                Glide.with(context)
+                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
+                                    .into(itemRoomBinding.imgSW2);
+                            } else {
+                                Glide.with(context)
+                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
+                                    .into(itemRoomBinding.imgSW2);
+                            }
+                        }
+                        3 -> {
+                            Glide.with(context)
+                                .load(context.getDrawable(R.drawable.switch_three))
+                                .into(itemRoomBinding.imgSwitchCover);
+                            itemRoomBinding.imgSW1.visibility = View.VISIBLE
+                            itemRoomBinding.imgSW2.visibility = View.VISIBLE
+                            itemRoomBinding.imgSW3.visibility = View.VISIBLE
+                            if (entity!!.listSubSw[0].isChecked) {
+                                Glide.with(context)
+                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
+                                    .into(itemRoomBinding.imgSW1);
+                            } else {
+                                Glide.with(context)
+                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
+                                    .into(itemRoomBinding.imgSW1);
+                            }
+                            if (entity!!.listSubSw[1].isChecked) {
+                                Glide.with(context)
+                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
+                                    .into(itemRoomBinding.imgSW2);
+                            } else {
+                                Glide.with(context)
+                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
+                                    .into(itemRoomBinding.imgSW2);
+                            }
+                            if (entity!!.listSubSw[2].isChecked) {
+                                Glide.with(context)
+                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
+                                    .into(itemRoomBinding.imgSW3);
+                            } else {
+                                Glide.with(context)
+                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
+                                    .into(itemRoomBinding.imgSW3);
+                            }
+                        }
+                    }
+            } else {
+                if (entity!!.type == 4) {
+                    Glide.with(context)
+                        .load(context.getDrawable(R.drawable.ic_motion_sensor))
+                        .into(itemRoomBinding.imgSwitchCover);
+                    itemRoomBinding.imgSW1.visibility = View.GONE
+                    itemRoomBinding.imgSW2.visibility = View.GONE
+                    itemRoomBinding.imgSW3.visibility = View.GONE
                 }
-                itemRoomBinding.imgSW2.visibility = View.GONE
-                itemRoomBinding.imgSW3.visibility = View.GONE
             }
 
             itemRoomBinding.executePendingBindings()
@@ -150,14 +154,17 @@ class SwitchBuildingAdapter internal constructor(val context: Context,
 ////                itemRoomBinding.tvTimeCalName.text = setTextHTML(sysTitle)
 //            }
         }
+
         init {
             itemRoomBinding = itemBinding
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding: ItemSwitchBuildingBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context),
-                R.layout.item_switch_building, parent, false)
+        val binding: ItemSwitchBuildingBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.item_switch_building, parent, false
+        )
         return ViewHolder(binding)
     }
 
@@ -171,10 +178,12 @@ class SwitchBuildingAdapter internal constructor(val context: Context,
             doneClick(position)
         }
     }
+
     internal fun setDatas(list: List<Switch>) {
         this.listRoom = list
         notifyDataSetChanged()
     }
+
     internal fun updateDatas(list: List<Switch>) {
         this.listRoom = list
         notifyDataSetChanged()

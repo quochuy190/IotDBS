@@ -500,6 +500,7 @@ class MainViewModel : BaseViewModel() {
         })
         // resRoom.postValue()
     }
+
     val resCreateGr: MutableLiveData<Boolean> = MutableLiveData()
     fun exeCreateGroupRemote(lisFl1: String, lisFl2: String) {
         try {
@@ -584,7 +585,38 @@ class MainViewModel : BaseViewModel() {
             error.postValue(ex)
         }
         var mListSWFl2: MutableList<String> = mutableListOf()
+    }
 
+    fun exeControlSwDimming(state: Int, linkSubSW: String, sw_dim : Int, sw_color: Int) {
+        val controlValue = ControlSubSwDimming(state, sw_dim, sw_color)
+        val controlSW = ControlSwObjDimming("application/json", controlValue)
+        val request = RequsetControlSwDimming(controlSW)
+        val mediaType: MediaType = MediaType.parse("application/json;ty=4")!!
+        val gson = Gson()
+        val responseString = gson.toJson(request)
+        val body = RequestBody.create(mediaType, responseString)
+        apiFloor2.controlSubGroup(
+            ConfigNetwork.mIoTServerFloor2, ConfigNetwork.mIoTServerFloor2_2,
+            ConfigNetwork.mIoTServerNameFloor2, linkSubSW, body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { loading.postValue(true) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                loading.postValue(false)
+                error.postValue(it)
+            }
+            .subscribe { t1: ResponGetStateGroup?, t2: Throwable? ->
+                try {
+                    loading.postValue(false)
+                    resControlSubSW.postValue(state)
+                } catch (ex: Exception) {
+                    loading.postValue(false)
+                    ex.printStackTrace()
+                    error.postValue(ex)
+                }
 
+            }
     }
 }

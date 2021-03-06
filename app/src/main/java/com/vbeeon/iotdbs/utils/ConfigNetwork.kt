@@ -21,8 +21,8 @@ object ConfigNetwork {
     const val mServiceFloor2 = "http://10.1.124.171:9999"
 
     const val mApiKey = "a798e50518a1f88b16c46de26b60104370a3a3c5f273426feddf80c4306cf41e"
-    const val mGroupNameReportDeviceFloor1 = "dbs_device_rl_f1_all_android_51"
-    const val mGroupNameReportDeviceFloor2 = "dbs_device_rl_f2_all_android_51"
+    const val mGroupNameReportDeviceFloor1 = "dbs_device_rl_f1_all_android_52"
+    const val mGroupNameReportDeviceFloor2 = "dbs_device_rl_f2_all_android_52"
     const val mNameGroupDevice = "kDBS"
 
     const val API_0001_get_profile_device = "/report/la"
