@@ -44,6 +44,7 @@
     <string name="tvLableVoltage">Điện áp</string>
     <string name="tvLableConnect">Kiểu kết nối</string>
     <string name="tvUtil">Tiện ích</string>
+    <string name="tvcChangeColor">Đổi màu ánh sáng</string>
     <string name="tvGuild_dep_1">1.     Kết nối với mạng wifi của bạn</string>
     <string name="tvGuild_dep_2">2.     Nhập tên mạng wifi và mật khẩu để cấu hình mạng</string>
     <string name="tvGuild_dep_2_1">1.     Mở cài đặt điện thoại, chọn cài đặt Wifi</string>

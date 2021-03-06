@@ -45,10 +45,10 @@ class MainViewModel : BaseViewModel() {
     private val coroutineContext: CoroutineContext
         get() = parentJob + Dispatchers.Main
     private val scope = CoroutineScope(coroutineContext)
-    lateinit var repository: RoomRepository
-    lateinit var repositorySwitch: SwichRepository
-    lateinit var repositorySubSwitch: SubSwichRepository
-    lateinit var repositoryScript: ScriptRepository
+    var repository: RoomRepository
+    var repositorySwitch: SwichRepository
+    var repositorySubSwitch: SubSwichRepository
+    var repositoryScript: ScriptRepository
     val devicesRes: MutableLiveData<List<RoomEntity>> = MutableLiveData()
     val scriptsRes: MutableLiveData<List<ScriptEntity>> = MutableLiveData()
     val switchRespon: MutableLiveData<List<SwitchDetailEntity>> = MutableLiveData()

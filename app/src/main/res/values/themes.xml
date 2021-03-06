@@ -183,4 +183,10 @@
         <item name="android:textStyle">normal</item>
         <item name="android:textAllCaps">false</item>
     </style>
+
+    <style name="MySeekBar" parent="Widget.AppCompat.SeekBar">
+        <item name="android:progressBackgroundTint" tools:ignore="NewApi">@color/background_button_select</item>
+        <item name="android:progressTint" tools:ignore="NewApi">@color/textAppBar</item>
+        <item name="android:colorControlActivated" tools:ignore="NewApi">@color/orange</item>
+    </style>
 </resources>

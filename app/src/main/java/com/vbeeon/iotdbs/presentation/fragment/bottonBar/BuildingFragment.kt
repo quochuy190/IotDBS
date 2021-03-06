@@ -114,6 +114,7 @@ class BuildingFragment : BaseFragment() {
                         putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mListSwitch[it].id)
                         putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mListSwitch[it].name)
                         putExtra(ConstantCommon.KEY_SEND_SWICH_FLOOR, mListSwitch[it].floor)
+                        putExtra(ConstantCommon.KEY_SEND_SWICH_TYPE, mListSwitch[it].type)
                     }
             })
         }!!

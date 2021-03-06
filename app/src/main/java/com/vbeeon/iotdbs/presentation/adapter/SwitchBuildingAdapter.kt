@@ -121,8 +121,22 @@ class SwitchBuildingAdapter internal constructor(val context: Context,
                     Glide.with(context)
                             .load(context.getDrawable(R.drawable.ic_motion_sensor))
                             .into(itemRoomBinding.imgSwitchCover);
+                    itemRoomBinding.imgSW1.visibility = View.GONE
+
+                }else  if (entity!!.type ==5){
+                    Glide.with(context)
+                        .load(context.getDrawable(R.drawable.icon_sw_dimming))
+                        .into(itemRoomBinding.imgSwitchCover);
+                    itemRoomBinding.imgSW1.visibility = View.VISIBLE
+                    if (entity!!.isChecked){
+                        Glide.with(context)
+                            .load(context.getDrawable(R.drawable.ic_switch_detail_on))
+                            .into(itemRoomBinding.imgSW1);
+                    }else
+                        Glide.with(context)
+                            .load(context.getDrawable(R.drawable.ic_switch_detal_off))
+                            .into(itemRoomBinding.imgSW1);
                 }
-                itemRoomBinding.imgSW1.visibility = View.GONE
                 itemRoomBinding.imgSW2.visibility = View.GONE
                 itemRoomBinding.imgSW3.visibility = View.GONE
             }

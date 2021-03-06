@@ -8,6 +8,7 @@ object ConstantCommon {
     const val KEY_SEND_SWICH_ID = "KEY_SEND_SWICH_ID"
     const val KEY_SEND_SWICH_NAME = "KEY_SEND_SWICH_NAME"
     const val KEY_SEND_SWICH_FLOOR = "KEY_SEND_SWICH_FLOOR"
+    const val KEY_SEND_SWICH_TYPE = "KEY_SEND_SWICH_TYPE"
     const val KEY_INSERT_AUTO_SCRIPT = "KEY_INSERT_AUTO_SCRIPT"
 
 }
