@@ -34,6 +34,7 @@ import vn.neo.smsvietlott.common.di.util.ConfigNetwork
 
 @Suppress("DEPRECATION")
 class SwitchDetailFragment : BaseFragment() {
+    //test
     val mListSwitch: MutableList<SwitchDetailEntity> = ArrayList()
     val mListSubSWString: MutableList<String> = ArrayList()
     lateinit var mainViewModel: MainViewModel
