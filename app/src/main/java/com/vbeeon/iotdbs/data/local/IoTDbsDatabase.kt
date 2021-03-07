@@ -5,10 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.vbeeon.iotdbs.data.local.Dao.RoomDao
-import com.vbeeon.iotdbs.data.local.Dao.ScriptDao
-import com.vbeeon.iotdbs.data.local.Dao.SwitchDao
-import com.vbeeon.iotdbs.data.local.Dao.SwitchDetailDao
+import com.vbeeon.iotdbs.data.local.Dao.*
 import com.vbeeon.iotdbs.data.local.entity.*
 
 /**
@@ -27,6 +24,7 @@ abstract class IoTDbsDatabase : RoomDatabase() {
     abstract fun switchDao(): SwitchDao
     abstract fun switchDetailDao(): SwitchDetailDao
     abstract fun scriptDao(): ScriptDao
+    abstract fun userDao(): UserDao
 
     companion object {
         private var INSTANCE: IoTDbsDatabase? = null
