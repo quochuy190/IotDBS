@@ -1,9 +1,10 @@
 package com.vbeeon.iotdbs.data.local.Dao
 
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.vbeeon.iotdbs.data.local.entity.UserEntity
-import io.reactivex.rxjava3.core.Single
+
 
 /**
  * Created by: Neo Company.
@@ -21,7 +22,7 @@ interface UserDao {
     fun loadAllUser(): List<UserEntity>
 
     @Query("SELECT * FROM user WHERE id IN (:id)")
-    fun loadUserById(id: Int): UserEntity
+    fun loadUserById(id: Int): LiveData<UserEntity>
 
     @Query("DELETE FROM user WHERE id = :id")
     fun delete(id: Int)
@@ -31,4 +32,7 @@ interface UserDao {
 
     @Update
     fun updatetoDao(user: UserEntity?)
+
+    @Query("SELECT * FROM user where user_name= :user and password= :password")
+    fun getUserAndPass(user: String, password: String): LiveData<List<UserEntity>>
 }

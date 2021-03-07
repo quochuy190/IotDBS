@@ -18,8 +18,12 @@ data class UserEntity(
     val id: Int = 0,
     @ColumnInfo(name = "user_name")
     val name: String,
+    @ColumnInfo(name = "password")
+    val pass: String,
     @ColumnInfo(name = "user_birthday")
     val birthDay : String,
+    @ColumnInfo(name = "list_room")
+    val listRoom : String,
     @ColumnInfo(name = "sex")
     val sex: Int,    //0: male, 1: female
     @ColumnInfo(name = "age")

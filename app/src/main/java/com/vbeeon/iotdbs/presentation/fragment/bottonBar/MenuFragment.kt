@@ -9,6 +9,7 @@ import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.data.local.entity.SwitchDetailEntity
 import com.vbeeon.iotdbs.data.model.ItemMenu
 import com.vbeeon.iotdbs.data.model.Switch
+import com.vbeeon.iotdbs.presentation.activity.AccountActivity
 import com.vbeeon.iotdbs.presentation.activity.LoginActivity
 import com.vbeeon.iotdbs.presentation.adapter.ItemMenuAdapter
 import com.vbeeon.iotdbs.presentation.adapter.RoomBuildAdapter
@@ -53,6 +54,8 @@ class MenuFragment : BaseFragment() {
                     SharedPrefs.instance.put(ConstantCommon.IS_LOGIN, false)
                     activity?.finish()
                     activity?.launchActivity<LoginActivity>()
+                }else if (it==4){
+                    activity?.launchActivity<AccountActivity>()
                 }
             })
         }!!

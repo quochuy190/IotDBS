@@ -143,6 +143,7 @@ class IntroduceFragment : BaseFragment() {
         subSwitch.add(SwitchDetailEntity("RAL_10sw2", "RAL_10", "Bóng đèn 1", "sw2", false, 5, 2))
         subSwitch.add(SwitchDetailEntity("RAL_6sw2", "RAL_6", "Bóng đèn 2", "sw2", false, 5, 2))
         mViewModel.insertSubSwitch(subSwitch)
+        mViewModel.insertUserAdmin()
         Thread.sleep(500)
 
         var mListSWFl2: MutableList<String> = mutableListOf()

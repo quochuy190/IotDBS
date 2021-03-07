@@ -11,12 +11,14 @@
     <string name="menu_sun">Thoát</string>
     <string name="hind_email">Email</string>
     <string name="hind_username">Tên đăng nhập</string>
+    <string name="hind_phone">- Nhập vào số điện thoại</string>
     <string name="hind_wifi">Tên Wifi</string>
     <string name="hind_ip_gateway">IP Gateway</string>
     <string name="hind_name_gateway">Tên Gateway</string>
     <string name="txt_banner_login">TRUNG TÂM GIẢI PHÁP,\n
  TÍCH HỢP HỆ THỐNG (SI)</string>
     <string name="hind_pass">Mật khẩu</string>
+    <string name="hind_pass_confirm">Xác nhận mật khẩu</string>
     <string name="btnLogin">Đăng nhập</string>
     <string name="btnStart">Bắt đầu</string>
     <string name="btnAddScript">Tạo ngữ cảnh</string>
