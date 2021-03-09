@@ -3,6 +3,7 @@ package com.vbeeon.iotdbs.presentation.fragment.switchDetail
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
@@ -31,8 +32,8 @@ class SwitchDimmingDetailFragment : BaseFragment() {
     var switchName: String = ""
     lateinit var mainViewModel: MainViewModel
     var isState: Boolean = false;
-    var mSwDim = 0;
-    var mSwColor = 0
+    var mSwDim = 100;
+    var mSwColor = 801
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -98,7 +99,10 @@ class SwitchDimmingDetailFragment : BaseFragment() {
             override fun onProgressChanged(CircularSeekBar: CircularSeekBar, progress: Float, fromUser: Boolean) {
                 mSwColor = progress.toInt()
                 if (isState){
-                    mainViewModel.exeControlSwDimming(1,switchId+"/sw2/control", mSwDim, mSwColor )
+                    if (timer!=null){
+                        timer.cancel()
+                        timer.start()
+                    }
                 }
             }
 
@@ -137,7 +141,11 @@ class SwitchDimmingDetailFragment : BaseFragment() {
                 tvSekbarDimming.text = "" + progress + " %"
                 mSwDim = progress
                 if (isState){
-                    mainViewModel.exeControlSwDimming(1,switchId+"/sw2/control", mSwDim, mSwColor )
+                    if (timer!=null){
+                        timer.cancel()
+                        timer.start()
+                    }
+                   // mainViewModel.exeControlSwDimming(1,switchId+"/sw2/control", mSwDim, mSwColor )
                 }
             }
         })
@@ -163,7 +171,7 @@ class SwitchDimmingDetailFragment : BaseFragment() {
             //create switch
             if (it != null && it.size > 0) {
                 mListSwitch.addAll(it)
-                if (it[0].isChecked) {
+                if (mListSwitch[0].isChecked) {
                     isState = true
                     imgSwitchDetalDimming.setImageDrawable(activity?.getDrawable(R.drawable.ic_switch_detail_on))
                 } else {
@@ -173,18 +181,29 @@ class SwitchDimmingDetailFragment : BaseFragment() {
             }
         })
         mainViewModel.resControlSubSW.observe(this, Observer {
+            Timber.e("state="+it)
             if (it == 1) {
                 mListSwitch[0].isChecked = true
                 isState = true
+                Timber.e("state update 1"+it)
                 imgSwitchDetalDimming.setImageDrawable(activity?.getDrawable(R.drawable.ic_switch_detail_on))
             } else {
+                imgSwitchDetalDimming.setImageDrawable(activity?.getDrawable(R.drawable.ic_switch_detal_off))
+                Timber.e("state update 0"+it)
                 mListSwitch[0].isChecked = false
                 isState = false
-                imgSwitchDetalDimming.setImageDrawable(activity?.getDrawable(R.drawable.ic_switch_detal_off))
             }
             mainViewModel.updateListSubSW(mListSwitch)
         })
     }
 
+    val timer = object: CountDownTimer(500, 100) {
+        override fun onTick(millisUntilFinished: Long) {
+        }
+
+        override fun onFinish() {
+            mainViewModel.exeControlSwDimming(1,switchId+"/sw2/control", mSwDim, mSwColor )
+        }
+    }
 
 }

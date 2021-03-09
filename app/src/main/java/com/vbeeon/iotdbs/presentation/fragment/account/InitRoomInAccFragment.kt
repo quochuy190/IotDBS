@@ -73,6 +73,8 @@ class InitRoomInAccFragment : BaseFragment() {
             val json = gson.toJson(mListFloor)
             Timber.e(""+json)
             mViewModel.insertUserAdmin(UserEntity(0, phone, pass, "", json, 0, 0))
+            showMessage("Tạo tài khoản thành công")
+            activity?.finish()
         }
     }
 

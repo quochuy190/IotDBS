@@ -2,6 +2,7 @@ package com.vbeeon.iotdbs.presentation.fragment.login
 
 import android.os.Bundle
 import android.text.InputType
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -98,8 +99,13 @@ class LoginFragment : BaseFragment() {
         userViewModel.loginRes.observe(this, Observer {
             if (it != null && it.size > 0) {
                 SharedPrefs.instance.put(ConstantCommon.IS_LOGIN, true)
-                (context as LoginActivity).launchActivity<MainActivity> { }
-                (context as LoginActivity).finish()
+                if (it[0].name.equals("admin")){
+                    (context as LoginActivity).launchActivity<MainActivity> { }
+                    (context as LoginActivity).finish()
+                }else{
+                    showMessage("login success"+it[0].name)
+                }
+
             } else {
                 edtUserName.requestFocus()
                 edtUserName.setSelection(0)

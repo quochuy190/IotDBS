@@ -45,7 +45,7 @@ class SwitchBuildingAdapter internal constructor(
                     itemRoomBinding.imgSW1.visibility = View.VISIBLE
                     itemRoomBinding.imgSW2.visibility = View.GONE
                     itemRoomBinding.imgSW3.visibility = View.GONE
-                    if (entity!!.isChecked) {
+                    if (entity.listSubSw[0]!!.isChecked) {
                         Glide.with(context)
                             .load(context.getDrawable(R.drawable.ic_switch_detail_on))
                             .into(itemRoomBinding.imgSW1);
