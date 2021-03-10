@@ -38,7 +38,6 @@ class SwitchDimmingDetailFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
-
     override fun getLayoutRes(): Int {
         return R.layout.fragment_switch_detail_change_color
     }

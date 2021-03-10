@@ -21,7 +21,9 @@ import com.vbeeon.iotdbs.viewmodel.MainViewModel
 import com.vbeeon.iotdbs.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.botton_sheet_dialog_select_room.*
 import kotlinx.android.synthetic.main.fragment_init_room_in_acc.*
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_switch_detail_change_color.*
+import kotlinx.android.synthetic.main.toolbar_main.*
 import timber.log.Timber
 
 
@@ -63,18 +65,31 @@ class InitRoomInAccFragment : BaseFragment() {
     }
 
     override fun initView() {
+        imgBack.setOnSafeClickListener {
+            Timber.e("ib_toolbar_close.setOnSafeClickListener")
+            activity?.onBackPressed()
+        }
+        tv_toolbar_title.text = "Chia sẻ thiết bị"
         adapterRoom = context?.let { FloorChoseAdapter(it, doneClick = {
             // doneClick(0)
         }) }!!
         rcvFloor.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL ,false)
         rcvFloor.apply { adapter = adapterRoom }
         btnRegister.setOnSafeClickListener {
-            val gson = Gson()
-            val json = gson.toJson(mListFloor)
-            Timber.e(""+json)
-            mViewModel.insertUserAdmin(UserEntity(0, phone, pass, "", json, 0, 0))
-            showMessage("Tạo tài khoản thành công")
-            activity?.finish()
+            if (isValidate()){
+                val gson = Gson()
+                val json = gson.toJson(mListFloor)
+                Timber.e(""+json)
+                mViewModel.insertUserAdmin(UserEntity(0, phone, pass, "", json, 0, 0))
+                showMessage("Tạo tài khoản thành công")
+                activity?.finish()
+            }else{
+                edtFullName.requestFocus()
+                edtFullName.setSelection(0)
+                tipUserName.editText?.text ?: getString(R.string.error_register)
+                showDialogMessage(context, getString(R.string.error_login))
+            }
+
         }
     }
 
@@ -99,6 +114,14 @@ class InitRoomInAccFragment : BaseFragment() {
             adapterRoom.setDatas(mListFloor)
         })
     }
-
+    private fun isValidate(): Boolean {
+        if (edtFullName.text.length == 0) {
+            showDialogMessage(context, getString(R.string.validate_Username))
+            edtFullName.requestFocus()
+            edtFullName.setSelection(0)
+            return false
+        }
+        return true
+    }
 
 }

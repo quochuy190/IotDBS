@@ -87,7 +87,7 @@ class MainFragment : BaseFragment() {
         initViewPager();
         mainViewModel.updateNamePantry()
         Thread.sleep(500)
-        mainViewModel.exeGetStateFromRemote1()
+       // mainViewModel.exeGetStateFromRemote1()
 
     }
 

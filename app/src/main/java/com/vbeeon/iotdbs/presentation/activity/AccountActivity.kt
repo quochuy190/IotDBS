@@ -20,8 +20,6 @@ class AccountActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val id = intent.getStringExtra(ConstantCommon.KEY_SEND_SWICH_ID)
-        val name = intent.getStringExtra(ConstantCommon.KEY_SEND_SWICH_NAME)
-        openFragment(CreateAccFragment(), false)
+        openFragment(InitRoomInAccFragment(), false)
     }
 }
