@@ -30,6 +30,7 @@ class FloorChoseAdapter internal constructor(val context: Context,
             })
             itemRoomBinding.rcvRoom.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL ,false)
             itemRoomBinding.rcvRoom.apply { adapter = adapterSubSWAdapter }
+            itemRoomBinding.rcvRoom.isNestedScrollingEnabled = false
             itemRoomBinding.executePendingBindings()
             adapterSubSWAdapter.setDatas(entity!!.listRoom)
         }

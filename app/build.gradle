@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.vbeeon.iotdbs"
-        minSdkVersion 19
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -97,6 +97,10 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
     /* Utils */
     implementation 'com.github.ksughosh:CircularSeekbar:1.0'
+    //zxing
+    implementation('com.journeyapps:zxing-android-embedded:4.1.0')
+    implementation 'com.google.zxing:core:3.3.0'
+
 
     def timber_version = "4.7.1"
     implementation "com.github.bumptech.glide:glide:$glide_version"

@@ -119,36 +119,23 @@ class SplashScreenAcitivity : BaseActivity() {
 
     private fun checkPermissionApp(context: Context): Boolean {
         return true
-//        if (ContextCompat.checkSelfPermission(
-//                context,
-//                Manifest.permission.READ_PHONE_STATE
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(
-//                    (context as Activity),
-//                    Manifest.permission.READ_PHONE_STATE
-//                )
-//            ) {
-//                return false
-//            }
-//        }
-//        if (ContextCompat.checkSelfPermission(
-//                context,
-//                Manifest.permission.CAMERA
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            return false
-//        }
-//        return if (ContextCompat.checkSelfPermission(
-//                context,
-//                Manifest.permission.READ_EXTERNAL_STORAGE
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            !ActivityCompat.shouldShowRequestPermissionRationale(
-//                (context as Activity),
-//                Manifest.permission.READ_EXTERNAL_STORAGE
-//            )
-//        } else true
+        if (ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return false
+        }
+        return if (ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            !ActivityCompat.shouldShowRequestPermissionRationale(
+                (context as Activity),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+        } else true
     }
 
     private fun goToNextScreen() {

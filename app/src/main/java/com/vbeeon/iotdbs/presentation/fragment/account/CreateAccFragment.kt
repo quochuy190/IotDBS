@@ -33,7 +33,7 @@ class CreateAccFragment : BaseFragment() {
     override fun initView() {
         btnNext.setOnSafeClickListener {
             if (isValidate()){
-                activity?.openFragment(InitRoomInAccFragment.newInstance(edtPhone.text.toString(), edtPass.text.toString()), true)
+
             }
 
         }

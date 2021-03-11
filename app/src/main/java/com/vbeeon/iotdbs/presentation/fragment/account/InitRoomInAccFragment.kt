@@ -9,8 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.data.local.entity.RoomEntity
+import com.vbeeon.iotdbs.data.local.entity.SwitchEntity
 import com.vbeeon.iotdbs.data.local.entity.UserEntity
 import com.vbeeon.iotdbs.data.model.Floor
+import com.vbeeon.iotdbs.data.model.Room
+import com.vbeeon.iotdbs.data.model.Switch
 import com.vbeeon.iotdbs.presentation.adapter.FloorChoseAdapter
 import com.vbeeon.iotdbs.presentation.adapter.RoomDialogAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
@@ -29,31 +32,24 @@ import timber.log.Timber
 
 @Suppress("DEPRECATION")
 class InitRoomInAccFragment : BaseFragment() {
-    val mListRoomF1: MutableList<RoomEntity> = ArrayList()
-    val mListRoomF2: MutableList<RoomEntity> = ArrayList()
+    val mListRoomF1: MutableList<Room> = ArrayList()
+    val mListRoom: MutableList<RoomEntity> = ArrayList()
+    val mListRoomF2: MutableList<Room> = ArrayList()
     val mListFloor: MutableList<Floor> = ArrayList()
     lateinit var adapterRoom : FloorChoseAdapter
     lateinit var mViewModel: UserViewModel
     var phone : String = ""
     var pass : String  = ""
     companion object {
-        fun newInstance(phone: String, pass: String): InitRoomInAccFragment {
+        fun newInstance(): InitRoomInAccFragment {
             val fragment = InitRoomInAccFragment()
             val args = Bundle()
-            args.putString("phone", phone)
-            args.putString("pass", pass)
             fragment.setArguments(args)
             return fragment
         }
     }
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        arguments?.getString("phone")?.let {
-            phone = it
-        }
-        arguments?.getString("pass")?.let {
-            pass = it
-        }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,20 +73,29 @@ class InitRoomInAccFragment : BaseFragment() {
         rcvFloor.apply { adapter = adapterRoom }
         btnRegister.setOnSafeClickListener {
             if (isValidate()){
-                val gson = Gson()
-                val json = gson.toJson(mListFloor)
-                Timber.e(""+json)
-                mViewModel.insertUserAdmin(UserEntity(0, phone, pass, "", json, 0, 0))
-                showMessage("Tạo tài khoản thành công")
-                activity?.finish()
-            }else{
-                edtFullName.requestFocus()
-                edtFullName.setSelection(0)
-                tipUserName.editText?.text ?: getString(R.string.error_register)
-                showDialogMessage(context, getString(R.string.error_login))
-            }
+                var sJson : String = ""
+                for (floor in mListFloor){
+                    for (room in floor.listRoom){
+                        if (room.isSelected){
+                            for (sw in room.listSW){
+                                sJson = sJson + sw.id +"#"
+                            }
+                        }
+                    }
+                }
+                if (sJson.length>0){
+                    phone = edtFullName.text.toString()
+                    mViewModel.insertUserAdmin(UserEntity(0, phone, pass, "", sJson +"VBee@2021", 0, 0, 1))
+                    showMessage("Tạo tài khoản thành công")
+                    activity?.onBackPressed()
+                }else{
+                    showDialogMessage(context, "Bạn chưa chọn phòng nào để điều khiển!")
+                }
 
+
+            }
         }
+
     }
 
     override fun initViewModel() {
@@ -100,14 +105,27 @@ class InitRoomInAccFragment : BaseFragment() {
 
     override fun observable() {
         mViewModel.loadRoomRes.observe(this, Observer {
+            mListRoom.addAll(it)
+            mViewModel.loadAllSW(this)
+        })
+        mViewModel.loadSWRes.observe(this, Observer {
             mListRoomF1.clear()
             mListRoomF2.clear()
-            for (room in it){
+            for (room in mListRoom){
                 room.isSelected = false
-                if (room.floor==1){
-                    mListRoomF1.add(room)
-                }else if (room.floor ==2)
-                    mListRoomF2.add(room)
+                val lisSW: MutableList<SwitchEntity> = ArrayList()
+                for (sw in it){
+                    if (sw.idRoom == room.id){
+                        lisSW.add(sw)
+                    }
+                }
+                if (lisSW.size>0){
+                    if (room.floor==1){
+                        mListRoomF1.add(Room(room.id, room.name, room.floor, false , lisSW))
+                    }else if (room.floor ==2)
+                        mListRoomF2.add(Room(room.id, room.name, room.floor, false , lisSW))
+                }
+
             }
             mListFloor.add(Floor(0, "Tầng 1", mListRoomF1))
             mListFloor.add(Floor(1, "Tầng 2", mListRoomF2))

@@ -1,25 +1,81 @@
 package com.vbeeon.iotdbs.presentation.activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.Manifest
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
-import com.bumptech.glide.Glide
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.EncodeHintType
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
+import com.google.zxing.common.BitMatrix
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.vbeeon.iotdbs.R
-import com.vbeeon.iotdbs.presentation.fragment.DemoFragment
-import com.vbeeon.iotdbs.presentation.fragment.MainFragment
-import com.vbeeon.iotdbs.presentation.fragment.account.CreateAccFragment
 import com.vbeeon.iotdbs.presentation.fragment.account.InitRoomInAccFragment
-import com.vbeeon.iotdbs.presentation.fragment.login.LoginFragment
-import com.vbeeon.iotdbs.presentation.fragment.script.SetupScriptFragment
-import com.vbeeon.iotdbs.presentation.fragment.switchDetail.SwitchDetailFragment
+import com.vbeeon.iotdbs.presentation.fragment.account.ListUserFragment
 import com.vbeeon.iotdbs.utils.openFragment
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_splashscreen.*
-import vn.neo.smsvietlott.common.di.util.ConstantCommon
+import com.vbeeon.iotdbs.utils.replaceFragment
+import java.io.ByteArrayOutputStream
+import java.util.*
+
 
 class AccountActivity : AppCompatActivity() {
+    var READ_WRITE_STORAGE : Int = 1000
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        openFragment(InitRoomInAccFragment(), false)
+        requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        openFragment(ListUserFragment(), false)
+
+
+    }
+    fun requestPermission(permission: String): Boolean {
+        val isGranted = ContextCompat.checkSelfPermission(this!!, permission) == PackageManager.PERMISSION_GRANTED
+        if (!isGranted) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(permission),
+                READ_WRITE_STORAGE
+            )
+        }
+        return isGranted
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == READ_WRITE_STORAGE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //permission granted so open camera or gallery based on you click
+
+            }
+        }
+    }
+    private fun showQRCode(text: String) {
+        //val mode: Int = SharedPref.getInstance().getAll(Constant.getInstance().STATUS_PC_MODE, Int::class.java)
+        //String text="{\"imei\":\"F84FAD8850E2\",\"mac\":\"00D279E182FE\",\"password\":\"e4f88a273dcfd85f32ea83defb2bcb46\",\"serial\":\"50KD68005074\"}"; // Whatever you need to encode in the QR code
+        val multiFormatWriter = MultiFormatWriter()
+        try {
+            val hintMap: MutableMap<EncodeHintType, Any> = EnumMap<EncodeHintType, Any>(EncodeHintType::class.java)
+            hintMap[EncodeHintType.CHARACTER_SET] = "UTF-8"
+            hintMap[EncodeHintType.MARGIN] = 1 /* default = 4 */
+            hintMap[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.L
+            val bitMatrix: BitMatrix = multiFormatWriter.encode(text, BarcodeFormat.QR_CODE, 200, 200, hintMap)
+            val barcodeEncoder = BarcodeEncoder()
+            val bitmap: Bitmap = barcodeEncoder.createBitmap(bitMatrix)
+            //imgAppStore.setImageBitmap(bitmap)
+            val stream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+            val byteArray: ByteArray = stream.toByteArray()
+            // bmp.recycle();
+            val bitmapEnd = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+        } catch (e: WriterException) {
+            e.printStackTrace()
+        }
     }
 }

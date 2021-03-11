@@ -21,6 +21,7 @@
     <string name="hind_pass">Mật khẩu</string>
     <string name="hind_pass_confirm">Xác nhận mật khẩu</string>
     <string name="btnLogin">Đăng nhập</string>
+    <string name="btnShare">Chia sẻ</string>
     <string name="btnStart">Bắt đầu</string>
     <string name="btnAddScript">Tạo ngữ cảnh</string>
     <string name="btnRemoveSwitch">Gỡ thiết bị</string>
@@ -29,6 +30,7 @@
     <string name="tvRemember">Quên mật khẩu</string>
     <string name="tvIntro">Smart Building là hệ thống tòa nhà thông minh có nhiệm vụ tích hợp các thiết bị và tiện ích bên trong tòa nhà.</string>
     <string name="tvScriptNull">Chưa có ngữ cảnh</string>
+    <string name="tvUserNull">Chưa có tài khoản nào được tạo</string>
 
     <string name="tvSlogan">IoT Digitalized Building Solution</string>
     <string name="tvvnpt">VNPT IoT Platform</string>
@@ -71,6 +73,7 @@
     <string name="tvMenu_4">Tài khoản</string>
     <string name="tvMenu_5">Trợ giúp</string>
     <string name="tvMenu_6">Đăng xuất</string>
+    <string name="config_external_storage_folder">vebeeon</string>
 
     <!--    Script-->
     <string name="hind_name_script">Tên kịch bản</string>

@@ -35,6 +35,21 @@ fun Activity.openFragment(
     }
 }
 
+fun Activity.replaceFragment(
+    fragment: Fragment,
+    addToBackStack: Boolean
+) {
+    this as AppCompatActivity
+    supportFragmentManager.beginTransaction()
+        .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_in_left)
+        .apply {
+            replace(R.id.frameLayout, fragment)
+            if (addToBackStack) addToBackStack(fragment::class.java.simpleName)
+            commit()
+        }
+}
+
+
 inline fun <reified T : Any> Activity.launchActivityForResult(
     requestCode: Int = -1,
     options: Bundle? = null,

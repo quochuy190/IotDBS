@@ -36,7 +36,10 @@ class UserViewModel : BaseViewModel() {
     private val scope = CoroutineScope(coroutineContext)
     lateinit var repository: RoomRepository
     lateinit var repositoryUser: UserRepository
+    lateinit var repositorySwitch: SwichRepository
     val loadRoomRes: MutableLiveData<List<RoomEntity>> = MutableLiveData()
+    val loadSWRes: MutableLiveData<List<SwitchEntity>> = MutableLiveData()
+    val loadUserRes: MutableLiveData<List<UserEntity>> = MutableLiveData()
 
     init {
         Timber.e("init")
@@ -44,6 +47,8 @@ class UserViewModel : BaseViewModel() {
         repository = RoomRepository(roomDao!!)
         val userchDao = IoTDbsDatabase.getInstance(IotDBSApplication.instance)?.userDao()
         repositoryUser = UserRepository(userchDao!!)
+        val switchDao = IoTDbsDatabase.getInstance(IotDBSApplication.instance)?.switchDao()
+        repositorySwitch = SwichRepository(switchDao!!)
         //repository.insertAll()
     }
 
@@ -59,7 +64,22 @@ class UserViewModel : BaseViewModel() {
         // resRoom.postValue()
     }
 
+    fun loadAllSW(lifecycleOwner: LifecycleOwner) {
+        repositorySwitch.loadAllSwitch().observe(lifecycleOwner, Observer {
+            loadSWRes.postValue(it)
+        })
+        // resRoom.postValue()
+    }
+
     fun insertUserAdmin(user : UserEntity) = scope.launch(Dispatchers.IO) {
+        Timber.e(""+user.id)
         repositoryUser.insert(user)
+    }
+
+    fun loadAllUser(lifecycleOwner: LifecycleOwner) {
+        repositoryUser.loadAllUserByType(1).observe(lifecycleOwner, Observer {
+            loadUserRes.postValue(it)
+        })
+        // resRoom.postValue()
     }
 }

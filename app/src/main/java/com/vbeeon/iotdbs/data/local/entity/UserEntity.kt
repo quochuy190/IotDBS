@@ -27,5 +27,7 @@ data class UserEntity(
     @ColumnInfo(name = "sex")
     val sex: Int,    //0: male, 1: female
     @ColumnInfo(name = "age")
-    val age: Int
+    val age: Int,
+    @ColumnInfo(name = "type")
+    val type: Int //0 admin, 1 user
 )

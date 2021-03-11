@@ -35,4 +35,7 @@ interface UserDao {
 
     @Query("SELECT * FROM user where user_name= :user and password= :password")
     fun getUserAndPass(user: String, password: String): LiveData<List<UserEntity>>
+
+    @Query("SELECT * FROM user where type= :type")
+    fun getUserbyType(type: Int): LiveData<List<UserEntity>>
 }

@@ -10,4 +10,4 @@ import com.vbeeon.iotdbs.data.local.entity.RoomEntity
  * Version: 1.0
  */
 
-data class Floor(val id: Int, val name : String, val listRoom : List<RoomEntity>)
+data class Floor(val id: Int, val name : String, val listRoom : List<Room>)

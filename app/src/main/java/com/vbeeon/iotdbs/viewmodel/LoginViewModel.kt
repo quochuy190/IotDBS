@@ -132,7 +132,7 @@ class LoginViewModel : BaseViewModel() {
     }
 
     fun insertUserAdmin() = scope.launch(Dispatchers.IO) {
-        repositoryUser.insert(UserEntity(0, "admin", "admin@2021", "10/01/1990", "",0, 0))
+        repositoryUser.insert(UserEntity(0, "admin", "admin@2021", "10/01/1990", "",0, 0, 0))
     }
     fun exeLogin(lifecycleOwner: LifecycleOwner, user: String, pass: String) {
         repositoryUser.loadUserAndPass(user, pass).observe(lifecycleOwner, Observer {

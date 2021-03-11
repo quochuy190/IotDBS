@@ -17,6 +17,10 @@ class UserRepository(val usertDao: UserDao) {
         return usertDao.getUserAndPass(user, pass)
     }
 
+    fun loadAllUserByType(type :Int) :  LiveData<List<UserEntity>>{
+        return usertDao.getUserbyType(type)
+    }
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(obj: UserEntity) {
