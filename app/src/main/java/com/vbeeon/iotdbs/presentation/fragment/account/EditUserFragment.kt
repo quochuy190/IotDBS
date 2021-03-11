@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -49,25 +50,38 @@ import kotlin.collections.ArrayList
 
 
 @Suppress("DEPRECATION")
-class InitRoomInAccFragment : BaseFragment() {
+class EditUserFragment : BaseFragment() {
     val mListRoomF1: MutableList<Room> = ArrayList()
     val mListRoom: MutableList<RoomEntity> = ArrayList()
     val mListRoomF2: MutableList<Room> = ArrayList()
     val mListFloor: MutableList<Floor> = ArrayList()
     lateinit var adapterRoom : FloorChoseAdapter
     lateinit var mViewModel: UserViewModel
-    var phone : String = ""
-    var pass : String  = ""
+    var name : String = ""
+    var sJson : String  = ""
+    var idUser : Int=0
     companion object {
-        fun newInstance(): InitRoomInAccFragment {
-            val fragment = InitRoomInAccFragment()
+        fun newInstance(id:Int,name:String,sJson: String): EditUserFragment {
+            val fragment = EditUserFragment()
             val args = Bundle()
+            args.putInt("id", id)
+            args.putString("name", name)
+            args.putString("sJson", sJson)
             fragment.setArguments(args)
             return fragment
         }
     }
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        arguments?.getString("name")?.let {
+            name = it
+        }
+        arguments?.getInt("id")?.let {
+            idUser = it
+        }
+        arguments?.getString("sJson")?.let {
+            sJson = it
+        }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +97,9 @@ class InitRoomInAccFragment : BaseFragment() {
             Timber.e("ib_toolbar_close.setOnSafeClickListener")
             activity?.onBackPressed()
         }
-        tv_toolbar_title.text = "Tạo người dùng"
+        btnRegister.text = "Cập nhật"
+        tv_toolbar_title.text = "Cập nhật người dùng"
+        edtFullName.text =  Editable.Factory.getInstance().newEditable(name)
         adapterRoom = context?.let { FloorChoseAdapter(it, doneClick = {
             // doneClick(0)
         }) }!!
@@ -102,8 +118,8 @@ class InitRoomInAccFragment : BaseFragment() {
                     }
                 }
                 if (sJson.length>0){
-                    phone = edtFullName.text.toString()
-                    mViewModel.insertUserAdmin(UserEntity(0, phone, pass, "", sJson +"VBee@2021", 0, 0, 1))
+                   var userName = edtFullName.text.toString()
+                    mViewModel.update(UserEntity(idUser, userName, userName, "", sJson +"VBee@2021", 0, 0, 1))
                     Thread.sleep(500)
                     val builder: AlertDialog.Builder = AlertDialog.Builder(context)
                     builder.setMessage("Tạo người dùng thành công, bạn có muốn chia sẻ mã đăng nhập ngay không?")
@@ -167,14 +183,17 @@ class InitRoomInAccFragment : BaseFragment() {
                 val lisSW: MutableList<SwitchEntity> = ArrayList()
                 for (sw in it){
                     if (sw.idRoom == room.id){
+                        if (sJson.indexOf(sw.id)>-1){
+                            room.isSelected = true
+                        }
                         lisSW.add(sw)
                     }
                 }
                 if (lisSW.size>0){
                     if (room.floor==1){
-                        mListRoomF1.add(Room(room.id, room.name, room.floor, false , lisSW))
+                        mListRoomF1.add(Room(room.id, room.name, room.floor, room.isSelected , lisSW))
                     }else if (room.floor ==2)
-                        mListRoomF2.add(Room(room.id, room.name, room.floor, false , lisSW))
+                        mListRoomF2.add(Room(room.id, room.name, room.floor, room.isSelected , lisSW))
                 }
 
             }

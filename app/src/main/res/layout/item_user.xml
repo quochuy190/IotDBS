@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <androidx.cardview.widget.CardView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dimen_7dp"
@@ -23,15 +23,32 @@
             app:cardCornerRadius="@dimen/dimen_5dp"
             app:cardElevation="@dimen/dimen_5dp">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="@drawable/bgr_item_room"
                 android:padding="@dimen/dimen_7dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+                <ImageView
+                    android:src="@drawable/ic_user"
+                    android:id="@+id/imgAvata"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintWidth_percent="0.15"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:tint="@color/orange" />
 
                 <TextView
+
+                    app:layout_constraintEnd_toStartOf="@+id/icEdit"
+                    app:layout_constraintTop_toTopOf="@+id/imgAvata"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgAvata"
+                    app:layout_constraintStart_toEndOf="@+id/imgAvata"
+                    android:layout_weight="1"
                     android:id="@+id/tvName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:duplicateParentState="true"
                     android:ellipsize="end"
@@ -41,7 +58,33 @@
                     android:text="@{data.name}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp_16" />
-            </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/icDelete"
+                    android:padding="@dimen/dimen_3dp"
+                    android:src="@drawable/ic_delete"
+                    app:layout_constraintWidth_percent="0.1"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/imgAvata"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgAvata"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:tint="@color/textMain" />
+
+                <ImageView
+                    android:id="@+id/icEdit"
+                    android:padding="@dimen/dimen_3dp"
+                    android:src="@drawable/ic_edit"
+                    app:layout_constraintWidth_percent="0.1"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toStartOf="@+id/icDelete"
+                    app:layout_constraintTop_toTopOf="@+id/imgAvata"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgAvata"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.cardview.widget.CardView>

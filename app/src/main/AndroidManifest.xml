@@ -50,6 +50,11 @@
             android:name=".presentation.activity.ScriptActivity">
 
         </activity>
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".presentation.activity.ScanDeviceActivity">
+
+        </activity>
     </application>
 
 </manifest>

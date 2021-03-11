@@ -1,18 +1,13 @@
 package com.vbeeon.iotdbs.presentation.fragment.account
 
-import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
+import android.provider.MediaStore
 import android.text.Editable
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.zxing.BarcodeFormat
@@ -32,9 +27,6 @@ import kotlinx.android.synthetic.main.fragment_user_detail.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
 import java.util.*
 
 
@@ -67,7 +59,6 @@ class UserDetailFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        activity?.let { requestPermission(it) }
     }
 
     override fun getLayoutRes(): Int {
@@ -80,7 +71,7 @@ class UserDetailFragment : BaseFragment() {
             activity?.onBackPressed()
         }
         tv_toolbar_title.visible()
-        tv_toolbar_title.text = "Thông tin tài khoản"
+        tv_toolbar_title.text = "Thông tin người dùng"
         edtFullNameDetail.text =  Editable.Factory.getInstance().newEditable(name)
         showQRCode(sJson)
         btnShare.setOnSafeClickListener {
@@ -116,7 +107,7 @@ class UserDetailFragment : BaseFragment() {
             hintMap[EncodeHintType.CHARACTER_SET] = "UTF-8"
             hintMap[EncodeHintType.MARGIN] = 1 /* default = 4 */
             hintMap[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.L
-            val bitMatrix: BitMatrix = multiFormatWriter.encode(text, BarcodeFormat.QR_CODE, 200, 200, hintMap)
+            val bitMatrix: BitMatrix = multiFormatWriter.encode(text, BarcodeFormat.QR_CODE, 1000, 1000, hintMap)
             val barcodeEncoder = BarcodeEncoder()
             bitmap = barcodeEncoder.createBitmap(bitMatrix)
             imgQRCodeAcc.setImageBitmap(bitmap)
@@ -132,61 +123,15 @@ class UserDetailFragment : BaseFragment() {
 
     fun shareQRcode(){
         try {
-            if (bitmap == null) {
-                return
-            }
-            val dir = File(
-                Environment.getExternalStorageDirectory(), context?.getExternalFilesDir(null)?.getAbsolutePath()
-            )
-            if (!dir.exists()) {
-                dir.mkdirs()
-            }
-            val img = File(dir, "qr_code" + ".png")
-            if (img.exists()) {
-                img.delete()
-            }
-            val outStream: OutputStream = FileOutputStream(img)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
-            outStream.flush()
-            outStream.close()
-            val share = Intent(Intent.ACTION_SEND)
-            share.type = "image/*"
-            share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(img))
-            startActivity(Intent.createChooser(share, "Share via"))
+            val bitmapPath: String = MediaStore.Images.Media.insertImage(context?.getContentResolver(), bitmap, "title", null)
+            val bitmapUri = Uri.parse(bitmapPath)
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "image/png"
+            intent.putExtra(Intent.EXTRA_STREAM, bitmapUri)
+            startActivity(Intent.createChooser(intent, "Share"))
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    private fun requestPermission( context: Activity) {
-        val PERMISSIONS = ArrayList<String>()
-        if (ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.CAMERA
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            PERMISSIONS.add(Manifest.permission.CAMERA)
-        }
-        if (ActivityCompat.shouldShowRequestPermissionRationale(
-                context,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            )
-        ) {
-            PERMISSIONS.add(Manifest.permission.READ_EXTERNAL_STORAGE)
-        }
-        if (ActivityCompat.shouldShowRequestPermissionRationale(
-                context,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            )
-        ) {
-            PERMISSIONS.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        }
-        if (!PERMISSIONS.isEmpty()) {
-            ActivityCompat.requestPermissions(
-                (context as Activity),
-                PERMISSIONS.toTypedArray(),
-                MY_PERMISSIONS_REQUEST_PERMISSION
-            )
-        }
-    }
 }

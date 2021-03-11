@@ -80,6 +80,8 @@ abstract class BaseFragment : Fragment() {
         alert.show()
     }
 
+
+
 //    open fun showDialogResetToken(b: Boolean) {
 //        val alertBuilder = AlertDialog.Builder(context)
 //        alertBuilder.setCancelable(false)

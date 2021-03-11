@@ -12,7 +12,7 @@
     <string name="hind_email">Email</string>
     <string name="hind_username">Tên đăng nhập</string>
     <string name="hind_phone">- Nhập vào số điện thoại</string>
-    <string name="hind_fullName">Tên tài khoản</string>
+    <string name="hind_fullName">Tên người dùng</string>
     <string name="hind_wifi">Tên Wifi</string>
     <string name="hind_ip_gateway">IP Gateway</string>
     <string name="hind_name_gateway">Tên Gateway</string>
@@ -26,7 +26,7 @@
     <string name="btnAddScript">Tạo ngữ cảnh</string>
     <string name="btnRemoveSwitch">Gỡ thiết bị</string>
     <string name="btnNext">Tiếp tục</string>
-    <string name="tvRegister">Tạo tài khoản</string>
+    <string name="tvRegister">Tạo người dùng</string>
     <string name="tvRemember">Quên mật khẩu</string>
     <string name="tvIntro">Smart Building là hệ thống tòa nhà thông minh có nhiệm vụ tích hợp các thiết bị và tiện ích bên trong tòa nhà.</string>
     <string name="tvScriptNull">Chưa có ngữ cảnh</string>
@@ -70,7 +70,7 @@
     <string name="tvMenu_1">Quản lý thiết bị</string>
     <string name="tvMenu_2">Cài đặt</string>
     <string name="tvMenu_3">Giới thiệu</string>
-    <string name="tvMenu_4">Tài khoản</string>
+    <string name="tvMenu_4">Quản lý tài khoản</string>
     <string name="tvMenu_5">Trợ giúp</string>
     <string name="tvMenu_6">Đăng xuất</string>
     <string name="config_external_storage_folder">vebeeon</string>
@@ -82,5 +82,7 @@
     <string name="validate_Pass">Bạn chưa nhập vào mật khẩu đăng nhập!</string>
     <string name="error_login">Tài khoản hoặc mật khẩu không chính xác!</string>
     <string name="error_register">Bạn chưa nhập vào tên tài khoản!</string>
+<!--    <string name="status_scan">Put the camera in place with QR code \n to scan and install the device</string>    -->
+    <string name="status_scan">Đặt máy ảnh vào vị trí có mã QR \ n để quét và đăng nhập</string>
 
 </resources>

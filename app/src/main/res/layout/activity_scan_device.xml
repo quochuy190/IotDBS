@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.vbeeon.iotdbs.utils.widget.barcodescan.DecoratedScanView
+        android:id="@+id/zxing_barcode_scanner"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:finderMarginTop="@dimen/dimen_152dp"
+        app:borderColor="@color/viewfinder_border"
+        app:borderWidth="@dimen/dimen_4dp"
+        app:borderLength="@dimen/dimen_48dp"
+        app:borderMargin="@dimen/dimen_8dp"
+        app:finderWidth="@dimen/dimen_280dp"
+        app:finderHeight="@dimen/dimen_280dp"
+        app:statusText="@string/status_scan"
+        app:statusColor="@color/white"
+        app:statusMargin="@dimen/dimen_27dp"
+        app:statusSize="@dimen/text_large"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

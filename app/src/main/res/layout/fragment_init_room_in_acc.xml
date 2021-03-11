@@ -16,7 +16,7 @@
         app:cardElevation="@dimen/dimen_5dp"
         app:layout_constraintTop_toBottomOf="@+id/appBarMain"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintHeight_percent="0.07"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.8">
 
@@ -24,26 +24,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tipUserName"
+            <EditText
+                android:imeOptions="actionNext"
+                android:id="@+id/edtFullName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bgr_edt_login">
-
-                <EditText
-                    android:imeOptions="actionNext"
-                    android:id="@+id/edtFullName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_1dp"
-                    android:background="@color/white"
-                    android:fontFamily="@font/roboto_medium"
-                    android:hint="@string/hind_fullName"
-                    android:padding="@dimen/dimen_7dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey_20"
-                    android:textSize="@dimen/sp_15" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_margin="@dimen/dimen_1dp"
+                android:background="@color/white"
+                android:fontFamily="@font/roboto_medium"
+                android:hint="@string/hind_fullName"
+                android:padding="@dimen/dimen_7dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey_20"
+                android:textSize="@dimen/sp_15" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

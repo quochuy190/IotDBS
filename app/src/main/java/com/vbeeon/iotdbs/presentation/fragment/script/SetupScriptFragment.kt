@@ -111,6 +111,10 @@ class SetupScriptFragment : BaseFragment() {
     override fun initViewModel() {
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         mainViewModel.loadAllDataSwitchbyFloor(this, 1)
+        mainViewModel.loading.observeForever(this::showProgressDialog)
+        mainViewModel.error.observeForever({ throwable ->
+            showDialogMessage(context, getString(R.string.system_error))
+        })
     }
 
     override fun observable() {

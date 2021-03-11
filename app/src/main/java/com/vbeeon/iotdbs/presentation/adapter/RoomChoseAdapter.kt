@@ -61,9 +61,9 @@ class RoomChoseAdapter internal constructor(val context: Context,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(listMenu[position])
-        holder.itemMenuBinding.cbSubSW.setOnCheckedChangeListener { buttonView, isChecked ->
+        holder.itemMenuBinding.cbRoom.setOnCheckedChangeListener { buttonView, isChecked ->
             listMenu[position].isSelected = isChecked
-            notifyDataSetChanged()
+            //notifyDataSetChanged()
         }
     }
     internal fun setDatas(list: List<Room>) {

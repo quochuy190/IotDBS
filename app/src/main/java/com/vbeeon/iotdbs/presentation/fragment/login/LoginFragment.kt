@@ -1,20 +1,23 @@
 package com.vbeeon.iotdbs.presentation.fragment.login
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.vbeeon.iotdbs.MainActivity
 import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.presentation.activity.LoginActivity
+import com.vbeeon.iotdbs.presentation.activity.ScanDeviceActivity
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
 import com.vbeeon.iotdbs.utils.SharedPrefs
 import com.vbeeon.iotdbs.utils.launchActivity
 import com.vbeeon.iotdbs.utils.setOnSafeClickListener
 import com.vbeeon.iotdbs.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
+import timber.log.Timber
 import vn.neo.smsvietlott.common.di.util.ConstantCommon
 
 
@@ -73,6 +76,9 @@ class LoginFragment : BaseFragment() {
 //                }
 
         }
+        loginQRCode.setOnSafeClickListener {
+            startActivityForResult(ScanDeviceActivity.newIntent(context), REQUEST_CODE_SCAN)
+        }
     }
 
     private fun isValidate(): Boolean {
@@ -99,11 +105,12 @@ class LoginFragment : BaseFragment() {
         userViewModel.loginRes.observe(this, Observer {
             if (it != null && it.size > 0) {
                 SharedPrefs.instance.put(ConstantCommon.IS_LOGIN, true)
-                if (it[0].name.equals("admin")){
+                SharedPrefs.instance.put(ConstantCommon.KEY_SAVE_LOGIN_USER_LIST_DEVICE, "")
+                if (it[0].name.equals("admin")) {
                     (context as LoginActivity).launchActivity<MainActivity> { }
                     (context as LoginActivity).finish()
-                }else{
-                    showMessage("login success"+it[0].name)
+                } else {
+                    showMessage("login success" + it[0].name)
                 }
 
             } else {
@@ -114,5 +121,27 @@ class LoginFragment : BaseFragment() {
         })
     }
 
-
+    val REQUEST_CODE_SCAN = 1111
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_CODE_SCAN && data != null) {
+                val resultScan: String? = data.getStringExtra(ScanDeviceActivity.DATA)
+                Timber.e("" + resultScan)
+                if (resultScan != null && resultScan.length > 0) {
+                    if (resultScan.indexOf("VBee@2021") > 2) {
+                        showMessage("" + resultScan)
+                        SharedPrefs.instance.put(ConstantCommon.IS_LOGIN, true)
+                        SharedPrefs.instance.put(ConstantCommon.KEY_SAVE_LOGIN_USER_LIST_DEVICE, resultScan)
+                        (context as LoginActivity).launchActivity<MainActivity> { }
+                        (context as LoginActivity).finish()
+                    } else {
+                        showDialogMessage(context, "Mã QR Code không hợp lệ")
+                    }
+                } else {
+                    showDialogMessage(context, "Mã QR Code không hợp lệ")
+                }
+            }
+        }
+    }
 }

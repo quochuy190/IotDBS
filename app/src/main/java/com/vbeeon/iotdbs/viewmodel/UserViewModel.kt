@@ -75,6 +75,15 @@ class UserViewModel : BaseViewModel() {
         Timber.e(""+user.id)
         repositoryUser.insert(user)
     }
+    fun update(user : UserEntity) = scope.launch(Dispatchers.IO) {
+        Timber.e(""+user.id)
+        repositoryUser.update(user)
+    }
+
+    fun deleteUser(user : UserEntity) = scope.launch(Dispatchers.IO) {
+        Timber.e(""+user.id)
+        repositoryUser.deleteUser(user)
+    }
 
     fun loadAllUser(lifecycleOwner: LifecycleOwner) {
         repositoryUser.loadAllUserByType(1).observe(lifecycleOwner, Observer {

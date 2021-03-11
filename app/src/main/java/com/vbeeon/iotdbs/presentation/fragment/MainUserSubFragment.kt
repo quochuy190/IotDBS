@@ -7,6 +7,7 @@ import com.vbeeon.iotdbs.R
 import com.vbeeon.iotdbs.presentation.adapter.MainViewPagerAdapter
 import com.vbeeon.iotdbs.presentation.base.BaseFragment
 import com.vbeeon.iotdbs.presentation.fragment.bottonBar.BuildMainFragment
+import com.vbeeon.iotdbs.presentation.fragment.bottonBar.BuildingSubUserFragment
 import com.vbeeon.iotdbs.presentation.fragment.bottonBar.MenuFragment
 import com.vbeeon.iotdbs.presentation.fragment.bottonBar.ScriptFragment
 import com.vbeeon.iotdbs.utils.SharedPrefs
@@ -16,10 +17,9 @@ import vn.neo.smsvietlott.common.di.util.ConstantCommon
 
 
 @Suppress("DEPRECATION")
-class MainFragment : BaseFragment() {
+class MainUserSubFragment : BaseFragment() {
 
     lateinit var mainViewModel: MainViewModel
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,7 @@ class MainFragment : BaseFragment() {
     }
 
     override fun getLayoutRes(): Int {
-        return R.layout.fragment_main
+        return R.layout.fragment_main_sub_user
     }
 
     override fun initView() {
@@ -40,31 +40,24 @@ class MainFragment : BaseFragment() {
     }
 
     private fun initViewPager() {
-
         val adapter = MainViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(ScriptFragment(), "")
-        adapter.addFragment(BuildMainFragment(), "")
+        adapter.addFragment(BuildingSubUserFragment(), "")
         adapter.addFragment(MenuFragment(), "")
         vp_main.adapter = adapter
-        vp_main.setOffscreenPageLimit(3)
+        vp_main.setOffscreenPageLimit(2)
         vp_main.setPageScrollEnabled(false)
-        vp_main.currentItem = 1
         bnv.setSelectedItemId(R.id.it_building);
 
         val menuItem = bnv.menu.findItem(R.id.it_building)
         menuItem.setIcon(R.drawable.ic_building)
         bnv.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.it_script -> {
-                    vp_main.currentItem = 0
-                    //( context as MainActivity).setTitleMain(getString(R.string.menu_home))
-                }
                 R.id.it_building -> {
-                    vp_main.currentItem = 1
+                    vp_main.currentItem = 0
                     //( context as MainActivity).setTitleMain(getString(R.string.menu_monitoring))
                 }
                 R.id.it_menu -> {
-                    vp_main.currentItem = 2
+                    vp_main.currentItem = 1
                     //( context as MainActivity).setTitleMain(getString(R.string.menu_online))
                 }
             }

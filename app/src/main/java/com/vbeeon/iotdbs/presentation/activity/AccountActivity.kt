@@ -26,36 +26,14 @@ import java.util.*
 
 
 class AccountActivity : AppCompatActivity() {
-    var READ_WRITE_STORAGE : Int = 1000
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         openFragment(ListUserFragment(), false)
 
-
-    }
-    fun requestPermission(permission: String): Boolean {
-        val isGranted = ContextCompat.checkSelfPermission(this!!, permission) == PackageManager.PERMISSION_GRANTED
-        if (!isGranted) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(permission),
-                READ_WRITE_STORAGE
-            )
-        }
-        return isGranted
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == READ_WRITE_STORAGE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //permission granted so open camera or gallery based on you click
-
-            }
-        }
-    }
     private fun showQRCode(text: String) {
         //val mode: Int = SharedPref.getInstance().getAll(Constant.getInstance().STATUS_PC_MODE, Int::class.java)
         //String text="{\"imei\":\"F84FAD8850E2\",\"mac\":\"00D279E182FE\",\"password\":\"e4f88a273dcfd85f32ea83defb2bcb46\",\"serial\":\"50KD68005074\"}"; // Whatever you need to encode in the QR code

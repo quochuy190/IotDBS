@@ -38,7 +38,7 @@ class SplashScreenAcitivity : BaseActivity() {
     }
 
     override fun setupView(savedInstanceState: Bundle?) {
-
+      //  requestPermission(applicationContext)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -168,36 +168,36 @@ class SplashScreenAcitivity : BaseActivity() {
         alert.show()
     }
 
-    /*  fun onRequestPermissionsResult(
-          requestCode: Int,
-          permissions: Array<String?>?, grantResults: IntArray?
-      ) {
-          when (requestCode) {
-              MY_PERMISSIONS_REQUEST_PERMISSION -> {
-                  if (grantResults != null && grantResults.size > 0) {
-                      var count = 0
-                      var i = 0
-                      while (i < grantResults.size) {
-                          if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                              showDialogNotPermission(this)
-                          } else {
-                              count++
-                          }
-                          i++
-                      }
-                      if (count == grantResults.size) goToNextScreen()
-                  }
-                  super.onRequestPermissionsResult(
-                      requestCode, permissions!!,
-                      grantResults!!
-                  )
-              }
-              else -> super.onRequestPermissionsResult(
-                  requestCode, permissions!!,
-                  grantResults!!
-              )
-          }
-      }*/
+//    fun onRequestPermissionsResult(
+//          requestCode: Int,
+//          permissions: Array<String?>?, grantResults: IntArray?
+//      ) {
+//          when (requestCode) {
+//              MY_PERMISSIONS_REQUEST_PERMISSION -> {
+//                  if (grantResults != null && grantResults.size > 0) {
+//                      var count = 0
+//                      var i = 0
+//                      while (i < grantResults.size) {
+//                          if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+//                              showDialogNotPermission(this)
+//                          } else {
+//                              count++
+//                          }
+//                          i++
+//                      }
+//                      if (count == grantResults.size) goToNextScreen()
+//                  }
+//                  super.onRequestPermissionsResult(
+//                      requestCode, permissions!!,
+//                      grantResults!!
+//                  )
+//              }
+//              else -> super.onRequestPermissionsResult(
+//                  requestCode, permissions!!,
+//                  grantResults!!
+//              )
+//          }
+//      }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

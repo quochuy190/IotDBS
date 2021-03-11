@@ -160,6 +160,23 @@
 
     </androidx.cardview.widget.CardView>
 
+    <ImageView
+        android:layout_margin="@dimen/dimen_15dp"
+        android:src="@drawable/ic_scan_white"
+        app:layout_constraintWidth_percent="0.15"
+        app:layout_constraintDimensionRatio="1:1"
+        android:id="@+id/loginQRCode"
+        android:visibility="visible"
+        android:textColor="@color/black"
+        style="@style/TextSp16"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dimen_5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardPassLogin"
+        app:tint="@color/textMain" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glBot"
         android:layout_width="wrap_content"

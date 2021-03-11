@@ -21,7 +21,9 @@ import timber.log.Timber
 
 
 class UserAdapter internal constructor(context: Context,
-                                       val doneClick: (Int) -> Unit) : RecyclerView.Adapter<UserAdapter.ViewHolder>(){
+                                       val doneClick: (Int) -> Unit, val deleteItem: (UserEntity) -> Unit, val editItem: (UserEntity) -> Unit) :
+    RecyclerView.Adapter<UserAdapter
+.ViewHolder>(){
     private var listScript = emptyList<UserEntity>() // Cached copy of words
 
     inner class ViewHolder(itemBinding: ItemUserBinding) : RecyclerView.ViewHolder(itemBinding.getRoot()) {
@@ -60,6 +62,12 @@ class UserAdapter internal constructor(context: Context,
         holder.itemView.setOnSafeClickListener {
             Timber.d("click item")
             doneClick(position)
+        }
+        holder.itemRoomBinding.icDelete.setOnSafeClickListener {
+            deleteItem(listScript[position])
+        }
+        holder.itemRoomBinding.icEdit.setOnSafeClickListener {
+            editItem(listScript[position])
         }
     }
     internal fun setDatas(list: List<UserEntity>) {
