@@ -73,6 +73,8 @@
     <string name="tvMenu_4">Quản lý tài khoản</string>
     <string name="tvMenu_5">Trợ giúp</string>
     <string name="tvMenu_6">Đăng xuất</string>
+    <string name="yes">Đồng ý</string>
+    <string name="no">Không</string>
     <string name="config_external_storage_folder">vebeeon</string>
 
     <!--    Script-->
@@ -83,6 +85,6 @@
     <string name="error_login">Tài khoản hoặc mật khẩu không chính xác!</string>
     <string name="error_register">Bạn chưa nhập vào tên tài khoản!</string>
 <!--    <string name="status_scan">Put the camera in place with QR code \n to scan and install the device</string>    -->
-    <string name="status_scan">Đặt máy ảnh vào vị trí có mã QR \ n để quét và đăng nhập</string>
+    <string name="status_scan">Đặt máy ảnh vào vị trí có mã QR \n để quét và đăng nhập</string>
 
 </resources>

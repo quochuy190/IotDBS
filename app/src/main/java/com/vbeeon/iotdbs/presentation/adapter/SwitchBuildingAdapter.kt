@@ -47,11 +47,11 @@ class SwitchBuildingAdapter internal constructor(
                     itemRoomBinding.imgSW3.visibility = View.GONE
                     if (entity.listSubSw[0]!!.isChecked) {
                         Glide.with(context)
-                            .load(context.getDrawable(R.drawable.ic_switch_detail_on))
+                            .load(context.getDrawable(R.drawable.ic_status_on))
                             .into(itemRoomBinding.imgSW1);
                     } else
                         Glide.with(context)
-                            .load(context.getDrawable(R.drawable.ic_switch_detal_off))
+                            .load(context.getDrawable(R.drawable.ic_status_off))
                             .into(itemRoomBinding.imgSW1);
                 } else
                     when (entity!!.listSubSw.size) {
@@ -64,11 +64,11 @@ class SwitchBuildingAdapter internal constructor(
                             itemRoomBinding.imgSW3.visibility = View.GONE
                             if (entity!!.listSubSw[0].isChecked) {
                                 Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
+                                    .load(context.getDrawable(R.drawable.ic_status_on))
                                     .into(itemRoomBinding.imgSW1);
                             } else {
                                 Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
+                                    .load(context.getDrawable(R.drawable.ic_status_off))
                                     .into(itemRoomBinding.imgSW1);
                             }
                         }
@@ -81,20 +81,20 @@ class SwitchBuildingAdapter internal constructor(
                             itemRoomBinding.imgSW3.visibility = View.GONE
                             if (entity!!.listSubSw[0].isChecked) {
                                 Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
+                                    .load(context.getDrawable(R.drawable.ic_status_on))
                                     .into(itemRoomBinding.imgSW1);
                             } else {
                                 Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
+                                    .load(context.getDrawable(R.drawable.ic_status_off))
                                     .into(itemRoomBinding.imgSW1);
                             }
                             if (entity!!.listSubSw[1].isChecked) {
                                 Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
+                                    .load(context.getDrawable(R.drawable.ic_status_on))
                                     .into(itemRoomBinding.imgSW2);
                             } else {
                                 Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
+                                    .load(context.getDrawable(R.drawable.ic_status_off))
                                     .into(itemRoomBinding.imgSW2);
                             }
                         }
@@ -107,29 +107,29 @@ class SwitchBuildingAdapter internal constructor(
                             itemRoomBinding.imgSW3.visibility = View.VISIBLE
                             if (entity!!.listSubSw[0].isChecked) {
                                 Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
+                                    .load(context.getDrawable(R.drawable.ic_status_on))
                                     .into(itemRoomBinding.imgSW1);
                             } else {
                                 Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
+                                    .load(context.getDrawable(R.drawable.ic_status_off))
                                     .into(itemRoomBinding.imgSW1);
                             }
                             if (entity!!.listSubSw[1].isChecked) {
                                 Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
+                                    .load(context.getDrawable(R.drawable.ic_status_on))
                                     .into(itemRoomBinding.imgSW2);
                             } else {
                                 Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
+                                    .load(context.getDrawable(R.drawable.ic_status_off))
                                     .into(itemRoomBinding.imgSW2);
                             }
                             if (entity!!.listSubSw[2].isChecked) {
                                 Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detail_on))
+                                    .load(context.getDrawable(R.drawable.ic_status_on))
                                     .into(itemRoomBinding.imgSW3);
                             } else {
                                 Glide.with(context)
-                                    .load(context.getDrawable(R.drawable.ic_switch_detal_off))
+                                    .load(context.getDrawable(R.drawable.ic_status_off))
                                     .into(itemRoomBinding.imgSW3);
                             }
                         }

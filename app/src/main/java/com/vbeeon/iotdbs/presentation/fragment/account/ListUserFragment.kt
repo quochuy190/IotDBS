@@ -48,10 +48,10 @@ class ListUserFragment : BaseFragment() {
                     val builder: AlertDialog.Builder = AlertDialog.Builder(context)
                     builder.setMessage("Bạn có chắc chắn muốn xóa tài khoản này không")
                         .setCancelable(false)
-                        .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
+                        .setPositiveButton(getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
                             mainViewModel.deleteUser(it)
                         })
-                        .setNegativeButton("No", DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+                        .setNegativeButton(getString(R.string.no), DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
                     val alert: AlertDialog = builder.create()
                     alert.show()
                 },

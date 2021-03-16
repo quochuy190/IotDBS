@@ -51,14 +51,14 @@ class MenuFragment : BaseFragment() {
                     val builder: AlertDialog.Builder = AlertDialog.Builder(context)
                     builder.setMessage("Bạn có chắc chắn muốn đăng xuất không?")
                         .setCancelable(false)
-                        .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
+                        .setPositiveButton(getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
                             // SharedPrefs.instance.put(ConstantCommon.IS_FIRST_OPEN_APP, false)
                             SharedPrefs.instance.put(ConstantCommon.IS_LOGIN, false)
                             SharedPrefs.instance.put(ConstantCommon.KEY_SAVE_LOGIN_USER_LIST_DEVICE, "")
                             activity?.finish()
                             activity?.launchActivity<LoginActivity>()
                         })
-                        .setNegativeButton("No", DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+                        .setNegativeButton(getString(R.string.no), DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
                     val alert: AlertDialog = builder.create()
                     alert.show()
                 } else if (mList[it].id == 1) {
