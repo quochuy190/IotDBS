@@ -87,4 +87,14 @@
 <!--    <string name="status_scan">Put the camera in place with QR code \n to scan and install the device</string>    -->
     <string name="status_scan">Đặt máy ảnh vào vị trí có mã QR \n để quét và đăng nhập</string>
 
+<!--    Timer-->
+    <string name="chose_sw">Chọn công tắc</string>
+    <string name="setup_timer">Cài đặt thời gian</string>
+    <string name="setup_date">Cài đặt ngày</string>
+    <string name="setup_status">Cài trạng thái</string>
+
+    <string name="sw_On">Bật</string>
+    <string name="sw_Off">Tắt</string>
+    <string name="btnSave">Lưu</string>
+
 </resources>

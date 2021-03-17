@@ -118,6 +118,13 @@ class SwitchDetailFragment : BaseFragment() {
                 mainViewModel.exeControlGroup2(0, switchId + "tang2_control")
             // mainViewModel.exeControlGroup(0, switchId + "tang2_control")
         }
+        clTimer.setOnSafeClickListener {
+            if (floor == 1)
+                (context as SwitchDetailActivity).openFragment(TimerFragment.newInstance(switchId + "tang1_control_1", 1), true)
+            else
+                (context as SwitchDetailActivity).openFragment(TimerFragment.newInstance(switchId + "tang2_control", 2), true)
+
+        }
     }
 
     private fun initRcvSwitch() {
@@ -143,14 +150,12 @@ class SwitchDetailFragment : BaseFragment() {
         rcvListSwitchDetal.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         rcvListSwitchDetal.apply { adapter = adapterSwitch }
-
-        val switchOne: MutableList<SwitchDetailEntity> = ArrayList()
     }
 
     override fun initViewModel() {
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         mainViewModel.loadDataSubSwitch(this, switchId)
-        mainViewModel.loading.observeForever(this::showProgressDialog)
+       // mainViewModel.loading.observeForever(this::showProgressDialog)
         mainViewModel.error.observeForever({ throwable ->
 //            showDialogMessage(
 //                context,
@@ -159,17 +164,17 @@ class SwitchDetailFragment : BaseFragment() {
         })
         //   mainViewModel.exeCreateGroupRemoteBySW(switchId)
         mainViewModel.resControlAll.observe(this, Observer {
-            if (it){
+            if (it) {
                 Glide.with(this).load(R.drawable.turn_on_on).into(imgSwitchOnAll)
                 Glide.with(this).load(R.drawable.turn_off_default).into(imgSwitchOffAll)
-                for (sw in mListSwitch){
+                for (sw in mListSwitch) {
                     sw.isChecked = true
                 }
                 adapterSwitch.notifyDataSetChanged()
-            }else {
+            } else {
                 Glide.with(this).load(R.drawable.turn_off_default).into(imgSwitchOnAll)
                 Glide.with(this).load(R.drawable.turn_off_on).into(imgSwitchOffAll)
-                for (sw in mListSwitch){
+                for (sw in mListSwitch) {
                     sw.isChecked = false
                 }
                 adapterSwitch.notifyDataSetChanged()
@@ -195,7 +200,7 @@ class SwitchDetailFragment : BaseFragment() {
             mListSwitch.clear()
             mListSwitch.addAll(it)
             adapterSwitch.setDatas(mListSwitch)
-            if (it!=null&&it.size>0){
+            if (it != null && it.size > 0) {
                 if (floor == 1) {
                     for (sw in mListSwitch) {
                         mListSubSWString.add(

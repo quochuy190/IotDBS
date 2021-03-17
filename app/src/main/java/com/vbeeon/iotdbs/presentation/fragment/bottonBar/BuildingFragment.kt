@@ -111,10 +111,10 @@ class BuildingFragment : BaseFragment() {
 //                (context as MainActivity).
 //                openFragment(SwitchDetailFragment.newInstance(mListSwitch[it].id,mListSwitch[it].name ), true
                 (context as MainActivity).launchActivity<SwitchDetailActivity> {
-                    putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mListSwitch[it].id)
-                    putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mListSwitch[it].name)
-                    putExtra(ConstantCommon.KEY_SEND_SWICH_FLOOR, mListSwitch[it].floor)
-                    putExtra(ConstantCommon.KEY_SEND_SWICH_TYPE, mListSwitch[it].type)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mList[it].id)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mList[it].name)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_FLOOR, mList[it].floor)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_TYPE, mList[it].type)
                 }
             })
         }!!

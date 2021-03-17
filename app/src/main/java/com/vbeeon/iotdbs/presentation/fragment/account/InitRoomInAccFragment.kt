@@ -110,6 +110,8 @@ class InitRoomInAccFragment : BaseFragment() {
                         .setCancelable(false)
                         .setPositiveButton("Chia sẻ", DialogInterface.OnClickListener { dialog, id ->
                             showQRCode(sJson+"VBee@2021")
+                            dialog.cancel()
+                            activity?.onBackPressed()
                         })
                         .setNegativeButton("Để sau", DialogInterface.OnClickListener { dialog, id ->
                             dialog.cancel()

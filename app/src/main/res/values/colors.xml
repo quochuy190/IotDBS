@@ -37,6 +37,7 @@
     <color name="background_layout_default">#29000000</color>
     <color name="transparent">#00000000</color>
     <color name="grey_20">#cccccc</color>
+    <color name="grey">#E3DFDF</color>
     <color name="tab_layout_no_selecter">#455D96</color>
     <color name="grey_80">#37474F</color>
     <color name="grey_80_switch">#C4787B7C</color>

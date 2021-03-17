@@ -66,10 +66,10 @@ class BuildingSubUserFragment : BaseFragment() {
         adapterSwitch1 = context?.let {
             SwitchBuildingAdapter(it, doneClick = {
                 (context as MainActivity).launchActivity<SwitchDetailActivity> {
-                    putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mListSwitch1[it].id)
-                    putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mListSwitch1[it].name)
-                    putExtra(ConstantCommon.KEY_SEND_SWICH_FLOOR, mListSwitch1[it].floor)
-                    putExtra(ConstantCommon.KEY_SEND_SWICH_TYPE, mListSwitch1[it].type)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mList1[it].id)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mList1[it].name)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_FLOOR, mList1[it].floor)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_TYPE, mList1[it].type)
                 }
             })
         }!!
@@ -87,10 +87,10 @@ class BuildingSubUserFragment : BaseFragment() {
 //                (context as MainActivity).
 //                openFragment(SwitchDetailFragment.newInstance(mListSwitch[it].id,mListSwitch[it].name ), true)
                 (context as MainActivity).launchActivity<SwitchDetailActivity> {
-                    putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mListSwitch2[it].id)
-                    putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mListSwitch2[it].name)
-                    putExtra(ConstantCommon.KEY_SEND_SWICH_FLOOR, mListSwitch2[it].floor)
-                    putExtra(ConstantCommon.KEY_SEND_SWICH_TYPE, mListSwitch2[it].type)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mList2[it].id)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mList2[it].name)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_FLOOR, mList2[it].floor)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_TYPE, mList2[it].type)
                 }
             })
         }!!
@@ -135,8 +135,7 @@ class BuildingSubUserFragment : BaseFragment() {
                         subSw.add(sw)
                     }
                 }
-                if (subSw.size > 0)
-                    mList1.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw, switch.floor, switch.nameRoom, 1))
+                mList1.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw, switch.floor, switch.nameRoom, 1))
             }
             for (switch in mListSwitch2) {
                 var subSw: MutableList<SwitchDetailEntity> = mutableListOf()
@@ -145,8 +144,7 @@ class BuildingSubUserFragment : BaseFragment() {
                         subSw.add(sw)
                     }
                 }
-                if (subSw.size > 0)
-                    mList2.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw, switch.floor, switch.nameRoom, 1))
+                mList2.add(Switch(switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw, switch.floor, switch.nameRoom, 1))
             }
             if (mList1.size > 0) {
                 lableFloor1.visible()

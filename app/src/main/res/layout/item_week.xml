@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="data"
+            type="com.vbeeon.iotdbs.data.model.Week" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_margin="@dimen/dimen_1dp"
+        android:padding="@dimen/dimen_5dp"
+        android:background="@drawable/bgr_item_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardTimer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="@dimen/dimen_1dp"
+            app:cardElevation="@dimen/dimen_2dp"
+            app:cardCornerRadius="@dimen/dimen_5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/llItemWeek"
+                android:background="@color/grey_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:textSize="@dimen/sp_16"
+                    android:text="@{data.name}"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+        <View
+            app:layout_constraintTop_toBottomOf="@+id/cardTimer"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/dimen_2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
