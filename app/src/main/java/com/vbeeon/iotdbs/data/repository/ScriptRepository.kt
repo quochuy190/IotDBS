@@ -37,4 +37,10 @@ class ScriptRepository(val scriptDao: ScriptDao) {
     suspend fun update(obj: ScriptEntity) {
         scriptDao.updatetoDao(obj)
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun delete(obj: ScriptEntity) {
+        scriptDao.deleteObj(obj.id)
+    }
 }

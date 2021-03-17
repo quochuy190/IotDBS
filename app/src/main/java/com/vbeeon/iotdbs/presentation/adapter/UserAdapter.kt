@@ -60,7 +60,6 @@ class UserAdapter internal constructor(context: Context,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(listScript[position])
         holder.itemView.setOnSafeClickListener {
-            Timber.d("click item")
             doneClick(position)
         }
         holder.itemRoomBinding.icDelete.setOnSafeClickListener {

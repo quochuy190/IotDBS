@@ -30,7 +30,7 @@ interface ScriptDao {
     fun loadScriptByType(type: Int): LiveData<List<ScriptEntity>>
 
     @Query("DELETE FROM script_entity WHERE script_id = :id")
-    fun deleteObj(id: Int)
+    fun deleteObj(id: Long)
 
     @Query("DELETE FROM script_entity")
     fun deleteAll()

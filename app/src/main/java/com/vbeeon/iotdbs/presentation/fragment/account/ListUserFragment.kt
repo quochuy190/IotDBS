@@ -46,7 +46,7 @@ class ListUserFragment : BaseFragment() {
             },
                 deleteItem = {
                     val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-                    builder.setMessage("Bạn có chắc chắn muốn xóa tài khoản này không")
+                    builder.setMessage("Bạn có chắc chắn muốn xóa tài khoản này không?")
                         .setCancelable(false)
                         .setPositiveButton(getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
                             mainViewModel.deleteUser(it)

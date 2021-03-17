@@ -109,7 +109,7 @@ class InitRoomInAccFragment : BaseFragment() {
                     builder.setMessage("Tạo người dùng thành công, bạn có muốn chia sẻ mã đăng nhập ngay không?")
                         .setCancelable(false)
                         .setPositiveButton("Chia sẻ", DialogInterface.OnClickListener { dialog, id ->
-                            showQRCode(sJson)
+                            showQRCode(sJson+"VBee@2021")
                         })
                         .setNegativeButton("Để sau", DialogInterface.OnClickListener { dialog, id ->
                             dialog.cancel()

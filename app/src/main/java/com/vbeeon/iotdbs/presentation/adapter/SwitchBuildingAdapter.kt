@@ -37,7 +37,7 @@ class SwitchBuildingAdapter internal constructor(
                 itemRoomBinding.tvFloor.visibility = View.GONE
                 itemRoomBinding.tvRoomName.visibility = View.GONE
             }
-            if (entity!!.listSubSw.size > 0) {
+            if (entity!!.listSubSw!=null&&entity!!.listSubSw.size > 0) {
                 if (entity!!.type == 5) {
                     Glide.with(context)
                         .load(context.getDrawable(R.drawable.icon_sw_dimming))

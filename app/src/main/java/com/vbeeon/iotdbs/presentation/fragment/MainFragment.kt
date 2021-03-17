@@ -50,7 +50,6 @@ class MainFragment : BaseFragment() {
         vp_main.setPageScrollEnabled(false)
         vp_main.currentItem = 1
         bnv.setSelectedItemId(R.id.it_building);
-
         val menuItem = bnv.menu.findItem(R.id.it_building)
         menuItem.setIcon(R.drawable.ic_building)
         bnv.setOnNavigationItemSelectedListener { item ->
@@ -81,11 +80,11 @@ class MainFragment : BaseFragment() {
         mainViewModel.loading.observeForever(this::showProgressDialog)
         mainViewModel.error.observeForever({ throwable ->
             showDialogMessage(context, getString(R.string.system_error))
-            initViewPager();
+           // initViewPager();
         })
         mainViewModel.resGetStateMain.observe(this, Observer {
-            if (it)
-                initViewPager();
+//            if (it)
+//               // initViewPager();
         })
         initViewPager();
         mainViewModel.updateNamePantry()

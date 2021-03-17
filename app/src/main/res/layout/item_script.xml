@@ -23,15 +23,20 @@
             app:cardCornerRadius="@dimen/dimen_5dp"
             app:cardElevation="@dimen/dimen_5dp">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="@drawable/bgr_item_room"
                 android:padding="@dimen/dimen_7dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/icSciptControl"
+                    app:layout_constraintEnd_toStartOf="@+id/icSciptDelete"
                     android:id="@+id/tvNameScipt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:duplicateParentState="true"
                     android:ellipsize="end"
@@ -42,8 +47,12 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp_16" />
                 <TextView
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@+id/icSciptControl"
+                    app:layout_constraintEnd_toStartOf="@+id/icSciptDelete"
+                    app:layout_constraintTop_toBottomOf="@+id/tvNameScipt"
                     android:id="@+id/tvDesScript"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:duplicateParentState="true"
                     android:ellipsize="end"
@@ -53,7 +62,32 @@
                     android:text="@{data.description}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp_16" />
-            </LinearLayout>
+
+                <ImageView
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:id="@+id/icSciptControl"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_switch_detail_on"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.13"
+                    app:layout_constraintDimensionRatio="1:1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"/>
+
+                <ImageView
+                    android:padding="@dimen/dimen_7dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:id="@+id/icSciptDelete"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_delete"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.1"
+                    app:layout_constraintDimensionRatio="1:1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:tint="@color/red" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.cardview.widget.CardView>

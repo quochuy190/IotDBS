@@ -130,7 +130,6 @@ class LoginFragment : BaseFragment() {
                 Timber.e("" + resultScan)
                 if (resultScan != null && resultScan.length > 0) {
                     if (resultScan.indexOf("VBee@2021") > 2) {
-                        showMessage("" + resultScan)
                         SharedPrefs.instance.put(ConstantCommon.IS_LOGIN, true)
                         SharedPrefs.instance.put(ConstantCommon.KEY_SAVE_LOGIN_USER_LIST_DEVICE, resultScan)
                         (context as LoginActivity).launchActivity<MainActivity> { }

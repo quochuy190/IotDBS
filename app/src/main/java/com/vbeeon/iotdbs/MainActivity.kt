@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
         initEvent()
 
     }
-
     private fun initEvent() {
         var jsonDevice = SharedPrefs.instance.get(ConstantCommon.KEY_SAVE_LOGIN_USER_LIST_DEVICE, String::class.java)
         if (jsonDevice!= null&&jsonDevice.length>0){

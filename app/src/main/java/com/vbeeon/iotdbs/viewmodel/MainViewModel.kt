@@ -57,6 +57,7 @@ class MainViewModel : BaseViewModel() {
     val resControlSubSW: MutableLiveData<Int> = MutableLiveData()
     val resGetStateMain: MutableLiveData<Boolean> = MutableLiveData()
     val resControlAll: MutableLiveData<Boolean> = MutableLiveData()
+    val resCreateScript: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         val roomDao = IoTDbsDatabase.getInstance(IotDBSApplication.instance)?.roomDao()
@@ -132,7 +133,6 @@ class MainViewModel : BaseViewModel() {
                         val json2: String = json.replace("m2m:cin", "m2m_cin")
                         var testModel = gson.fromJson(json2, ResponGetStateGroup::class.java)
                         Timber.e("" + testModel)
-                        var mListSWFl2: MutableList<SwitchDetailEntity> = mutableListOf()
                         for (i in 0..(testModel!!.responsePrimitive.size - 1)) {
                             if (i <= t1.size) {
                                 if (testModel!!.responsePrimitive[i].content.m2m.con.sw_report == 1)
@@ -176,7 +176,6 @@ class MainViewModel : BaseViewModel() {
                         val json2: String = json.replace("m2m:cin", "m2m_cin")
                         var testModel = gson.fromJson(json2, ResponGetStateGroup::class.java)
                         Timber.e("" + testModel)
-                        var mListSWFl2: MutableList<SwitchDetailEntity> = mutableListOf()
                         for (i in 0..(testModel!!.responsePrimitive.size - 1)) {
                             if (i <= t1.size) {
                                 if (testModel!!.responsePrimitive[i].content.m2m.con.sw_report == 1)
@@ -229,7 +228,6 @@ class MainViewModel : BaseViewModel() {
 //
     fun exeCreateScriptRemoteF2(groupName: String, listSW: List<String>) {
         val groupFl2 = Group(groupName, 44, 67, listSW)
-
         val mediaType: MediaType = MediaType.parse("application/json;ty=9")!!
         Timber.e(groupFl2.mid[0])
         val gson = Gson()
@@ -249,6 +247,9 @@ class MainViewModel : BaseViewModel() {
             }
             .subscribe { t1: CreateGroupRequest?, t2: Throwable? ->
                 loading.postValue(false)
+//                resCreateScript.postValue(true)
+//                insertScript(ScriptEntity(groupName.toLong(),
+//                    "12h 30 tự động tắt đèn khu làm việc tầng 1", "Tắt đèn tầng 1", true, listSW, 1, 1))
             }
     }
 
@@ -272,6 +273,10 @@ class MainViewModel : BaseViewModel() {
             }
             .subscribe { t1: CreateGroupRequest?, t2: Throwable? ->
                 loading.postValue(false)
+//                resCreateScript.postValue(true)
+//                insertScript(ScriptEntity(groupName.toLong(),
+//                    "12h 30 tự động tắt đèn khu làm việc tầng 1", "Tắt đèn tầng 1", true, listSW, 1, 1))
+                //Đưa lên view
             }
     }
 
@@ -466,6 +471,7 @@ class MainViewModel : BaseViewModel() {
     fun insert(room: List<RoomEntity>) = scope.launch(Dispatchers.IO) {
         repository.insertList(room)
     }
+
 
     fun updateNamePantry() = scope.launch(Dispatchers.IO) {
         val mListRoom: MutableList<RoomEntity> = ArrayList()

@@ -64,13 +64,11 @@ class BuildingFragment : BaseFragment() {
     override fun initView() {
         lableFloor.text = "Tầng " + floor
 
-        if (floor == 1){
+        if (floor == 1) {
             tvDoam.text = "78 %"
             tvNhietDo.text = "23 " + 0x00B0.toChar() + "C"
             Glide.with(this).load(R.drawable.cover_floor_one).into(imgCoverBuilding)
-        }
-
-        else{
+        } else {
             tvDoam.text = "85 %"
             tvNhietDo.text = "25 " + 0x00B0.toChar() + "C"
             Glide.with(this).load(R.drawable.cover_floor_two).into(imgCoverBuilding)
@@ -99,23 +97,25 @@ class BuildingFragment : BaseFragment() {
         initRcvSwitch()
 
     }
+
     override fun onResume() {
         super.onResume()
         Timber.e("resume")
         // mainViewModel.exeGetStateFromRemote1()
-      //  mainViewModel.loadData(this, floor)
+        //  mainViewModel.loadData(this, floor)
     }
+
     private fun initRcvSwitch() {
         adapterSwitch = activity?.let {
             SwitchBuildingAdapter(it, doneClick = {
 //                (context as MainActivity).
 //                openFragment(SwitchDetailFragment.newInstance(mListSwitch[it].id,mListSwitch[it].name ), true
-                    (context as MainActivity).launchActivity<SwitchDetailActivity> {
-                        putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mListSwitch[it].id)
-                        putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mListSwitch[it].name)
-                        putExtra(ConstantCommon.KEY_SEND_SWICH_FLOOR, mListSwitch[it].floor)
-                        putExtra(ConstantCommon.KEY_SEND_SWICH_TYPE, mListSwitch[it].type)
-                    }
+                (context as MainActivity).launchActivity<SwitchDetailActivity> {
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_ID, mListSwitch[it].id)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_NAME, mListSwitch[it].name)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_FLOOR, mListSwitch[it].floor)
+                    putExtra(ConstantCommon.KEY_SEND_SWICH_TYPE, mListSwitch[it].type)
+                }
             })
         }!!
         rcvSwitchBuildingView.layoutManager = GridLayoutManager(context, 2)
@@ -162,15 +162,7 @@ class BuildingFragment : BaseFragment() {
                 }
                 mList.add(
                     Switch(
-                        switch.id,
-                        switch.idRoom,
-                        switch.name,
-                        switch.isChecked,
-                        switch.type,
-                        subSw,
-                        switch.floor,
-                        switch.nameRoom,
-                        2
+                        switch.id, switch.idRoom, switch.name, switch.isChecked, switch.type, subSw, switch.floor, switch.nameRoom, 2
                     )
                 )
             }

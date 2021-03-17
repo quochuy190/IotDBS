@@ -10,8 +10,7 @@ import com.vbeeon.iotdbs.data.local.entity.RoomEntity
 import com.vbeeon.iotdbs.data.local.entity.ScriptEntity
 import com.vbeeon.iotdbs.data.local.entity.SwitchDetailEntity
 import com.vbeeon.iotdbs.data.local.entity.SwitchEntity
-import com.vbeeon.iotdbs.data.model.CreateGroupRequest
-import com.vbeeon.iotdbs.data.model.Group
+import com.vbeeon.iotdbs.data.model.*
 import com.vbeeon.iotdbs.data.remote.ApiClient
 import com.vbeeon.iotdbs.data.repository.RoomRepository
 import com.vbeeon.iotdbs.data.repository.ScriptRepository
@@ -52,7 +51,7 @@ class ScripViewModel : BaseViewModel() {
     val switchRespon: MutableLiveData<List<SwitchDetailEntity>> = MutableLiveData()
     val swRespon: MutableLiveData<List<SwitchEntity>> = MutableLiveData()
     val resCreateGr: MutableLiveData<Boolean> = MutableLiveData()
-
+    val resControlAll: MutableLiveData<Boolean> = MutableLiveData()
     init {
         Timber.e("init")
         val roomDao = IoTDbsDatabase.getInstance(IotDBSApplication.instance)?.roomDao()
@@ -142,5 +141,81 @@ class ScripViewModel : BaseViewModel() {
             .subscribe { t1: CreateGroupRequest?, t2: Throwable? ->
                 loading.postValue(false)
             }
+    }
+
+    fun exeControlGroup1(state: Int, nameGroup: String) {
+        val controlValue = ControlSubSw(state)
+        val controlSW = ControlSwObj("application/json", controlValue)
+        val request = RequsetControlSubSw(controlSW)
+        val mediaType: MediaType = MediaType.parse("application/json;ty=9")!!
+        val gson = Gson()
+        val responseString = gson.toJson(request)
+        val body = RequestBody.create(mediaType, responseString)
+        apiFloor1.controlGroup(
+            ConfigNetwork.mIoTServerFloor1, ConfigNetwork.mIoTServerFloor1_2,
+            ConfigNetwork.mIoTServerNameFloor1, nameGroup, body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { loading.postValue(true) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                loading.postValue(false)
+                error.postValue(it)
+            }
+            .subscribe { t1: ResponGetStateGroup?, t2: Throwable? ->
+                try {
+                    if (state == 1)
+                        resControlAll.postValue(true)
+                    else
+                        resControlAll.postValue(false)
+                    loading.postValue(false)
+                } catch (ex: Exception) {
+                    loading.postValue(false)
+                    ex.printStackTrace()
+                    error.postValue(ex)
+                }
+
+            }
+    }
+
+    fun exeControlGroup2(state: Int, nameGroup: String) {
+        val controlValue = ControlSubSw(state)
+        val controlSW = ControlSwObj("application/json", controlValue)
+        val request = RequsetControlSubSw(controlSW)
+        val mediaType: MediaType = MediaType.parse("application/json;ty=9")!!
+        val gson = Gson()
+        val responseString = gson.toJson(request)
+        val body = RequestBody.create(mediaType, responseString)
+        apiFloor2.controlGroup(
+            ConfigNetwork.mIoTServerFloor2, ConfigNetwork.mIoTServerFloor2_2,
+            ConfigNetwork.mIoTServerNameFloor2, nameGroup, body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { loading.postValue(true) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError {
+                loading.postValue(false)
+                error.postValue(it)
+            }
+            .subscribe { t1: ResponGetStateGroup?, t2: Throwable? ->
+                try {
+                    if (state == 1)
+                        resControlAll.postValue(true)
+                    else
+                        resControlAll.postValue(false)
+                    loading.postValue(false)
+                } catch (ex: Exception) {
+                    loading.postValue(false)
+                    ex.printStackTrace()
+                    error.postValue(ex)
+                }
+
+            }
+    }
+
+    fun deleteScript(script: ScriptEntity) = scope.launch(Dispatchers.IO) {
+        repositoryScript.delete(script)
     }
 }

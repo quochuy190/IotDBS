@@ -26,6 +26,7 @@
     <color name="background_button">#2196F3</color>
     <color name="background_button_select">#5FB0F1</color>
     <color name="bgr_button_edit">#2196F31F</color>
+
     <color name="bgr_button_delete">#EF6757</color>
     <color name="text_title_color">#000000</color>
     <color name="viewfinder_mask">#60000000</color>

@@ -1,5 +1,7 @@
 package com.vbeeon.iotdbs.presentation.fragment.script
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -30,7 +32,8 @@ class ListSciptFragment : BaseFragment() {
 
     val mListScript: MutableList<ScriptEntity> = ArrayList()
     lateinit var mainViewModel: ScripViewModel
-    lateinit var adapterScript : ScriptAdapter
+    lateinit var adapterScript: ScriptAdapter
+    var position: Int = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -41,15 +44,32 @@ class ListSciptFragment : BaseFragment() {
     }
 
     override fun initView() {
-        adapterScript = context?.let { ScriptAdapter(it, doneClick = {
-
-        }) }!!
-        rcvListScript.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL ,false)
+        adapterScript = context?.let {
+            ScriptAdapter(it, doneClick = {
+                position = it
+                if (mListScript[it].description.equals("1")) {
+                    mainViewModel.exeControlGroup1(mListScript[it].control, mListScript[it].id.toString())
+                } else if (mListScript[it].description.equals("2")) {
+                    mainViewModel.exeControlGroup2(mListScript[it].control, mListScript[it].id.toString())
+                }
+            }, deleteItem = {
+                val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                builder.setMessage("Bạn có chắc chắn muốn xóa ngữ cảnh này không?")
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.yes), DialogInterface.OnClickListener { dialog, id ->
+                        mainViewModel.deleteScript(it)
+                    })
+                    .setNegativeButton(getString(R.string.no), DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+                val alert: AlertDialog = builder.create()
+                alert.show()
+            })
+        }!!
+        rcvListScript.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         rcvListScript.apply { adapter = adapterScript }
         // recyclerView.layoutManager = LinearLayoutManager(this)
 
         fbtnAddScript.setOnSafeClickListener {
-            (context as MainActivity).launchActivity<ScriptActivity>{
+            (context as MainActivity).launchActivity<ScriptActivity> {
 
             }
         }
@@ -62,15 +82,23 @@ class ListSciptFragment : BaseFragment() {
 
     override fun observable() {
         mainViewModel.scriptsRes.observe(this, Observer {
-            if (it.size>0){
-                mListScript.clear()
+            mListScript.clear()
+            if (it.size > 0) {
                 mListScript.addAll(it)
                 adapterScript.setDatas(mListScript)
                 tvScripNull.visibility = View.GONE
-            }else{
+            } else {
                 Timber.e("load null")
                 tvScripNull.visibility = View.VISIBLE
             }
+        })
+        mainViewModel.resControlAll.observe(this, Observer {
+            if (it) {
+                mListScript[position].control = 1
+            } else {
+                mListScript[position].control = 0
+            }
+            adapterScript.notifyDataSetChanged()
         })
     }
 

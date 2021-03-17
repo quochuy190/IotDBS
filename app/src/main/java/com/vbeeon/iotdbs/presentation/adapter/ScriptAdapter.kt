@@ -19,7 +19,8 @@ import timber.log.Timber
 
 
 class ScriptAdapter internal constructor(context: Context,
-                                         val doneClick: (Int) -> Unit) : RecyclerView.Adapter<ScriptAdapter.ViewHolder>(){
+                                         val doneClick: (Int) -> Unit, val deleteItem: (ScriptEntity) -> Unit) : RecyclerView.Adapter<ScriptAdapter
+.ViewHolder>(){
     private var listScript = emptyList<ScriptEntity>() // Cached copy of words
 
     inner class ViewHolder(itemBinding: ItemScriptBinding) : RecyclerView.ViewHolder(itemBinding.getRoot()) {
@@ -58,6 +59,9 @@ class ScriptAdapter internal constructor(context: Context,
         holder.itemView.setOnSafeClickListener {
             Timber.d("click item")
             doneClick(position)
+        }
+        holder.itemRoomBinding.icSciptDelete.setOnSafeClickListener {
+            deleteItem(listScript[position])
         }
     }
     internal fun setDatas(list: List<ScriptEntity>) {

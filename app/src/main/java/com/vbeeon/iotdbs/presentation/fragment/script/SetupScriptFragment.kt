@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.vbeeon.iotdbs.R
+import com.vbeeon.iotdbs.data.local.entity.ScriptEntity
 import com.vbeeon.iotdbs.data.local.entity.SwitchDetailEntity
 import com.vbeeon.iotdbs.data.local.entity.SwitchEntity
 import com.vbeeon.iotdbs.data.model.Switch
@@ -30,11 +31,13 @@ class SetupScriptFragment : BaseFragment() {
     val mList: MutableList<Switch> = ArrayList()
     lateinit var adapterSwitch: SwitchListChoseAdapter
     var floor: Int = 1
+    var mListSubSWString: MutableList<String> = ArrayList()
+    var nameScript : String =""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
-
+    var idScript : Long =0;
     override fun getLayoutRes(): Int {
         return R.layout.fragment_setup_script
     }
@@ -71,40 +74,46 @@ class SetupScriptFragment : BaseFragment() {
         rcvSWbyFloor.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         rcvSWbyFloor.apply { adapter = adapterSwitch }
-        val mListSubSWString: MutableList<String> = ArrayList()
+
         btnAddScript.setOnSafeClickListener {
-            mListSubSWString.clear()
-            if (floor == 1) {
-                for (sw in mList) {
-                    for (swDetail in sw.listSubSw){
-                        if (swDetail.isChecked){
-                            mListSubSWString.add(
-                                "/" + ConfigNetwork.mIoTServerFloor1 +
-                                        "/" + ConfigNetwork.mIoTServerFloor1 +
-                                        "/" + ConfigNetwork.mIoTServerNameFloor1 +
-                                        "/" + swDetail.idSwitch +
-                                        "/" + swDetail.sortName + "/control"
-                            )
+            if (edtNameScript.text.length>0){
+                nameScript = edtNameScript.text.toString()
+                mListSubSWString.clear()
+                idScript = System.currentTimeMillis()
+                if (floor == 1) {
+                    for (sw in mList) {
+                        for (swDetail in sw.listSubSw){
+                            if (swDetail.isChecked){
+                                mListSubSWString.add(
+                                    "/" + ConfigNetwork.mIoTServerFloor1 +
+                                            "/" + ConfigNetwork.mIoTServerFloor1 +
+                                            "/" + ConfigNetwork.mIoTServerNameFloor1 +
+                                            "/" + swDetail.idSwitch +
+                                            "/" + swDetail.sortName + "/control"
+                                )
+                            }
                         }
                     }
-                }
-                mainViewModel.exeCreateScriptRemoteF1(Calendar.getInstance().getTime().toString(), mListSubSWString)
-            } else {
-                for (sw in mList) {
-                    for (swDetail in sw.listSubSw){
-                        if (swDetail.isChecked){
-                            mListSubSWString.add(
-                                "/" + ConfigNetwork.mIoTServerFloor1 +
-                                        "/" + ConfigNetwork.mIoTServerFloor1 +
-                                        "/" + ConfigNetwork.mIoTServerNameFloor1 +
-                                        "/" + swDetail.idSwitch +
-                                        "/" + swDetail.sortName + "/control"
-                            )
+                    mainViewModel.exeCreateScriptRemoteF1(idScript.toString(), mListSubSWString)
+                } else {
+                    for (sw in mList) {
+                        for (swDetail in sw.listSubSw){
+                            if (swDetail.isChecked){
+                                mListSubSWString.add(
+                                    "/" + ConfigNetwork.mIoTServerFloor1 +
+                                            "/" + ConfigNetwork.mIoTServerFloor1 +
+                                            "/" + ConfigNetwork.mIoTServerNameFloor1 +
+                                            "/" + swDetail.idSwitch +
+                                            "/" + swDetail.sortName + "/control"
+                                )
+                            }
                         }
                     }
+                    mainViewModel.exeCreateScriptRemoteF2(idScript.toString(), mListSubSWString)
                 }
-                mainViewModel.exeCreateScriptRemoteF2(Calendar.getInstance().getTime().toString(), mListSubSWString)
-            }
+            }else
+                showDialogMessage(context, "Bạn chưa nhập vào tên ngữ cảnh")
+
         }
     }
 
@@ -114,10 +123,16 @@ class SetupScriptFragment : BaseFragment() {
         mainViewModel.loading.observeForever(this::showProgressDialog)
         mainViewModel.error.observeForever({ throwable ->
             showDialogMessage(context, getString(R.string.system_error))
+            //mainViewModel.insertScript(ScriptEntity(idScript, ""+floor, nameScript,true, mListSubSWString, 0, 1))
         })
     }
 
     override fun observable() {
+        mainViewModel.resCreateScript.observe(this, Observer {
+            showMessage("Tạo ngữ cảnh thành công")
+            mainViewModel.insertScript(ScriptEntity(idScript, ""+floor, nameScript,true, mListSubSWString, 0, 1))
+            activity?.onBackPressed()
+        })
         mainViewModel.swRespon.observe(this, Observer {
             mListSwitch.clear()
             mListSwitch.addAll(it)

@@ -29,6 +29,6 @@ data class ScriptEntity(
         @ColumnInfo(name = "control")
         var control :Int,
         @ColumnInfo(name = "type")
-        var type :Int
+        var type :Int //0auto 1 tạo
 
 )
