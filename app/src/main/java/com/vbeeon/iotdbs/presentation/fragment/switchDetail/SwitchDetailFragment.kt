@@ -120,9 +120,9 @@ class SwitchDetailFragment : BaseFragment() {
         }
         clTimer.setOnSafeClickListener {
             if (floor == 1)
-                (context as SwitchDetailActivity).openFragment(TimerFragment.newInstance(switchId + "tang1_control_1", 1), true)
+                (context as SwitchDetailActivity).openFragment(TimerFragment.newInstance(switchId + "tang1_control_1", switchName,1), true)
             else
-                (context as SwitchDetailActivity).openFragment(TimerFragment.newInstance(switchId + "tang2_control", 2), true)
+                (context as SwitchDetailActivity).openFragment(TimerFragment.newInstance(switchId + "tang2_control",switchName, 2), true)
 
         }
     }
@@ -155,7 +155,7 @@ class SwitchDetailFragment : BaseFragment() {
     override fun initViewModel() {
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         mainViewModel.loadDataSubSwitch(this, switchId)
-       // mainViewModel.loading.observeForever(this::showProgressDialog)
+        mainViewModel.loading.observeForever(this::showProgressDialog)
         mainViewModel.error.observeForever({ throwable ->
 //            showDialogMessage(
 //                context,

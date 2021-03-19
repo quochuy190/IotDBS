@@ -127,22 +127,34 @@ class MainViewModel : BaseViewModel() {
                         call: Call<ResponseBody>?,
                         response: Response<ResponseBody>?
                     ) {
-                        val json = response!!.body()!!.string();
-                        val gson = Gson()
-                        Timber.e("" + json)
-                        val json2: String = json.replace("m2m:cin", "m2m_cin")
-                        var testModel = gson.fromJson(json2, ResponGetStateGroup::class.java)
-                        Timber.e("" + testModel)
-                        for (i in 0..(testModel!!.responsePrimitive.size - 1)) {
-                            if (i <= t1.size) {
-                                if (testModel!!.responsePrimitive[i].content.m2m.con.sw_report == 1)
-                                    t1[i].isChecked = true
-                                else
+                        try {
+                            val json = response!!.body()!!.string();
+                            val jsnobject = JSONObject(json)
+                            val jsonArray = jsnobject.getJSONArray("responsePrimitive")
+                            for (i in 0 until jsonArray.length()) {
+                                val jObj = jsonArray.getJSONObject(i)
+                                val statusCode: Int = jObj.getInt("responseStatusCode")
+                                if (statusCode == 2000) {
+                                    val content: String = jObj.getString("content")
+                                    val json2: String = content.replace("m2m:cin", "m2m_cin")
+                                    val gson = Gson()
+                                    var testModel = gson.fromJson(json2, ResponSwitch::class.java)
+                                    if (i <= t1.size) {
+                                        if (testModel!!.m2m.con.sw_report == 1)
+                                            t1[i].isChecked = true
+                                        else
+                                            t1[i].isChecked = false
+                                    }
+                                } else {
                                     t1[i].isChecked = false
+                                }
                             }
+                            updateListSubSW(t1)
+                            exeGetStateFromRemote2()
+                        } catch (e: java.lang.Exception) {
+                            e.printStackTrace()
                         }
-                        updateListSubSW(t1)
-                        exeGetStateFromRemote2()
+
                     }
                 })
 
@@ -169,23 +181,50 @@ class MainViewModel : BaseViewModel() {
                         call: Call<ResponseBody>?,
                         response: Response<ResponseBody>?
                     ) {
-                        loading.postValue(false)
-                        val json = response!!.body()!!.string();
-                        val gson = Gson()
-                        Timber.e("" + json)
-                        val json2: String = json.replace("m2m:cin", "m2m_cin")
-                        var testModel = gson.fromJson(json2, ResponGetStateGroup::class.java)
-                        Timber.e("" + testModel)
-                        for (i in 0..(testModel!!.responsePrimitive.size - 1)) {
-                            if (i <= t1.size) {
-                                if (testModel!!.responsePrimitive[i].content.m2m.con.sw_report == 1)
-                                    t1[i].isChecked = true
-                                else
+                        try {
+                            val json = response!!.body()!!.string();
+                            val jsnobject = JSONObject(json)
+                            val jsonArray = jsnobject.getJSONArray("responsePrimitive")
+                            for (i in 0 until jsonArray.length()) {
+                                val jObj = jsonArray.getJSONObject(i)
+                                val statusCode: Int = jObj.getInt("responseStatusCode")
+                                if (statusCode == 2000) {
+                                    val content: String = jObj.getString("content")
+                                    val json2: String = content.replace("m2m:cin", "m2m_cin")
+                                    val gson = Gson()
+                                    var testModel = gson.fromJson(json2, ResponSwitch::class.java)
+                                    if (i <= t1.size) {
+                                        if (testModel!!.m2m.con.sw_report == 1)
+                                            t1[i].isChecked = true
+                                        else
+                                            t1[i].isChecked = false
+                                    }
+                                } else {
                                     t1[i].isChecked = false
+                                }
                             }
+                            updateListSubSW(t1)
+                            exeGetStateFromRemote2()
+                        } catch (e: java.lang.Exception) {
+                            e.printStackTrace()
                         }
-                        updateListSubSW(t1)
-                        resGetStateMain.postValue(true)
+//                        loading.postValue(false)
+//                        val json = response!!.body()!!.string();
+//                        val gson = Gson()
+//                        Timber.e("" + json)
+//                        val json2: String = json.replace("m2m:cin", "m2m_cin")
+//                        var testModel = gson.fromJson(json2, ResponGetStateGroup::class.java)
+//                        Timber.e("" + testModel)
+//                        for (i in 0..(testModel!!.responsePrimitive.size - 1)) {
+//                            if (i <= t1.size) {
+//                                if (testModel!!.responsePrimitive[i].content.m2m.con.sw_report == 1)
+//                                    t1[i].isChecked = true
+//                                else
+//                                    t1[i].isChecked = false
+//                            }
+//                        }
+//                        updateListSubSW(t1)
+//                        resGetStateMain.postValue(true)
                     }
                 })
 
@@ -508,6 +547,7 @@ class MainViewModel : BaseViewModel() {
     }
 
     val resCreateGr: MutableLiveData<Boolean> = MutableLiveData()
+    val resTimer: MutableLiveData<Boolean> = MutableLiveData()
     fun exeCreateGroupRemote(lisFl1: String, lisFl2: String) {
         try {
             var mListSWFl1: MutableList<String> = mutableListOf()
@@ -593,7 +633,7 @@ class MainViewModel : BaseViewModel() {
         var mListSWFl2: MutableList<String> = mutableListOf()
     }
 
-    fun exeControlSwDimming(state: Int, linkSubSW: String, sw_dim : Int, sw_color: Int) {
+    fun exeControlSwDimming(state: Int, linkSubSW: String, sw_dim: Int, sw_color: Int) {
         val controlValue = ControlSubSwDimming(state, sw_dim, sw_color)
         val controlSW = ControlSwObjDimming("application/json", controlValue)
         val request = RequsetControlSwDimming(controlSW)
@@ -624,5 +664,48 @@ class MainViewModel : BaseViewModel() {
                 }
 
             }
+    }
+
+    fun exeApiTimer(request: RequsetTimer, floor: Int) {
+        if (floor == 1) {
+            apiFloor1.exeTimer(
+                ConfigNetwork.mIoTServerFloor1, ConfigNetwork.mIoTServerFloor1_2,
+                ConfigNetwork.mIoTServerNameFloor1, request
+            )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { loading.postValue(true) }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError {
+                    loading.postValue(false)
+                    error.postValue(it)
+                }
+                .subscribe { t1: CreateGroupRequest?, t2: Throwable? ->
+                    loading.postValue(false)
+                    resTimer.postValue(true)
+//                insertScript(ScriptEntity(groupName.toLong(),
+//                    "12h 30 tự động tắt đèn khu làm việc tầng 1", "Tắt đèn tầng 1", true, listSW, 1, 1))
+                }
+        } else if (floor == 2) {
+            apiFloor2.exeTimer(
+                ConfigNetwork.mIoTServerFloor2, ConfigNetwork.mIoTServerFloor2_2,
+                ConfigNetwork.mIoTServerNameFloor2, request
+            )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { loading.postValue(true) }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError {
+                    loading.postValue(false)
+                    error.postValue(it)
+                }
+                .subscribe { t1: CreateGroupRequest?, t2: Throwable? ->
+                    loading.postValue(false)
+                    resTimer.postValue(true)
+//                insertScript(ScriptEntity(groupName.toLong(),
+//                    "12h 30 tự động tắt đèn khu làm việc tầng 1", "Tắt đèn tầng 1", true, listSW, 1, 1))
+                }
+        }
+
     }
 }

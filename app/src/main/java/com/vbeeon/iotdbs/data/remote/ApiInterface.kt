@@ -59,4 +59,11 @@ interface ApiInterface {
                         @Path("linkControl", encoded=true) id: String,
                         @Body request: RequestBody
     ): Single<ResponGetStateGroup>
+
+    @POST("{iotserver_id}/{iotserver_id_2}/{iotserver_name}")
+    fun exeTimer(@Path("iotserver_id") iotserver_id: String,
+                    @Path("iotserver_id_2") iotserver_id_2: String,
+                    @Path("iotserver_name") iotserver_name: String,
+                    @Body request: RequsetTimer
+    ): Single<CreateGroupRequest>
 }

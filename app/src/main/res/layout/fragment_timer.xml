@@ -7,6 +7,7 @@
     <include layout="@layout/toolbar_main"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="gone"
         android:id="@+id/ll1"
         android:padding="@dimen/dimen_15dp"
         android:layout_marginTop="@dimen/dimen_10dp"
@@ -144,13 +145,13 @@
             app:tabSelectedTextColor="@color/white"
             app:tabTextColor="@color/black"  >
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItemFloor1"
+                android:id="@+id/tabStateOn"
                 android:layout_width="wrap_content"
                 android:text="@string/sw_On"
                 android:layout_height="wrap_content"/>
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItemFloor2"
+                android:id="@+id/tabStateOff"
                 android:text="@string/sw_Off"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
