@@ -134,6 +134,7 @@ class SwitchDetailFragment : BaseFragment() {
                 Timber.d("click item framgment")
                 val linkSubSW =
                     mListSwitch[it].idSwitch + "/" + mListSwitch[it].sortName + "/control"
+
                 if (mListSwitch[it].isChecked)
                     if (floor == 1)
                         mainViewModel.exeControlSubSW1(0, linkSubSW)
@@ -144,7 +145,6 @@ class SwitchDetailFragment : BaseFragment() {
                         mainViewModel.exeControlSubSW1(1, linkSubSW)
                     else
                         mainViewModel.exeControlSubSW2(1, linkSubSW)
-
             })
         }!!
         rcvListSwitchDetal.layoutManager =

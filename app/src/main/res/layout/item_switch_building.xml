@@ -50,46 +50,15 @@
                     app:layout_constraintWidth_percent="0.35">
 
                 </ImageView>
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgSW1"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="@dimen/dimen_5dp"
-                    android:src="@drawable/ic_switch_detail_on"
-                    android:visibility="gone"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="@dimen/dimen_7dp"
+                    android:layout_marginBottom="@dimen/dimen_7dp"
+                    android:id="@+id/rcvSWState"
+                    app:layout_constraintTop_toTopOf="@+id/imgSwitchCover"
                     app:layout_constraintBottom_toBottomOf="@+id/imgSwitchCover"
-                    app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imgSwitchCover"
-                    app:layout_constraintWidth_percent="0.12" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgSW2"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="@dimen/dimen_5dp"
-                    android:src="@drawable/ic_switch_detal_off"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/imgSwitchCover"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintEnd_toStartOf="@+id/imgSW1"
-                    app:layout_constraintTop_toTopOf="@+id/imgSwitchCover"
-                    app:layout_constraintWidth_percent="0.12" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgSW3"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="@dimen/dimen_5dp"
-                    android:src="@drawable/ic_switch_detal_off"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/imgSwitchCover"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintEnd_toStartOf="@+id/imgSW2"
-                    app:layout_constraintTop_toTopOf="@+id/imgSwitchCover"
-                    app:layout_constraintWidth_percent="0.12" />
-
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"/>
                 <TextView
                     android:minLines="2"
                     android:maxLines="2"
