@@ -56,7 +56,9 @@ class SplashScreenAcitivity : BaseActivity() {
                 SharedPrefs.instance.get(ConstantCommon.IS_FIRST_OPEN_APP, Boolean::class.java)
             val isLogin =
                 SharedPrefs.instance.get(ConstantCommon.IS_LOGIN, Boolean::class.java)
-            if (!isFirs||!isLogin) {
+            val isUpdate =
+                SharedPrefs.instance.get(ConstantCommon.IS_UPDATE_1_5, Boolean::class.java)
+            if (!isFirs||!isLogin||!isUpdate) {
                 this.launchActivity<LoginActivity>()
             } else {
                 this.launchActivity<MainActivity>()

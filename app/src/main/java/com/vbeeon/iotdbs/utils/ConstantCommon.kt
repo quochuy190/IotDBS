@@ -4,6 +4,7 @@ object ConstantCommon {
     const val ISO_8601_DATE_TIME_FORMAT_RECEIVE = "yyyy-MM-dd'T'HH:mm:ssZZ"
     const val PREF_FILE_NAME = "com.vbeeon.iot_dbs"
     const val IS_FIRST_OPEN_APP = "IS_FIRST_OPEN_APP"
+    const val IS_UPDATE_1_5 = "IS_UPDATE_1_5"
     const val IS_LOGIN = "IS_LOGIN"
     const val KEY_SEND_SWICH_ID = "KEY_SEND_SWICH_ID"
     const val KEY_SAVE_LOGIN_USER_LIST_DEVICE = "KEY_SAVE_LOGIN_USER_LIST_DEVICE"

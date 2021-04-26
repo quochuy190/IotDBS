@@ -66,6 +66,12 @@ class RoomRepository(val roomDao: RoomDao) {
         roomDao.updateListtoDao(list)
     }
 
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun deleteAll() {
+        roomDao.deleteAll()
+    }
+
     private fun getTestApi(): Single<User> {
 
         return retrofit.getMovieDetails(1)

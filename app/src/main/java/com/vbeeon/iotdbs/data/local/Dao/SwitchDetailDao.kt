@@ -41,7 +41,7 @@ interface SwitchDetailDao {
     fun loadSubSwitchByIdList(switch_ids: List<String>): LiveData<List<SwitchDetailEntity>>
 
     @Query("DELETE FROM switch_detail_entity WHERE switch_id = :id")
-    fun deleteObj(id: Int)
+    fun deleteObj(id: String)
 
     @Query("DELETE FROM switch_detail_entity")
     fun deleteAll()

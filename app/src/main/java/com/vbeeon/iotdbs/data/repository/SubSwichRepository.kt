@@ -49,6 +49,19 @@ class SubSwichRepository(val subSwDao: SwitchDetailDao) {
     suspend fun update(obj: SwitchDetailEntity) {
         subSwDao.updatetoDao(obj)
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun delete(idSwitch: String) {
+        subSwDao.deleteObj(idSwitch)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun deleteAll() {
+        subSwDao.deleteAll()
+    }
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun updateList(list: List<SwitchDetailEntity>) {

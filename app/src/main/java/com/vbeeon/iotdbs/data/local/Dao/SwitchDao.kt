@@ -32,7 +32,7 @@ interface SwitchDao {
     fun loadSwitchByFloor(floor: Int): LiveData<List<SwitchEntity>>
 
     @Query("DELETE FROM switch_entity WHERE switch_id = :id")
-    fun deleteObj(id: Int)
+    fun deleteObj(id: String)
 
     @Query("DELETE FROM switch_entity")
     fun deleteAll()

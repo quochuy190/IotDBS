@@ -20,10 +20,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.RequestBody
-import retrofit2.adapter.rxjava3.Result.response
 import timber.log.Timber
 import vn.neo.smsvietlott.common.di.util.ConfigNetwork
-import java.util.concurrent.TimeUnit
 import kotlin.coroutines.CoroutineContext
 
 
@@ -111,7 +109,6 @@ class LoginViewModel : BaseViewModel() {
         }
 
 
-
     }
 
     override fun onCleared() {
@@ -132,12 +129,26 @@ class LoginViewModel : BaseViewModel() {
     }
 
     fun insertUserAdmin() = scope.launch(Dispatchers.IO) {
-        repositoryUser.insert(UserEntity(0, "admin", "admin@2021", "10/01/1990", "",0, 0, 0))
+        repositoryUser.insert(UserEntity(0, "admin", "admin@2021", "10/01/1990", "", 0, 0, 0))
     }
+
     fun exeLogin(lifecycleOwner: LifecycleOwner, user: String, pass: String) {
         repositoryUser.loadUserAndPass(user, pass).observe(lifecycleOwner, Observer {
             loginRes.postValue(it)
         })
         // resRoom.postValue()
+    }
+
+    //    suspend fun deleteAll(){
+//        lateinit var repository: RoomRepository
+//        lateinit var repositorySwitch: SwichRepository
+//        lateinit var repositorySubSwitch: SubSwichRepository
+//        lateinit var repositoryScript: ScriptRepository
+//        repository.deleteAll()
+//    }
+    fun deleteAll() = scope.launch(Dispatchers.IO) {
+        repository.deleteAll()
+        repositorySwitch.deleteAll()
+        repositorySubSwitch.deleteAll()
     }
 }

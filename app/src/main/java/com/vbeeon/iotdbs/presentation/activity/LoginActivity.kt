@@ -21,7 +21,9 @@ class LoginActivity : AppCompatActivity() {
         requestPermission(Manifest.permission.CAMERA)
         val isFirs =
             SharedPrefs.instance.get(ConstantCommon.IS_FIRST_OPEN_APP, Boolean::class.java)
-        if (!isFirs)
+        val isUpdate =
+            SharedPrefs.instance.get(ConstantCommon.IS_UPDATE_1_5, Boolean::class.java)
+        if (!isFirs||!isUpdate)
             openFragment(IntroduceFragment(), false)
         else
             openFragment(LoginFragment(), false)

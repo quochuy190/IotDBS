@@ -62,19 +62,6 @@ class LoginFragment : BaseFragment() {
                     this, edtUserName.text.toString().trim().toLowerCase(),
                     edtPass.text.toString().trim().toLowerCase()
                 )
-//                if ((edtUserName.text.toString().toUpperCase().equals(kUserAdmin.toUpperCase()) && edtPass.text.toString().toUpperCase().equals(kPassAdmin.toUpperCase())) ||
-//                    (edtUserName.text.toString().toUpperCase().equals(kUserFloor1.toUpperCase()) && edtPass.text.toString().toUpperCase().equals(kPassFloor1.toUpperCase())) ||
-//                    (edtUserName.text.toString().toUpperCase().equals(kUserFloor2.toUpperCase()) && edtPass.text.toString().toUpperCase().equals(kPassFloor2.toUpperCase()))
-//                ) {
-//                    SharedPrefs.instance.put(ConstantCommon.IS_LOGIN, true)
-//                    (context as LoginActivity).launchActivity<MainActivity> { }
-//                    (context as LoginActivity).finish()
-//                } else {
-//                    edtUserName.requestFocus()
-//                    edtUserName.setSelection(0)
-//                    showDialogMessage(context, getString(R.string.error_login))
-//                }
-
         }
         loginQRCode.setOnSafeClickListener {
             startActivityForResult(ScanDeviceActivity.newIntent(context), REQUEST_CODE_SCAN)
