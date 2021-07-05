@@ -3,6 +3,7 @@ package com.vbeeon.iotdbs.data.model;
 import androidx.annotation.Nullable;
 
 public class ApiException extends Exception {
+    //
 
     public ApiException(Integer errorCodes, String message) {
         this.message = message;
